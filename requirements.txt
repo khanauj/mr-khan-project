@@ -1,0 +1,21 @@
+# AI-Powered Career & Skills Advisor - Dependencies
+# Python 3.8+
+
+# Core Data Science Libraries
+pandas>=1.5.0
+numpy>=1.24.0
+scikit-learn>=1.2.0
+
+# Model Persistence
+joblib>=1.2.0
+
+# API Framework
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+pydantic>=2.0.0
+
+# HTTP Client for OpenRouter API
+httpx>=0.25.0
+
+# Optional: For enhanced API documentation
+python-multipart>=0.0.6
