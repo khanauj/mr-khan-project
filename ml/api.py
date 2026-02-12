@@ -29,10 +29,16 @@ app = FastAPI(
 )
 
 # Add CORS middleware - MUST be added before routes
-# Using wildcard for development - allows all origins
+# Allow specific origins for production
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins for development
+    allow_origins=[
+        "*",  # Allow all origins for development
+        "https://*.vercel.app",  # Allow all Vercel deployments
+        "https://*.netlify.app",  # Allow all Netlify deployments
+        "http://localhost:3000",  # Local development
+        "http://localhost:5173",  # Vite default port
+    ],
     allow_credentials=False,  # Must be False when using "*"
     allow_methods=["*"],  # Allow all methods including OPTIONS
     allow_headers=["*"],  # Allow all headers
@@ -118,7 +124,7 @@ class RoadmapSearchResponse(BaseModel):
 
 
 # OpenRouter API Configuration
-OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY', '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')
+OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_MODEL = "openai/gpt-4o-mini"  # Using GPT-4o-mini via OpenRouter
 
@@ -128,6 +134,7 @@ if OPENROUTER_API_KEY:
     print(f"[OK] Using model: {OPENROUTER_MODEL}")
 else:
     print("[WARNING] OpenRouter API key not available.")
+    print("[INFO] Please set OPENROUTER_API_KEY environment variable in Railway dashboard")
 
 
 def load_models():
