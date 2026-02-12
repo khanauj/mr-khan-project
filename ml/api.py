@@ -292,7 +292,7 @@ async def analyze_skill_gap(request: SkillGapRequest):
     if skill_gap_model is None:
         raise HTTPException(
             status_code=503,
-            detail="Skill gap model not loaded. Please train models first."
+            detail="OpenRouter API is not configured. Please set OPENROUTER_API_KEY environment variable."
         )
     
     try:
