@@ -1,0 +1,1001 @@
+education,skills,interest,experience_years,target_role
+BSc,Communication,Teaching,5,Product Manager
+BCom,"Excel, Communication, Power BI, Statistics",Business,4,Business Analyst
+BA,"Excel, Communication, SQL, Power BI, Statistics",Business,5,Product Manager
+BBA,"Excel, Communication, SQL",Business,5,Business Analyst
+BSc,"Excel, Communication, SQL, Power BI, Statistics",Business,3,Product Manager
+BCA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BSc,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BBA,"HTML, CSS, JavaScript, Communication",Web,5,Frontend Developer
+BCA,"Python, ML, Statistics",AI,5,ML Engineer
+MBA,"Communication, Excel",Sales,5,Product Manager
+MBA,"Communication, Excel",Sales,0,Business Analyst
+BA,"Python, ML, Statistics, SQL, Communication",AI,2,ML Engineer
+BSc,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+MBA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BA,"SQL, Excel, Python, Power BI",Data,3,Data Analyst
+BA,"Excel, Communication, SQL, Power BI, Statistics",Business,5,Product Manager
+BCA,"Python, ML, Statistics, Communication",AI,1,ML Engineer
+BA,"Python, ML, Statistics, SQL",AI,3,ML Engineer
+BBA,"SQL, Excel, Python, Statistics, Communication",Data,3,Data Analyst
+BA,"Python, Statistics, Communication",AI,2,ML Engineer
+BSc,"HTML, CSS, JavaScript",Web,3,Frontend Developer
+BCom,Communication,Sales,5,Product Manager
+BSc,"Python, ML, Statistics, SQL",AI,5,ML Engineer
+BCA,Communication,Sales,0,Business Analyst
+BCom,"SQL, Excel, Python, Power BI",Data,5,Data Analyst
+MBA,"JavaScript, Communication",Web,5,Backend Developer
+BA,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BBA,"SQL, Excel",Data,5,Data Analyst
+BBA,"Excel, Communication, Power BI",Business,0,Business Analyst
+BA,"Communication, Excel",Sales,1,Business Analyst
+BA,"Communication, Excel",Sales,2,Product Manager
+BCom,"SQL, Excel, Python, Statistics",Data,1,Data Analyst
+BA,"Python, ML, Statistics, SQL",AI,2,ML Engineer
+BA,"SQL, Excel, Python, Statistics, Power BI",Data,4,Data Analyst
+BBA,"Communication, Excel, Statistics",Teaching,3,Product Manager
+BA,"Excel, Communication, Power BI",Business,4,Product Manager
+BCom,"HTML, CSS, JavaScript, Python, Communication",Web,5,Frontend Developer
+BA,"Python, ML, SQL, Communication",AI,1,QA Tester
+BA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+MBA,"SQL, Excel, Python, Power BI, Communication",Data,3,Data Analyst
+BSc,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BA,"Excel, Communication, SQL, Power BI, Statistics",Business,3,Product Manager
+BCA,"HTML, CSS, JavaScript, Python, Communication",Web,0,Frontend Developer
+BCA,Communication,Teaching,3,Product Manager
+BSc,"Communication, Excel",Sales,0,Business Analyst
+BCom,"Communication, Excel",Sales,3,Product Manager
+BCA,"Excel, Communication, SQL, Statistics",Business,0,Product Manager
+MBA,"Python, SQL",AI,1,ML Engineer
+MBA,"Python, SQL",AI,5,ML Engineer
+BCom,"SQL, Excel, Power BI, Communication",Data,5,Data Analyst
+BCom,"SQL, Excel, Python, Statistics, Power BI, Communication",Data,4,Data Analyst
+MBA,"HTML, CSS, Communication",Web,5,Frontend Developer
+MBA,"SQL, Excel",Data,2,Data Analyst
+BSc,"SQL, Excel, Python, Statistics, Communication",Data,3,Data Analyst
+BBA,Communication,Teaching,4,Product Manager
+BSc,"Excel, Communication",Business,2,Product Manager
+BSc,"Communication, Excel",Sales,2,Product Manager
+MBA,"Excel, Communication, Statistics",Business,0,Business Analyst
+MBA,"Excel, Communication, SQL, Power BI",Business,5,Business Analyst
+BCA,"Excel, Communication, SQL",Business,1,Product Manager
+BA,"HTML, CSS, JavaScript",Web,1,Frontend Developer
+BA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BCom,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+BCA,"Python, ML, Statistics, SQL, Communication",AI,3,ML Engineer
+BBA,"Excel, Communication, Power BI, Statistics",Business,1,Business Analyst
+MBA,"SQL, Excel, Power BI",Data,4,Data Analyst
+MBA,"Communication, Excel",Sales,1,Business Analyst
+BCA,Communication,Teaching,3,Product Manager
+BCA,Communication,Sales,0,Business Analyst
+BSc,"SQL, Excel, Power BI",Data,4,Data Analyst
+BSc,"Python, Statistics",AI,0,ML Engineer
+BCom,"SQL, Excel, Python, Power BI, Communication",Data,0,Data Analyst
+BA,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+BA,Communication,Teaching,2,Business Analyst
+BBA,"SQL, Excel, Python",Data,5,Data Analyst
+BCom,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BSc,"Excel, Communication, Power BI, Statistics",Business,5,Product Manager
+MBA,"SQL, Excel, Python, Statistics, Power BI, Communication",Data,0,Data Analyst
+MBA,"HTML, CSS, JavaScript, Python, Communication",Web,4,Frontend Developer
+BCom,"HTML, CSS, Communication",Web,5,Frontend Developer
+BA,"Python, ML, SQL",AI,3,ML Engineer
+BSc,"Excel, Communication, SQL, Power BI",Business,3,Product Manager
+BA,"JavaScript, Communication",Web,1,QA Tester
+BCA,"HTML, CSS, JavaScript",Web,5,Frontend Developer
+BCA,"Communication, Excel",Sales,4,Product Manager
+BCom,"Python, SQL",Web,2,Backend Developer
+BA,"Python, ML, Statistics, Communication",AI,0,ML Engineer
+BCom,Communication,Teaching,1,Business Analyst
+BCom,"Python, ML",AI,3,ML Engineer
+BSc,Communication,Teaching,2,Business Analyst
+BCom,"SQL, Excel, Python, Statistics, Power BI",Data,2,Data Analyst
+BA,"SQL, Excel, Python, Power BI",Data,0,Data Analyst
+MBA,"Communication, Excel",Sales,5,Product Manager
+BCA,"SQL, Excel, Python, Power BI",Data,3,Data Analyst
+BCom,"Communication, Excel",Sales,4,Product Manager
+BA,"Python, Statistics, SQL, Communication",AI,2,ML Engineer
+BSc,Communication,Teaching,0,Business Analyst
+BCA,"SQL, Excel, Python, Power BI, Communication",Data,4,Data Analyst
+BBA,"SQL, Excel, Python, Statistics, Communication",Data,5,Data Analyst
+BCom,"Excel, Communication",Business,3,Product Manager
+BCA,Communication,Teaching,5,Product Manager
+BBA,"HTML, CSS, JavaScript, Python",Web,2,Frontend Developer
+BCom,"Communication, Excel",Sales,4,Product Manager
+MBA,"Communication, Excel",Sales,4,Product Manager
+BBA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BA,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BCom,"HTML, CSS, JavaScript",Web,2,Frontend Developer
+BBA,"Excel, Communication",Business,5,Business Analyst
+BBA,Communication,Sales,1,Business Analyst
+BBA,"Excel, Communication, SQL",Business,5,Business Analyst
+BBA,"Communication, Excel",Sales,3,Product Manager
+BA,"Python, Statistics",AI,0,ML Engineer
+MBA,"Communication, Excel",Sales,4,Product Manager
+BBA,"SQL, Excel, Python, Statistics",Data,1,Data Analyst
+BCom,Communication,Teaching,0,Business Analyst
+BCom,"HTML, CSS, JavaScript, Python",Web,1,Frontend Developer
+BBA,Communication,Teaching,5,Product Manager
+BSc,"Communication, Excel",Sales,2,Product Manager
+BBA,"Python, ML, Statistics, SQL, Communication",AI,4,ML Engineer
+BCA,"Excel, Communication, Power BI",Business,5,Product Manager
+BBA,"SQL, Excel, Python",Data,0,Data Analyst
+MBA,"Excel, Communication",Business,0,Business Analyst
+BCom,Communication,Sales,0,Business Analyst
+MBA,"Excel, Communication, SQL",Business,0,Business Analyst
+MBA,Communication,Sales,0,Business Analyst
+BCom,"SQL, Excel, Python, Power BI",Data,1,Data Analyst
+BCom,"Communication, Excel, Statistics",Teaching,5,Product Manager
+MBA,"SQL, Excel, Python, Communication",Data,4,Data Analyst
+BA,"Python, ML, Statistics, Communication",AI,2,ML Engineer
+BSc,"Excel, Communication, Power BI",Business,2,Product Manager
+MBA,"Python, ML, Statistics, SQL, Communication",AI,5,ML Engineer
+MBA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BSc,"Excel, Communication, SQL, Power BI",Business,2,Product Manager
+BBA,"Python, ML, Statistics",AI,2,ML Engineer
+BBA,Communication,Sales,1,Business Analyst
+BCA,"SQL, Excel, Power BI",Data,3,Data Analyst
+MBA,Communication,Teaching,4,Product Manager
+BBA,"Python, ML, Statistics, SQL, Communication",AI,0,ML Engineer
+MBA,"HTML, CSS, JavaScript, Communication",Web,3,Frontend Developer
+BA,"Excel, Communication, Statistics",Business,5,Product Manager
+BBA,"HTML, CSS, Python, Communication",Web,2,Frontend Developer
+BSc,Communication,Teaching,3,Product Manager
+BCom,"Python, ML, Statistics, SQL, Communication",AI,4,ML Engineer
+BCA,Communication,Teaching,5,Product Manager
+BBA,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+MBA,Communication,Teaching,0,Business Analyst
+BBA,"SQL, Excel, Python, Statistics, Power BI, Communication",Data,4,Data Analyst
+BCA,"Communication, Excel",Sales,4,Product Manager
+BCom,"Excel, Communication, SQL, Power BI, Statistics",Business,2,Business Analyst
+BBA,"Communication, Excel",Sales,0,Business Analyst
+MBA,"Communication, Excel",Sales,5,Product Manager
+BCom,"Communication, Excel, Statistics",Teaching,3,Product Manager
+BSc,"Communication, Excel",Sales,5,Product Manager
+BCA,"SQL, Excel, Statistics",Data,1,Data Analyst
+BSc,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+BSc,"HTML, CSS, Python, Communication",Web,4,Frontend Developer
+BBA,"Communication, Excel",Sales,2,Product Manager
+BCA,"SQL, Excel, Python, Communication",Data,1,Data Analyst
+MBA,"Communication, Excel",Sales,0,Business Analyst
+MBA,"Excel, Communication, SQL, Statistics",Business,5,Business Analyst
+BCom,"Excel, Communication",Business,5,Product Manager
+BSc,"Python, SQL, Communication",AI,4,ML Engineer
+BBA,"SQL, Excel, Python, Statistics",Data,3,Data Analyst
+BBA,Communication,Teaching,4,Product Manager
+BSc,"SQL, Excel, Python, Communication",Data,3,Data Analyst
+BBA,"Communication, Excel",Sales,4,Product Manager
+BCA,"Excel, Communication, SQL",Business,4,Product Manager
+BA,"Excel, Communication, SQL",Business,4,Product Manager
+BBA,"Excel, Communication",Business,3,Business Analyst
+BCA,"Communication, Excel",Sales,3,Product Manager
+BBA,"Communication, Excel",Sales,4,Product Manager
+BCom,"Excel, Communication, SQL",Business,1,Business Analyst
+BCom,"Excel, Communication, SQL",Business,2,Business Analyst
+BCom,"Communication, Excel",Sales,2,Product Manager
+BA,"SQL, Excel, Statistics, Power BI",Data,2,Data Analyst
+MBA,Communication,Teaching,3,Product Manager
+BCom,"Communication, Excel, Statistics",Teaching,3,Product Manager
+BCom,"SQL, Excel, Communication",Data,1,Data Analyst
+BCA,"Excel, Communication, SQL, Power BI, Statistics",Business,2,Product Manager
+BA,"HTML, CSS, JavaScript, Python, Communication",Web,2,Frontend Developer
+BBA,"SQL, Excel, Python, Statistics, Communication",Data,4,Data Analyst
+BBA,"Excel, Communication",Business,3,Business Analyst
+BBA,"SQL, Excel, Communication",Data,2,Data Analyst
+MBA,"SQL, Excel, Python, Communication",Data,5,Data Analyst
+BCA,Communication,Sales,1,Business Analyst
+BCA,"Excel, Communication, SQL, Power BI",Business,5,Product Manager
+BA,"SQL, Excel, Python, Statistics, Communication",Data,5,Data Analyst
+BBA,"Excel, Communication, SQL, Power BI",Business,1,Business Analyst
+BBA,"HTML, CSS, JavaScript, Communication",Web,5,Frontend Developer
+BBA,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BA,"Excel, Communication, SQL, Statistics",Business,3,Product Manager
+BCA,"Excel, Communication, Power BI",Business,1,Product Manager
+BSc,"Communication, Excel",Sales,4,Product Manager
+BSc,"SQL, Excel, Python, Statistics",Data,5,Data Analyst
+MBA,"Communication, Excel",Sales,1,Business Analyst
+BCom,"Excel, Communication, SQL",Business,0,Business Analyst
+BCom,"SQL, Excel, Communication",Data,0,Data Analyst
+MBA,"Python, ML, Statistics",AI,3,ML Engineer
+BSc,"JavaScript, Communication",Web,2,Backend Developer
+BBA,Communication,Sales,3,Product Manager
+BA,"Excel, Communication, SQL, Power BI",Business,3,Product Manager
+BSc,"HTML, CSS, JavaScript, Communication",Web,3,Frontend Developer
+BSc,Communication,Sales,3,Product Manager
+BA,Communication,Teaching,4,Product Manager
+BA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BCom,"Python, ML, Statistics, SQL, Communication",AI,1,ML Engineer
+BCA,"Excel, Communication, SQL",Business,0,Product Manager
+BCom,"Excel, Communication, SQL, Power BI",Business,3,Business Analyst
+MBA,Communication,Teaching,1,Business Analyst
+BCA,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+BA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BSc,"HTML, CSS, JavaScript",Web,2,Frontend Developer
+BCom,"Python, ML, SQL, Communication",AI,4,ML Engineer
+BBA,Communication,Teaching,5,Product Manager
+MBA,"SQL, Excel, Communication",Data,0,Data Analyst
+BCom,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BBA,Communication,Sales,2,Product Manager
+BA,Communication,Teaching,0,Business Analyst
+MBA,"Excel, Communication",Business,5,Business Analyst
+BCA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BCom,"Python, SQL",AI,4,ML Engineer
+BCA,"SQL, Excel, Power BI",Data,1,Data Analyst
+BCA,"HTML, CSS, JavaScript",Web,5,Frontend Developer
+BSc,"Python, ML, Statistics, SQL, Communication",AI,3,ML Engineer
+BCom,"Python, Statistics, SQL, Communication",AI,5,ML Engineer
+MBA,"HTML, CSS, JavaScript, Python",Web,0,Frontend Developer
+BSc,"Communication, Excel",Sales,0,Business Analyst
+BBA,"SQL, Excel, Python",Data,5,Data Analyst
+MBA,Communication,Teaching,2,Business Analyst
+BCom,"HTML, CSS, JavaScript, Communication",Web,4,Frontend Developer
+BBA,"HTML, CSS, JavaScript",Web,0,Frontend Developer
+MBA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BCom,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+BCA,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+BA,"SQL, Excel, Python, Power BI",Data,3,Data Analyst
+BCom,"Excel, Communication, SQL, Power BI",Business,0,Business Analyst
+BSc,Communication,Sales,4,Product Manager
+MBA,"SQL, Excel, Python",Data,1,Data Analyst
+BA,Communication,Teaching,0,Business Analyst
+BSc,"Python, ML, Statistics, Communication",AI,2,ML Engineer
+BA,"Excel, Communication, SQL",Business,3,Product Manager
+BCom,"Excel, Communication, SQL, Power BI, Statistics",Business,0,Business Analyst
+BA,"Communication, Excel",Sales,1,Business Analyst
+BA,"Python, ML, Statistics, Communication",AI,2,ML Engineer
+BBA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BA,"SQL, Excel",Data,1,Data Analyst
+MBA,"Python, ML, Statistics, Communication",AI,1,ML Engineer
+BBA,Communication,Teaching,2,Business Analyst
+BA,"SQL, Excel",Data,1,Data Analyst
+BSc,"Python, ML, Statistics, Communication",AI,2,ML Engineer
+MBA,"Excel, Communication, SQL, Power BI",Business,0,Business Analyst
+BSc,"Python, ML, Statistics",AI,2,ML Engineer
+BBA,"Python, ML, Statistics, SQL, Communication",AI,2,ML Engineer
+BSc,"SQL, Excel, Python, Power BI, Communication",Data,3,Data Analyst
+BCom,Communication,Sales,2,Product Manager
+BCA,Communication,Teaching,2,Business Analyst
+BSc,Communication,Teaching,5,Product Manager
+BA,"Excel, Communication, SQL, Statistics",Business,0,Product Manager
+BSc,Communication,Sales,3,Product Manager
+MBA,"Communication, Excel",Sales,5,Product Manager
+BBA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+MBA,"HTML, CSS, JavaScript, Python, Communication",Web,0,Frontend Developer
+BSc,"SQL, Excel, Python, Power BI",Data,0,Data Analyst
+BA,"HTML, CSS, JavaScript, Python, Communication",Web,4,Frontend Developer
+BBA,Communication,Teaching,2,Business Analyst
+MBA,"SQL, Excel, Python, Power BI",Data,5,Data Analyst
+MBA,Communication,Teaching,1,Business Analyst
+BBA,"SQL, Excel, Python, Statistics",Data,3,Data Analyst
+MBA,"Python, Statistics, SQL",AI,1,ML Engineer
+BA,"Excel, Communication, SQL, Power BI",Business,4,Product Manager
+BA,"SQL, Excel, Python, Power BI, Communication",Data,0,Data Analyst
+BBA,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+MBA,"Python, ML, Statistics, SQL",AI,3,ML Engineer
+BCA,"Python, ML, Statistics, SQL, Communication",AI,0,ML Engineer
+BA,"Python, ML, Statistics, Communication",AI,0,ML Engineer
+BCA,"Communication, Excel",Sales,3,Product Manager
+BBA,"Communication, Excel",Sales,5,Product Manager
+BSc,"Communication, Excel, Statistics",Teaching,5,Product Manager
+MBA,"Python, ML, Statistics",AI,3,ML Engineer
+BCA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BSc,Communication,Sales,0,Business Analyst
+BSc,"SQL, Excel, Python, Power BI",Data,0,Data Analyst
+BSc,"SQL, Excel, Python, Power BI, Communication",Data,4,Data Analyst
+BA,"SQL, Excel, Power BI, Communication",Data,5,Data Analyst
+BCom,"SQL, Excel, Power BI, Communication",Data,2,Data Analyst
+BCA,"Communication, Excel",Sales,2,Product Manager
+BSc,"SQL, Excel, Statistics, Power BI, Communication",Data,2,Data Analyst
+BCA,Communication,Sales,5,Product Manager
+BBA,"Python, ML, Communication",AI,5,ML Engineer
+BSc,"SQL, Excel, Python, Statistics, Communication",Data,4,Data Analyst
+BCA,"JavaScript, Statistics",Web,0,QA Tester
+BCom,"JavaScript, Python",Web,4,Backend Developer
+BSc,"Communication, Excel, Statistics",Teaching,4,Product Manager
+MBA,"Communication, Excel",Sales,5,Product Manager
+BBA,"Communication, Excel",Sales,2,Product Manager
+BA,"SQL, Excel, Python, Statistics",Data,1,Data Analyst
+BCA,"SQL, Excel, Python, Power BI",Data,0,Data Analyst
+BSc,"Excel, Communication",Business,5,Product Manager
+MBA,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BA,"HTML, CSS, JavaScript, Python, Communication",Web,1,Frontend Developer
+BBA,"Python, ML, Statistics, SQL, Communication",AI,1,ML Engineer
+BCom,"SQL, Excel, Python, Communication",Data,5,Data Analyst
+BBA,"SQL, Excel, Statistics, Power BI",Data,3,Data Analyst
+MBA,"Communication, Excel",Sales,0,Business Analyst
+BA,"Python, ML, SQL, Communication",AI,1,QA Tester
+BA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BBA,"HTML, CSS, JavaScript, Python, Communication",Web,5,Frontend Developer
+BCA,Communication,Sales,2,Product Manager
+BA,"Excel, Communication, SQL, Statistics",Business,3,Product Manager
+BCA,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+BCom,"Communication, Excel, Statistics",Teaching,4,Product Manager
+MBA,"Communication, Excel",Sales,2,Product Manager
+BCA,"HTML, CSS, JavaScript",Web,1,Frontend Developer
+BSc,"HTML, CSS, Python, Communication",Web,1,Frontend Developer
+BBA,"Python, ML, Communication",AI,2,ML Engineer
+BCA,"Communication, Excel",Sales,5,Product Manager
+BCom,"HTML, CSS, JavaScript, Communication",Web,1,Frontend Developer
+BBA,"Communication, Excel",Sales,3,Product Manager
+BCom,"Excel, Communication, SQL",Business,0,Business Analyst
+BCA,"Excel, Communication, SQL, Power BI",Business,3,Product Manager
+BBA,"SQL, Excel, Python, Statistics, Communication",Data,1,Data Analyst
+BCom,"Python, ML, Statistics, SQL, Communication",AI,4,ML Engineer
+BA,"Excel, Communication, SQL, Power BI",Business,0,Product Manager
+BBA,"SQL, Excel, Statistics, Power BI, Communication",Data,0,Data Analyst
+BA,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+MBA,Communication,Teaching,2,Business Analyst
+BCom,Communication,Teaching,4,Product Manager
+BCA,"Python, Statistics, Communication",AI,5,ML Engineer
+BSc,"Excel, Communication, SQL, Power BI",Business,0,Product Manager
+BSc,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BCom,Communication,Web,2,Backend Developer
+MBA,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BCom,"Python, ML, Communication",AI,0,QA Tester
+BCom,"SQL, Excel, Python, Statistics, Power BI, Communication",Data,3,Data Analyst
+BBA,Communication,Sales,1,Business Analyst
+BCA,"Python, ML, Statistics, SQL, Communication",AI,2,ML Engineer
+BCom,"SQL, Excel, Statistics, Power BI",Data,5,Data Analyst
+BBA,"Excel, Communication, Statistics",Business,5,Business Analyst
+BSc,"Communication, Excel",Sales,2,Product Manager
+BCA,"Excel, Communication, SQL, Power BI",Business,3,Product Manager
+BBA,"Communication, Excel",Sales,3,Product Manager
+BA,Communication,Sales,4,Product Manager
+BCom,"Communication, Excel",Sales,5,Product Manager
+BCA,"SQL, Excel, Python, Statistics, Power BI, Communication",Data,4,Data Analyst
+MBA,Communication,Teaching,5,Product Manager
+BCom,Communication,Sales,1,Business Analyst
+BBA,"Excel, Communication, SQL, Power BI",Business,1,Business Analyst
+BCom,"Communication, Excel",Sales,0,Business Analyst
+MBA,"HTML, CSS, Communication",Web,4,Frontend Developer
+BCA,"SQL, Excel, Python, Statistics",Data,2,Data Analyst
+BSc,"Communication, Excel",Sales,4,Product Manager
+BCom,"Excel, Communication, SQL, Power BI",Business,2,Business Analyst
+BCA,"JavaScript, Python",Web,3,Backend Developer
+BA,"SQL, Excel, Python, Statistics, Communication",Data,4,Data Analyst
+BBA,Communication,Teaching,3,Product Manager
+BCA,"Excel, Communication, SQL",Business,1,Product Manager
+BSc,"Python, ML, Statistics, SQL, Communication",AI,1,ML Engineer
+BBA,Communication,Teaching,0,Business Analyst
+BSc,"Communication, Excel, Statistics",Teaching,4,Product Manager
+MBA,"Excel, Communication, SQL",Business,3,Business Analyst
+BSc,"Excel, Communication, SQL, Statistics",Business,2,Product Manager
+BBA,"Python, ML, Statistics, Communication",AI,1,ML Engineer
+BA,"Python, SQL, Communication",AI,1,QA Tester
+BBA,"Communication, Excel",Sales,2,Product Manager
+MBA,"HTML, CSS, JavaScript, Communication",Web,3,Frontend Developer
+BSc,"Excel, Communication, SQL, Power BI",Business,3,Product Manager
+BA,"HTML, CSS, JavaScript, Python, Communication",Web,4,Frontend Developer
+BCA,"Python, Excel",AI,4,ML Engineer
+BCA,"Communication, Excel",Sales,5,Product Manager
+BCom,"Excel, Communication, Power BI",Business,5,Business Analyst
+BCom,"Communication, Excel",Sales,0,Business Analyst
+BCom,Communication,Sales,1,Business Analyst
+BSc,"Excel, Communication",Business,4,Product Manager
+BCom,"SQL, Excel, Python, Statistics, Communication",Data,3,Data Analyst
+BCA,"Excel, Communication, SQL",Business,2,Product Manager
+BA,"HTML, CSS, JavaScript",Web,3,Frontend Developer
+BCA,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+BSc,"Excel, Communication, Statistics",Business,5,Product Manager
+BSc,"HTML, CSS, JavaScript, Python, Communication",Web,3,Frontend Developer
+BA,"Excel, Communication, SQL, Power BI",Business,0,Product Manager
+BSc,Communication,Sales,1,Business Analyst
+BSc,"Excel, Communication, SQL",Business,5,Product Manager
+BSc,"JavaScript, Python, Communication",Web,2,Backend Developer
+BCom,"Excel, Communication, SQL",Business,5,Business Analyst
+BSc,Communication,Sales,0,Business Analyst
+BSc,"HTML, CSS, Communication",Web,1,Frontend Developer
+BBA,"Python, ML, Statistics, Communication",AI,2,ML Engineer
+BCom,"Excel, Communication, SQL, Statistics",Business,0,Business Analyst
+BBA,"Excel, Communication, SQL",Business,5,Business Analyst
+MBA,"Excel, Communication, SQL, Power BI",Business,0,Business Analyst
+BCA,"Excel, Communication, SQL",Business,1,Product Manager
+BSc,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BA,"Communication, Excel",Sales,0,Business Analyst
+MBA,"SQL, Excel, Python, Power BI, Communication",Data,0,Data Analyst
+BCom,"SQL, Excel, Python, Statistics, Communication",Data,5,Data Analyst
+BCA,"Excel, Communication, SQL",Business,5,Product Manager
+BA,Communication,Teaching,2,Business Analyst
+BCA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+MBA,"HTML, CSS, JavaScript, Python, Communication",Web,3,Frontend Developer
+BA,Communication,Sales,1,Business Analyst
+BA,"Communication, Excel",Sales,1,Business Analyst
+BA,"SQL, Excel, Python, Statistics, Power BI, Communication",Data,4,Data Analyst
+BA,"Excel, Communication, Power BI",Business,4,Product Manager
+BBA,"HTML, CSS, Communication",Web,1,Frontend Developer
+MBA,Communication,Teaching,4,Product Manager
+MBA,Communication,Teaching,2,Business Analyst
+BCA,"Python, ML, Statistics",AI,5,ML Engineer
+BSc,"Excel, Communication, SQL, Power BI",Business,1,Product Manager
+BCom,Communication,Teaching,4,Product Manager
+BA,"HTML, CSS, JavaScript, Communication",Web,1,Frontend Developer
+MBA,"HTML, CSS, JavaScript, Python",Web,3,Frontend Developer
+BSc,Communication,Sales,0,Business Analyst
+BCA,"SQL, Excel, Python, Statistics, Communication",Data,5,Data Analyst
+BCA,"Communication, Excel",Sales,1,Business Analyst
+BCA,"Python, ML, Statistics, SQL",AI,0,ML Engineer
+BCA,"SQL, Excel, Statistics, Communication",Data,4,Data Analyst
+BA,"SQL, Excel, Python",Data,0,Data Analyst
+BA,"Excel, Communication, SQL",Business,5,Product Manager
+BCom,"SQL, Excel, Python, Power BI, Communication",Data,1,Data Analyst
+BBA,"Excel, Communication, SQL, Statistics",Business,3,Business Analyst
+BBA,Communication,Teaching,4,Product Manager
+BSc,"Excel, Communication, Power BI",Business,1,Product Manager
+BA,"Python, ML, Statistics, SQL",AI,5,ML Engineer
+BA,"SQL, Excel, Python, Communication",Data,4,Data Analyst
+BA,Communication,Teaching,2,Business Analyst
+BCA,"Excel, Communication, SQL, Power BI",Business,0,Product Manager
+MBA,"Python, ML, Statistics, Communication",AI,5,ML Engineer
+BCA,"Python, Statistics, SQL",AI,2,ML Engineer
+MBA,"SQL, Excel, Python, Communication",Data,1,Data Analyst
+BSc,"Python, ML",AI,3,ML Engineer
+BBA,"SQL, Excel, Python, Statistics, Power BI",Data,4,Data Analyst
+BSc,"SQL, Excel, Python, Statistics",Data,0,Data Analyst
+BCom,"Communication, Excel, Statistics",Teaching,4,Product Manager
+MBA,"Python, ML",AI,1,ML Engineer
+BBA,"Python, ML, Statistics, SQL",AI,4,ML Engineer
+BBA,"SQL, Excel, Python, Statistics, Power BI",Data,0,Data Analyst
+BBA,"Python, ML, Statistics, SQL",AI,1,ML Engineer
+BCA,Communication,Sales,4,Product Manager
+BSc,"Python, ML, SQL, Communication",AI,3,ML Engineer
+BA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BCA,"Python, Statistics, SQL",AI,1,ML Engineer
+BSc,"Python, ML, Statistics",AI,5,ML Engineer
+MBA,"HTML, CSS, JavaScript, Communication",Web,1,Frontend Developer
+BCA,Communication,Teaching,3,Product Manager
+MBA,Communication,Teaching,5,Product Manager
+BCom,"Python, ML, Communication",AI,2,ML Engineer
+BSc,Communication,Teaching,0,Business Analyst
+BCom,"Communication, Excel",Sales,2,Product Manager
+BA,"Excel, Communication, SQL, Statistics",Business,4,Product Manager
+MBA,"Communication, Excel, Statistics",Teaching,3,Product Manager
+MBA,"Excel, Communication, SQL, Power BI",Business,2,Business Analyst
+BCA,"Communication, Excel",Sales,1,Business Analyst
+BBA,"Communication, Excel",Sales,4,Product Manager
+BCA,"Communication, Excel",Sales,4,Product Manager
+BA,"SQL, Excel, Python, Statistics, Power BI, Communication",Data,2,Data Analyst
+BSc,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BSc,"Excel, Communication, SQL, Power BI, Statistics",Business,3,Product Manager
+BCom,"Python, ML, Statistics, SQL",AI,0,ML Engineer
+BBA,"Excel, Communication, SQL",Business,2,Business Analyst
+BA,"Excel, Communication, Power BI",Business,2,Product Manager
+BCA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BA,"SQL, Excel, Python",Data,1,Data Analyst
+BCA,Communication,Sales,5,Product Manager
+BCA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BCA,Communication,Teaching,4,Product Manager
+BSc,"Python, ML, Communication",AI,0,ML Engineer
+BSc,"Communication, Excel",Sales,1,Business Analyst
+BBA,"Python, ML, SQL",AI,3,ML Engineer
+BBA,"SQL, Excel, Python, Power BI, Communication",Data,3,Data Analyst
+MBA,Communication,Sales,2,Product Manager
+BA,"Communication, Excel",Sales,2,Product Manager
+BCom,"Python, SQL, Communication",AI,3,ML Engineer
+BSc,"HTML, CSS",Web,2,Frontend Developer
+BSc,"Excel, Communication",Business,0,Product Manager
+BA,"Excel, Communication, Power BI",Business,5,Product Manager
+BCA,"HTML, CSS, JavaScript, Communication",Web,2,Frontend Developer
+BCom,"Python, ML, SQL, Communication",AI,4,ML Engineer
+BCA,"Excel, Communication, Power BI",Business,2,Product Manager
+BCA,"Communication, Excel",Sales,1,Business Analyst
+BCA,"SQL, Excel, Statistics",Data,0,Data Analyst
+BSc,"Excel, Communication, Statistics",Business,1,Product Manager
+BBA,"HTML, CSS, Communication",Web,1,Frontend Developer
+BCom,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BCA,"HTML, CSS, Python",Web,0,Frontend Developer
+MBA,"Python, Communication",AI,0,QA Tester
+BBA,"Excel, Communication, SQL, Power BI",Business,0,Business Analyst
+BA,Communication,Sales,0,Business Analyst
+BA,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+MBA,"Communication, HTML",Web,4,Frontend Developer
+BA,"SQL, Excel, Python, Power BI",Data,2,Data Analyst
+BCA,Communication,Sales,1,Business Analyst
+MBA,"HTML, CSS, JavaScript",Web,0,Frontend Developer
+MBA,"SQL, Excel, Python, Statistics, Communication",Data,2,Data Analyst
+BSc,"Excel, Communication, SQL",Business,2,Product Manager
+BBA,"Python, ML, Communication",AI,1,QA Tester
+BCA,"Python, ML, Statistics",AI,4,ML Engineer
+BCA,"HTML, CSS, JavaScript, Python",Web,3,Frontend Developer
+BCom,"Communication, Excel",Sales,3,Product Manager
+MBA,"SQL, Excel, Power BI, Communication",Data,2,Data Analyst
+MBA,"HTML, CSS, JavaScript, Python, Communication",Web,5,Frontend Developer
+BCA,"HTML, CSS",Web,5,Frontend Developer
+BBA,Communication,Teaching,1,Business Analyst
+BA,"Python, ML, SQL",AI,3,ML Engineer
+BA,"Excel, Communication, SQL, Power BI, Statistics",Business,2,Product Manager
+BCom,"HTML, CSS, JavaScript",Web,4,Frontend Developer
+BBA,"SQL, Excel, Statistics, Communication",Data,3,Data Analyst
+BSc,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BA,"HTML, CSS, JavaScript, Communication",Web,2,Frontend Developer
+MBA,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+BSc,"Communication, Excel",Sales,4,Product Manager
+BBA,"Communication, Excel",Sales,0,Business Analyst
+BA,"Excel, Communication, Power BI",Business,1,Product Manager
+BBA,"Excel, Communication, Power BI, Statistics",Business,0,Business Analyst
+BCA,"Excel, Communication, Power BI",Business,0,Product Manager
+BCom,"Communication, Excel",Sales,3,Product Manager
+BCA,"SQL, Excel, Python, Communication",Data,5,Data Analyst
+BBA,"Communication, Excel",Sales,2,Product Manager
+BSc,"Communication, Excel",Sales,4,Product Manager
+BCA,"SQL, Excel, Python, Statistics, Communication",Data,0,Data Analyst
+BA,Communication,Teaching,4,Product Manager
+BCom,Communication,Sales,5,Product Manager
+BCA,"SQL, Excel, Python, Power BI, Communication",Data,5,Data Analyst
+BA,"JavaScript, Communication",Web,0,Backend Developer
+BA,"Python, ML, Statistics, Communication",AI,1,ML Engineer
+BCA,"Excel, Communication, SQL, Power BI",Business,0,Product Manager
+MBA,"Excel, Communication, Power BI",Business,3,Business Analyst
+BA,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BBA,"Excel, Communication, Power BI",Business,1,Business Analyst
+MBA,Communication,Sales,0,Business Analyst
+BCA,"HTML, CSS, JavaScript, Python, Communication",Web,4,Frontend Developer
+MBA,"Python, ML, Communication",AI,1,ML Engineer
+MBA,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+BSc,"SQL, Excel, Power BI, Communication",Data,0,Data Analyst
+BA,"Communication, ML",Web,1,Backend Developer
+BBA,Communication,Teaching,4,Product Manager
+BCA,Communication,Teaching,5,Product Manager
+BBA,"Python, Statistics, SQL, Communication",AI,1,ML Engineer
+BA,"SQL, Excel, Python, Power BI, Communication",Data,5,Data Analyst
+BCA,"Excel, Communication, SQL, Power BI",Business,4,Product Manager
+BSc,Communication,Sales,0,Business Analyst
+BCom,"Communication, Excel",Sales,2,Product Manager
+BCA,"Communication, Excel",Sales,1,Business Analyst
+BSc,"Excel, Communication",Business,2,Product Manager
+BBA,"Python, SQL",Web,4,Backend Developer
+BCom,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+BSc,"Excel, Communication, SQL",Business,5,Product Manager
+BBA,"HTML, CSS, JavaScript",Web,3,Frontend Developer
+BBA,"SQL, Excel, Python",Data,2,Data Analyst
+MBA,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+MBA,"SQL, Excel",Data,2,Data Analyst
+BSc,"Excel, Communication, SQL, Power BI",Business,1,Product Manager
+BCom,"HTML, CSS, JavaScript, Python, Communication",Web,0,Frontend Developer
+BSc,"Communication, Excel",Sales,5,Product Manager
+MBA,"Communication, Excel",Sales,2,Product Manager
+BSc,Communication,Teaching,3,Product Manager
+BCom,"SQL, Excel, Python, Statistics, Communication",Data,3,Data Analyst
+BBA,"HTML, CSS, JavaScript, Python, Communication",Web,4,Frontend Developer
+BCom,"SQL, Excel, Python, Communication",Data,1,Data Analyst
+BSc,"SQL, Excel, Python, Communication",Data,2,Data Analyst
+BCom,"SQL, Excel, Statistics, Communication",Data,4,Data Analyst
+BBA,"Python, ML, Statistics, Communication",AI,2,ML Engineer
+MBA,"Python, ML, Statistics, Communication",AI,1,ML Engineer
+BBA,"HTML, CSS",Web,3,Frontend Developer
+BCA,"Python, ML, Statistics, SQL, Communication",AI,0,ML Engineer
+BSc,"Python, ML",AI,3,ML Engineer
+BSc,"Excel, Communication, Statistics",Business,4,Product Manager
+MBA,"Communication, Excel",Sales,5,Product Manager
+BA,"SQL, Excel, Python, Statistics, Power BI, Communication",Data,0,Data Analyst
+BBA,"SQL, Excel, Python, Communication",Data,4,Data Analyst
+MBA,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+BA,"Python, ML, Statistics, SQL",AI,0,ML Engineer
+MBA,"Communication, Excel",Sales,4,Product Manager
+BSc,"Python, ML, Statistics, SQL, Communication",AI,1,ML Engineer
+BSc,"SQL, Excel, Python, Statistics, Communication",Data,3,Data Analyst
+BSc,"Python, ML, Statistics, Communication",AI,5,ML Engineer
+BSc,"Python, ML, Statistics",AI,1,ML Engineer
+BSc,"HTML, CSS, JavaScript, Communication",Web,2,Frontend Developer
+BCA,"Excel, Communication, Power BI",Business,1,Product Manager
+MBA,"Excel, Communication, SQL, Power BI, Statistics",Business,1,Business Analyst
+BSc,"Excel, Communication, SQL",Business,5,Product Manager
+BCom,"Communication, Excel",Sales,2,Product Manager
+BBA,"Excel, Communication, Power BI",Business,4,Business Analyst
+MBA,"Communication, Excel",Sales,4,Product Manager
+BSc,"HTML, CSS, JavaScript",Web,1,Frontend Developer
+BBA,"HTML, CSS, JavaScript, Python, Communication",Web,2,Frontend Developer
+BSc,"Excel, Communication, SQL",Business,2,Product Manager
+BA,"Excel, Communication, Power BI",Business,5,Product Manager
+BCA,"Excel, Communication, SQL, Statistics",Business,3,Product Manager
+BA,"Excel, Communication",Business,4,Product Manager
+BBA,Communication,Sales,5,Product Manager
+BCom,"Communication, Excel",Sales,0,Business Analyst
+BCA,"Python, ML",AI,4,ML Engineer
+BCom,Communication,Teaching,5,Product Manager
+BCA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BCA,"HTML, CSS, Communication",Web,3,Frontend Developer
+BA,"Communication, Excel",Sales,0,Business Analyst
+BCom,"Python, ML, Statistics, Communication",AI,3,ML Engineer
+BBA,"SQL, Excel, Statistics",Data,0,Data Analyst
+BBA,"Python, ML, Statistics, SQL, Communication",AI,1,ML Engineer
+BSc,"Excel, Communication, Power BI",Business,5,Product Manager
+BBA,"JavaScript, Communication",Web,0,Backend Developer
+MBA,"Excel, Communication, Power BI",Business,3,Business Analyst
+BCom,"SQL, Excel, Python, Statistics, Communication",Data,4,Data Analyst
+BCA,"Python, ML",AI,0,QA Tester
+MBA,Communication,Sales,5,Product Manager
+BCom,"Excel, Communication, SQL",Business,0,Business Analyst
+MBA,"Communication, Excel",Sales,2,Product Manager
+BA,"SQL, Excel, Communication",Data,4,Data Analyst
+BSc,"Python, ML",AI,5,ML Engineer
+BSc,"Communication, Excel",Sales,5,Product Manager
+MBA,"Python, ML, SQL, Communication",AI,1,ML Engineer
+MBA,Communication,Sales,3,Product Manager
+BCom,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+BCA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BCom,"Excel, Communication, Power BI, Statistics",Business,4,Business Analyst
+BCom,"Excel, Communication, SQL",Business,0,Business Analyst
+BCA,"Communication, Excel",Sales,0,Business Analyst
+BA,"Excel, Communication, Power BI, Statistics",Business,4,Product Manager
+BCA,"Python, ML, SQL",AI,5,ML Engineer
+MBA,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+MBA,"Communication, Excel",Sales,0,Business Analyst
+BCom,"HTML, CSS, JavaScript",Web,0,Frontend Developer
+MBA,"HTML, CSS, JavaScript, Python, Communication",Web,3,Frontend Developer
+BCom,"JavaScript, Python",Web,3,Backend Developer
+BSc,"SQL, Excel, Python, Statistics, Power BI, Communication",Data,2,Data Analyst
+BCA,"Excel, Communication, Power BI",Business,1,Product Manager
+BA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BSc,"Python, ML, Communication",AI,4,ML Engineer
+BBA,"HTML, CSS, JavaScript",Web,4,Frontend Developer
+BCom,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BBA,"Python, ML, Communication",AI,3,ML Engineer
+BCA,Communication,Teaching,5,Product Manager
+BCA,"SQL, Excel, Python, Statistics, Communication",Data,5,Data Analyst
+BA,"Excel, Communication, SQL, Power BI",Business,2,Product Manager
+BCom,"Python, ML, Communication",AI,5,ML Engineer
+MBA,"Python, ML, Statistics, SQL, Communication",AI,4,ML Engineer
+BSc,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+BSc,"Excel, Communication, Power BI",Business,0,Product Manager
+BBA,Communication,Teaching,3,Product Manager
+BSc,"Communication, Excel",Sales,3,Product Manager
+MBA,"Excel, Communication, SQL",Business,2,Business Analyst
+BSc,"Excel, Communication, SQL",Business,3,Product Manager
+MBA,"SQL, Excel",Data,4,Data Analyst
+MBA,"Excel, Communication, SQL, Power BI",Business,5,Business Analyst
+BCom,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BCA,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BSc,Communication,Teaching,4,Product Manager
+BCA,Communication,Sales,5,Product Manager
+BBA,"SQL, Excel, Python, Statistics",Data,1,Data Analyst
+BCom,"Python, ML, Statistics, SQL, Communication",AI,2,ML Engineer
+BSc,"SQL, Excel, Python, Statistics, Power BI, Communication",Data,1,Data Analyst
+BSc,"Excel, Communication, SQL",Business,0,Product Manager
+BBA,"Excel, Communication, Power BI",Business,1,Business Analyst
+BCA,Communication,Teaching,0,Business Analyst
+BBA,"SQL, Excel, Statistics, Power BI, Communication",Data,0,Data Analyst
+BA,"Excel, Communication, SQL, Statistics",Business,1,Product Manager
+BCom,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BCom,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BCA,"Excel, Communication, SQL, Power BI",Business,4,Product Manager
+BSc,"Communication, Excel",Sales,4,Product Manager
+BCA,"Excel, Communication, SQL, Statistics",Business,5,Product Manager
+MBA,"HTML, CSS, JavaScript, Python",Web,0,Frontend Developer
+BBA,"HTML, CSS, Communication",Web,0,Frontend Developer
+BSc,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BCA,"Python, Communication",AI,3,ML Engineer
+BCA,"Python, ML, Statistics",AI,1,ML Engineer
+MBA,"HTML, CSS, JavaScript, Python",Web,0,Frontend Developer
+BCom,"SQL, Excel, Python, Statistics, Power BI, Communication",Data,4,Data Analyst
+BCom,"Excel, Communication, Power BI",Business,2,Business Analyst
+MBA,"Excel, Communication",Business,1,Business Analyst
+MBA,"Excel, Communication, SQL, Power BI",Business,2,Business Analyst
+MBA,"HTML, CSS, JavaScript",Web,1,Frontend Developer
+MBA,"HTML, CSS",Web,1,Frontend Developer
+BCom,"SQL, Excel, Power BI, Communication",Data,5,Data Analyst
+MBA,"Python, ML, Statistics",AI,0,ML Engineer
+BA,"Python, ML, Communication",AI,2,ML Engineer
+BSc,"Excel, Communication, Power BI, Statistics",Business,2,Product Manager
+BA,Communication,Sales,5,Product Manager
+BA,"HTML, CSS, JavaScript, Python",Web,4,Frontend Developer
+BBA,"Python, Statistics, SQL",AI,4,ML Engineer
+BCom,"HTML, CSS, Communication",Web,0,Frontend Developer
+BA,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+BBA,"Communication, Excel, Statistics",Teaching,3,Product Manager
+MBA,Communication,Teaching,5,Product Manager
+BCom,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BCom,"HTML, CSS, JavaScript",Web,1,Frontend Developer
+BCom,Communication,Sales,2,Product Manager
+BBA,"Communication, Excel",Sales,0,Business Analyst
+MBA,"Communication, Excel",Sales,2,Product Manager
+BA,"Communication, Excel",Sales,2,Product Manager
+BSc,"SQL, Excel, Communication",Data,3,Data Analyst
+BA,"Python, Statistics, SQL, Communication",AI,4,ML Engineer
+BSc,"Excel, Communication, SQL, Power BI",Business,0,Product Manager
+BSc,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+BCA,"Python, ML, Statistics, Communication",AI,0,ML Engineer
+MBA,"JavaScript, Python, Communication",Web,1,QA Tester
+BA,"SQL, Excel, Python, Statistics",Data,3,Data Analyst
+BCom,Communication,Sales,1,Business Analyst
+BA,"HTML, CSS, JavaScript, Python, Communication",Web,0,Frontend Developer
+BA,Communication,Teaching,0,Business Analyst
+BCA,Communication,Teaching,4,Product Manager
+BCA,"Communication, Excel",Sales,2,Product Manager
+BCA,"SQL, Excel, Power BI",Data,2,Data Analyst
+MBA,"SQL, Excel, Statistics, Communication",Data,1,Data Analyst
+BCom,"Communication, Excel",Sales,3,Product Manager
+BCA,"Communication, Excel",Sales,5,Product Manager
+BCA,"Excel, Communication, Power BI",Business,2,Product Manager
+BCom,"Communication, Excel",Sales,4,Product Manager
+BSc,"Python, ML, Statistics, Communication",AI,1,ML Engineer
+MBA,Communication,Sales,1,Business Analyst
+BSc,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BBA,"SQL, Excel, Python, Power BI",Data,4,Data Analyst
+BBA,"Communication, Excel, Statistics",Teaching,3,Product Manager
+BCom,"Excel, Communication, SQL, Power BI",Business,4,Business Analyst
+BBA,"SQL, Excel, Python, Statistics",Data,3,Data Analyst
+BA,"Excel, Communication, SQL, Statistics",Business,4,Product Manager
+BCom,"Excel, Communication, SQL",Business,4,Business Analyst
+BBA,"SQL, Excel, Python, Communication",Data,0,Data Analyst
+BA,"JavaScript, Python, Communication",Web,1,QA Tester
+BSc,"Communication, Excel",Sales,4,Product Manager
+BSc,Communication,Teaching,5,Product Manager
+BCom,Communication,Teaching,4,Product Manager
+BCom,"Excel, Communication, SQL, Power BI",Business,2,Business Analyst
+BCA,"Python, ML, Statistics, SQL, Communication",AI,1,ML Engineer
+BCom,"HTML, CSS, Communication",Web,2,Frontend Developer
+MBA,"Python, ML, Statistics, Communication",AI,1,ML Engineer
+BCA,"Excel, Communication, SQL, Power BI, Statistics",Business,2,Product Manager
+BCom,"Excel, Communication, SQL, Power BI, Statistics",Business,4,Business Analyst
+BA,"Communication, Excel",Sales,4,Product Manager
+BCom,"HTML, CSS, JavaScript",Web,0,Frontend Developer
+BCA,"Communication, Excel",Sales,5,Product Manager
+MBA,"SQL, Excel, Python, Statistics, Communication",Data,2,Data Analyst
+BA,"Communication, Excel",Sales,3,Product Manager
+BCom,Communication,Teaching,0,Business Analyst
+MBA,"SQL, Excel, Python, Power BI, Communication",Data,2,Data Analyst
+BCom,"Python, ML, Statistics, SQL",AI,2,ML Engineer
+BCA,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+BCom,"Excel, Communication, Power BI, Statistics",Business,4,Business Analyst
+BBA,Communication,Teaching,2,Business Analyst
+BSc,"HTML, CSS",Web,4,Frontend Developer
+BBA,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+MBA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BCom,"Python, ML, Communication",AI,1,ML Engineer
+BSc,"Excel, Communication, SQL",Business,3,Product Manager
+BBA,"JavaScript, Python, Communication",Web,2,Backend Developer
+BSc,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BA,"Excel, Communication, SQL, Power BI, Statistics",Business,3,Product Manager
+BA,"HTML, CSS, JavaScript, Communication",Web,4,Frontend Developer
+BSc,"Python, ML, SQL, Communication",AI,2,ML Engineer
+BBA,"Python, ML, SQL, Communication",AI,4,ML Engineer
+BCom,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+BCA,"Excel, Communication, Power BI, Statistics",Business,0,Product Manager
+BBA,"Excel, Communication, SQL, Power BI, Statistics",Business,2,Business Analyst
+MBA,"Excel, Communication, SQL, Statistics",Business,1,Business Analyst
+MBA,"Communication, Excel",Sales,1,Business Analyst
+BA,"SQL, Excel, Statistics, Power BI",Data,2,Data Analyst
+BSc,Communication,Teaching,4,Product Manager
+BCA,"Python, ML",AI,5,ML Engineer
+BBA,"HTML, CSS, JavaScript, Python, Communication",Web,1,Frontend Developer
+BCom,"Python, ML, Statistics, Communication",AI,3,ML Engineer
+BBA,"Python, ML, SQL, Communication",AI,1,ML Engineer
+BA,"HTML, CSS, JavaScript, Communication",Web,5,Frontend Developer
+MBA,"Excel, Communication, SQL, Power BI",Business,4,Business Analyst
+MBA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BCom,"SQL, Excel, Python, Statistics, Power BI",Data,3,Data Analyst
+BA,Communication,Teaching,1,Business Analyst
+BCom,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BSc,"Python, ML, Statistics, Communication",AI,5,ML Engineer
+BCA,"Excel, Communication, SQL, Power BI",Business,2,Product Manager
+BCA,"Communication, Excel",Sales,0,Business Analyst
+BCA,"Communication, Excel",Sales,0,Business Analyst
+BCA,"HTML, CSS, Python, Communication",Web,0,Frontend Developer
+BA,"Communication, Excel",Sales,1,Business Analyst
+BSc,"SQL, Excel, Python, Statistics, Power BI",Data,3,Data Analyst
+BSc,"JavaScript, CSS",Web,4,Backend Developer
+BBA,"JavaScript, Excel",Web,2,Backend Developer
+BA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+MBA,"Communication, Excel",Sales,2,Product Manager
+BBA,"SQL, Excel, Statistics",Data,5,Data Analyst
+BBA,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+BCom,"Python, ML, Statistics, Communication",AI,0,ML Engineer
+BSc,"Excel, Communication, Statistics",Business,1,Product Manager
+BBA,"Python, ML, Communication",AI,3,ML Engineer
+MBA,"HTML, CSS, JavaScript, Communication",Web,3,Frontend Developer
+BBA,"Excel, Communication",Business,5,Business Analyst
+MBA,Communication,Sales,4,Product Manager
+BSc,"Python, Statistics, Communication",AI,4,ML Engineer
+BCA,Communication,Teaching,5,Product Manager
+BA,"Python, ML, Statistics, Communication",AI,3,ML Engineer
+BCA,"Communication, Excel",Sales,3,Product Manager
+MBA,"Python, ML, Communication",AI,3,ML Engineer
+BCA,"Excel, Communication, SQL, Statistics",Business,1,Product Manager
+BSc,"Python, ML, Statistics, SQL",AI,3,ML Engineer
+BBA,"Python, SQL, Communication",AI,2,QA Tester
+BA,"SQL, Excel, Python, Statistics, Power BI",Data,0,Data Analyst
+MBA,"Excel, Communication, SQL, Power BI, Statistics",Business,3,Business Analyst
+MBA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+MBA,"SQL, Excel",Data,0,Data Analyst
+BCA,"Python, ML, Statistics, Communication",AI,1,ML Engineer
+BSc,"JavaScript, Python, Communication",Web,5,Backend Developer
+BSc,"SQL, Excel, Statistics, Power BI",Data,0,Data Analyst
+BBA,"SQL, Excel, Power BI, Communication",Data,5,Data Analyst
+BSc,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+BA,"Excel, Communication, SQL, Power BI, Statistics",Business,2,Product Manager
+BSc,"SQL, Excel, Python, Statistics, Power BI, Communication",Data,1,Data Analyst
+MBA,"Excel, Communication, SQL, Power BI, Statistics",Business,1,Business Analyst
+BA,"Communication, Excel",Sales,5,Product Manager
+BCA,"SQL, Excel, Statistics, Communication",Data,4,Data Analyst
+BCA,"Communication, Excel",Sales,3,Product Manager
+BCom,"HTML, CSS, JavaScript, Python",Web,3,Frontend Developer
+BSc,Communication,Sales,2,Product Manager
+MBA,"HTML, CSS, JavaScript, Communication",Web,2,Frontend Developer
+MBA,"Python, ML, Statistics, Communication",AI,3,ML Engineer
+BCom,Communication,Sales,4,Product Manager
+BCom,Communication,Teaching,3,Product Manager
+BCA,"HTML, CSS, Python, Communication",Web,4,Frontend Developer
+BSc,"HTML, CSS, JavaScript, Python, Communication",Web,2,Frontend Developer
+BBA,"Python, ML, Statistics, Communication",AI,0,ML Engineer
+BSc,Communication,Sales,5,Product Manager
+BBA,"Excel, Communication, SQL, Statistics",Business,2,Business Analyst
+BSc,Communication,Sales,2,Product Manager
+BCA,"JavaScript, Python, Communication",Web,1,Backend Developer
+MBA,"JavaScript, Python",Web,1,Backend Developer
+BBA,"Python, ML, Statistics, SQL",AI,1,ML Engineer
+BCA,Communication,Sales,5,Product Manager
+BBA,"HTML, CSS, JavaScript",Web,1,Frontend Developer
+BBA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+MBA,"Python, ML, SQL, Communication",AI,3,ML Engineer
+BBA,"Excel, Communication, SQL, Power BI",Business,0,Business Analyst
+BSc,"SQL, Excel, Statistics, Power BI, Communication",Data,2,Data Analyst
+BSc,Communication,Teaching,4,Product Manager
+BSc,"Python, Communication",Web,0,Backend Developer
+BA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BCom,"Communication, Excel",Sales,4,Product Manager
+BSc,"Python, ML, Statistics, Communication",AI,2,ML Engineer
+BA,"HTML, CSS, JavaScript, Communication",Web,3,Frontend Developer
+BCom,Communication,Sales,1,Business Analyst
+BSc,"Python, Communication",AI,5,ML Engineer
+BSc,"Excel, Communication",Business,3,Product Manager
+BCA,"Python, Statistics",AI,5,ML Engineer
+MBA,"Excel, Communication, SQL, Power BI",Business,2,Business Analyst
+MBA,"Python, SQL, Communication",AI,2,ML Engineer
+MBA,"Communication, Excel",Sales,2,Product Manager
+MBA,"Communication, Excel",Sales,0,Business Analyst
+BA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+MBA,"HTML, CSS, JavaScript",Web,3,Frontend Developer
+BCA,"SQL, Excel, Communication",Data,3,Data Analyst
+BCom,"SQL, Excel, Python, Statistics",Data,4,Data Analyst
+BA,"Communication, Excel",Sales,4,Product Manager
+BCom,Communication,Sales,4,Product Manager
+BCom,"Excel, Communication",Business,2,Product Manager
+BCA,"Communication, Excel",Sales,3,Product Manager
+BA,"HTML, CSS, JavaScript",Web,5,Frontend Developer
+BCA,"JavaScript, Python",Web,2,Backend Developer
+MBA,"Excel, Communication, Power BI, Statistics",Business,0,Business Analyst
+BBA,"Python, ML, SQL",AI,4,ML Engineer
+BBA,"HTML, CSS, JavaScript, Communication",Web,2,Frontend Developer
+BSc,"Python, ML, Communication",AI,2,ML Engineer
+BA,"SQL, Excel, Python, Statistics, Power BI, Communication",Data,0,Data Analyst
+BSc,"Python, ML, Statistics, SQL",AI,1,ML Engineer
+BCA,"Communication, Excel",Sales,3,Product Manager
+BCA,"SQL, Excel, Python, Power BI, Communication",Data,5,Data Analyst
+BA,"Python, ML, Statistics, SQL, Communication",AI,1,ML Engineer
+BA,"Excel, Communication",Business,4,Product Manager
+BCA,"Excel, Communication, Statistics",Business,2,Product Manager
+BSc,Communication,Sales,0,Business Analyst
+BBA,"SQL, Excel, Python, Power BI",Data,0,Data Analyst
+BBA,"Excel, Communication, SQL",Business,3,Business Analyst
+MBA,"HTML, CSS, JavaScript, Communication",Web,1,Frontend Developer
+MBA,"Excel, Communication",Business,3,Business Analyst
+BBA,"Communication, Excel, Statistics",Teaching,2,Business Analyst
+MBA,Communication,Teaching,3,Product Manager
+BA,"Python, SQL",AI,5,ML Engineer
+MBA,"SQL, Excel, Statistics, Power BI, Communication",Data,0,Data Analyst
+BCom,Communication,Teaching,0,Business Analyst
+MBA,"Communication, Excel, Statistics",Teaching,4,Product Manager
+BSc,"SQL, Excel, Python",Data,4,Data Analyst
+BBA,"Python, Statistics, Communication",AI,2,ML Engineer
+BBA,"Communication, Excel",Sales,5,Product Manager
+BCA,"Python, Statistics, Communication",AI,1,ML Engineer
+BSc,"Excel, Communication, SQL, Power BI",Business,3,Product Manager
+BCA,"Communication, Excel",Sales,2,Product Manager
+BCom,Communication,Sales,4,Product Manager
+BCA,"Communication, Excel",Sales,3,Product Manager
+BBA,Communication,Teaching,4,Product Manager
+BCom,"SQL, Excel, Python, Statistics",Data,3,Data Analyst
+BSc,"Communication, Excel",Sales,1,Business Analyst
+BCom,"Python, Statistics, SQL, Communication",AI,2,ML Engineer
+BCA,"Excel, Communication",Business,3,Product Manager
+BA,"Communication, Python",Web,5,Backend Developer
+BCom,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+BSc,"Python, ML, Statistics",AI,5,ML Engineer
+BCom,"Communication, Excel",Sales,5,Product Manager
+BBA,"SQL, Excel, Python, Communication",Data,0,Data Analyst
+BA,"HTML, CSS, JavaScript, Communication",Web,5,Frontend Developer
+MBA,"Communication, Excel",Sales,3,Product Manager
+BA,"Excel, Communication, SQL, Statistics",Business,3,Product Manager
+BCom,"Python, ML, Statistics, SQL",AI,3,ML Engineer
+BCA,"Excel, Communication, SQL",Business,0,Product Manager
+BBA,Communication,Sales,5,Product Manager
+BBA,"Python, ML, Statistics",AI,0,ML Engineer
+BBA,"SQL, Excel, Python, Statistics",Data,3,Data Analyst
+BSc,"Python, ML, SQL",AI,5,ML Engineer
+MBA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BBA,"Excel, Communication",Business,4,Business Analyst
+MBA,"Excel, Communication, SQL, Power BI, Statistics",Business,4,Business Analyst
+BA,"HTML, CSS, Python",Web,1,Frontend Developer
+BA,Communication,Sales,2,Product Manager
+BCA,Communication,Sales,4,Product Manager
+BBA,"Python, Statistics",AI,0,ML Engineer
+BCA,"Excel, Communication, Power BI, Statistics",Business,4,Product Manager
+MBA,"Excel, Communication, SQL",Business,1,Business Analyst
+BCA,"SQL, Excel, Python, Statistics",Data,5,Data Analyst
+MBA,"Communication, Excel",Sales,1,Business Analyst
+MBA,"Communication, Excel",Sales,5,Product Manager
+BSc,"Communication, Excel",Sales,5,Product Manager
+MBA,"Communication, Excel",Sales,2,Product Manager
+BCA,"SQL, Excel, Python, Statistics",Data,4,Data Analyst
+BBA,"SQL, Excel, Python",Data,0,Data Analyst
+BCA,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+BSc,Communication,Sales,3,Product Manager
+BA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BA,"SQL, Excel, Communication",Data,0,Data Analyst
+MBA,"SQL, Excel, Python, Communication",Data,2,Data Analyst
+BCA,Communication,Teaching,5,Product Manager
+BCom,Communication,Sales,2,Product Manager
+MBA,"SQL, Excel, Statistics, Communication",Data,0,Data Analyst
+BCom,"Communication, Excel",Sales,0,Business Analyst
+BCom,"Python, Statistics, SQL, Communication",AI,3,ML Engineer
+BBA,"SQL, Excel, Python, Power BI",Data,0,Data Analyst
+BCom,"Excel, Communication, SQL",Business,5,Business Analyst
+BCA,"HTML, CSS",Web,5,Frontend Developer
+MBA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BCom,"Python, ML, Statistics, Communication",AI,3,ML Engineer
+BCom,"Communication, Excel, Statistics",Teaching,3,Product Manager
+BCA,Communication,Sales,0,Business Analyst
+BBA,"SQL, Excel, Python, Statistics",Data,1,Data Analyst
+BCom,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+BA,"Excel, Communication, SQL, Statistics",Business,3,Product Manager
+BSc,Communication,Sales,0,Business Analyst
+BSc,"Python, ML, Statistics, SQL",AI,1,ML Engineer
+BCom,"HTML, CSS",Web,0,Frontend Developer
+BBA,"Communication, Excel",Sales,0,Business Analyst
+MBA,Communication,Sales,0,Business Analyst
+BCom,"HTML, CSS, JavaScript, Communication",Web,4,Frontend Developer
+BCA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BA,"SQL, Excel, Python, Communication",Data,0,Data Analyst
+BCA,"Excel, Communication, Statistics",Business,4,Product Manager
+BA,"SQL, Excel, Python, Power BI",Data,3,Data Analyst
+BCA,"HTML, CSS",Web,1,Frontend Developer
+BCA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BCom,"Excel, Communication, SQL",Business,1,Business Analyst
+BSc,"HTML, CSS, Communication",Web,5,Frontend Developer
+BCom,"Python, ML, Statistics, SQL, Communication",AI,1,ML Engineer
+BBA,"Communication, Excel",Sales,5,Product Manager
+BSc,Communication,Teaching,1,Business Analyst
+BCA,"Communication, Excel",Sales,1,Business Analyst
+BA,Communication,Sales,1,Business Analyst
+MBA,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+BSc,"HTML, CSS, JavaScript, Communication",Web,3,Frontend Developer
+BSc,Communication,Teaching,0,Business Analyst
+BBA,"Excel, Communication, Power BI, Statistics",Business,2,Business Analyst
+BCA,"Communication, Excel",Sales,4,Product Manager
+MBA,"JavaScript, Python",Web,2,Backend Developer
+BSc,"SQL, Excel, Statistics",Data,2,Data Analyst
+BSc,"Python, ML",AI,5,ML Engineer
+BSc,"SQL, Excel, Python",Data,0,Data Analyst
+MBA,Communication,Teaching,5,Product Manager
+BBA,"Communication, Excel",Sales,0,Business Analyst
+BCom,"Communication, Excel",Sales,0,Business Analyst
+BCom,"Python, Communication",AI,1,QA Tester
+BCA,"Excel, Communication",Business,3,Product Manager
+BSc,"HTML, CSS, JavaScript, Communication",Web,1,Frontend Developer
+BCom,"SQL, Excel, Python, Statistics, Power BI, Communication",Data,3,Data Analyst
+MBA,"Communication, Excel, Statistics",Teaching,5,Product Manager
+BA,"Communication, Excel",Sales,3,Product Manager
+BCA,"Python, SQL, Communication",AI,5,ML Engineer
+BSc,"Excel, Communication, SQL, Power BI, Statistics",Business,2,Product Manager
+BSc,"Excel, Communication, SQL, Power BI, Statistics",Business,2,Product Manager
+BBA,"Python, ML, Statistics, SQL",AI,3,ML Engineer
+BBA,"Python, ML, Statistics, SQL, Communication",AI,3,ML Engineer
+BA,"SQL, Excel, Communication",Data,5,Data Analyst
+MBA,"Python, ML, Communication",AI,1,QA Tester
+BBA,"Python, ML, Statistics, SQL",AI,5,ML Engineer
+BSc,Communication,Sales,1,Business Analyst
+BCA,"Python, ML, Statistics, Communication",AI,2,ML Engineer
+BSc,Communication,Teaching,0,Business Analyst
+MBA,"Python, ML, Communication",AI,3,ML Engineer
+BA,"Communication, Excel, Statistics",Teaching,1,Business Analyst
+MBA,"HTML, CSS, Communication",Web,5,Frontend Developer
+BCA,"Python, ML, Statistics, SQL, Communication",AI,2,ML Engineer
+BCom,"HTML, CSS, JavaScript, Python, Communication",Web,1,Frontend Developer
+BA,"Communication, Excel",Sales,5,Product Manager
+BSc,"HTML, CSS, Python",Web,3,Frontend Developer
+BCom,"HTML, CSS, Communication",Web,3,Frontend Developer
+BCA,"HTML, CSS, JavaScript, Python, Communication",Web,4,Frontend Developer
+BCA,"Communication, Excel, Statistics",Teaching,0,Business Analyst
+BCA,"Python, ML, Statistics, Communication",AI,4,ML Engineer
+BA,"Python, ML, Statistics, Communication",AI,2,ML Engineer
+BA,"Excel, Communication, SQL, Power BI",Business,1,Product Manager

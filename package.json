@@ -1,0 +1,23 @@
+{
+  "name": "mr-khan-project",
+  "version": "1.0.0",
+  "description": "AI-Powered Career & Skills Advisor",
+  "private": true,
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd ml && python -m uvicorn api:app --reload",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "echo 'Backend requires no build step'",
+    "start": "node -e \"console.log('Use deploy.bat or deploy.sh to start the project')\"",
+    "deploy:check": "npm run build:frontend"
+  },
+  "keywords": [
+    "career",
+    "ai",
+    "ml",
+    "skills",
+    "advisor"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
