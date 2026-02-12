@@ -3,6 +3,6 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "env": {
-    "VITE_API_URL": "https://1e4b4c48-3261-4462-ab28-b7768863179c.railway.app"
+    "VITE_API_URL": "https://mr-khan-project.onrender.com"
   }
 }
