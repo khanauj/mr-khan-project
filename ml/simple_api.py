@@ -19,11 +19,12 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "*",  # Allow all origins for development
+        "https://aujkhanbhaiyo.vercel.app",  # Your specific Vercel frontend
         "https://*.vercel.app",  # Allow all Vercel deployments
         "https://*.netlify.app",  # Allow all Netlify deployments
         "http://localhost:3000",  # Local development
         "http://localhost:5173",  # Vite default port
+        "*"  # Fallback for development
     ],
     allow_credentials=False,
     allow_methods=["*"],
