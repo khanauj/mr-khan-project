@@ -67,7 +67,6 @@ const CareerSwitch = () => {
       briefcase: Briefcase,
       users: Users,
       'map-pin': MapPin,
-      'mapPin': MapPin,
       mapPin: MapPin,
     };
     const IconComponent = icons[iconName?.toLowerCase()] || Target;
