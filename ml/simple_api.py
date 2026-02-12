@@ -57,6 +57,22 @@ async def root():
         }
     }
 
+@app.get("/api/data")
+async def get_api_data():
+    """Get API data endpoint."""
+    return {
+        "message": "API data endpoint working",
+        "status": "success",
+        "data": {
+            "version": "1.0.0",
+            "endpoints": [
+                "/predict-career",
+                "/health",
+                "/api/data"
+            ]
+        }
+    }
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""

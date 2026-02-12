@@ -127,6 +127,19 @@ export const searchRoadmap = async (searchData) => {
 };
 
 /**
+ * Get API data
+ * @returns {Promise} API response with data
+ */
+export const getApiData = async () => {
+  try {
+    const response = await api.get('/api/data');
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};
+
+/**
  * Check API health status
  * @returns {Promise} API health response
  */
