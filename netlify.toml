@@ -5,6 +5,7 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  VITE_API_URL = "https://1e4b4c48-3261-4462-ab28-b7768863179c.railway.app"
 
 [[redirects]]
   from = "/*"

@@ -2,5 +2,7 @@
   "buildCommand": "npm install && npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
-  "installCommand": "npm install"
+  "env": {
+    "VITE_API_URL": "https://1e4b4c48-3261-4462-ab28-b7768863179c.railway.app"
+  }
 }
