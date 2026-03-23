@@ -40,6 +40,7 @@ const Interview = () => {
   const synthRef = useRef(window.speechSynthesis);
   const recognitionRef = useRef(null);
   const sttFallbackTextRef = useRef('');
+  const mediaRecorderRef = useRef(null); // reused to hold mic stream
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -144,32 +145,53 @@ const Interview = () => {
 
   const startRecording = async () => {
     try {
-      // Use Web Speech API for live transcription (works on all modern browsers over HTTPS)
+      // Request mic permission first (needed for Web Speech API)
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
       const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (SpeechRecognitionAPI) {
-        sttFallbackTextRef.current = '';
-        const recognition = new SpeechRecognitionAPI();
-        recognition.lang = 'en-US';
-        recognition.continuous = true;
-        recognition.interimResults = false;
-        recognition.onresult = (event) => {
-          let transcript = '';
-          for (let i = 0; i < event.results.length; i++) {
-            if (event.results[i].isFinal) {
-              transcript += event.results[i][0].transcript + ' ';
-            }
-          }
-          sttFallbackTextRef.current = transcript.trim();
-        };
-        recognition.onerror = (e) => {
-          console.warn('Speech recognition error:', e.error);
-        };
-        recognitionRef.current = recognition;
-        recognition.start();
-        setIsRecording(true);
-      } else {
+      if (!SpeechRecognitionAPI) {
+        stream.getTracks().forEach((t) => t.stop());
         setMessages((prev) => [...prev, { type: 'error', text: 'Speech recognition is not supported in this browser. Please use Chrome or Edge, or type your answer.' }]);
+        return;
       }
+
+      sttFallbackTextRef.current = '';
+      const recognition = new SpeechRecognitionAPI();
+      recognition.lang = 'en-US';
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.onresult = (event) => {
+        let finalTranscript = '';
+        let interimTranscript = '';
+        for (let i = 0; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript + ' ';
+          } else {
+            interimTranscript += event.results[i][0].transcript;
+          }
+        }
+        // Store both final and interim — use whatever we have when stopped
+        sttFallbackTextRef.current = (finalTranscript + interimTranscript).trim();
+      };
+      recognition.onerror = (e) => {
+        console.warn('Speech recognition error:', e.error);
+        if (e.error === 'not-allowed') {
+          setMessages((prev) => [...prev, { type: 'error', text: 'Microphone permission denied. Please allow microphone access and try again.' }]);
+          setIsRecording(false);
+        }
+      };
+      // Auto-restart if recognition ends prematurely while still recording
+      recognition.onend = () => {
+        if (isRecording && recognitionRef.current === recognition) {
+          try { recognition.start(); } catch { /* already stopped */ }
+        }
+      };
+      recognitionRef.current = recognition;
+      recognition.start();
+      setIsRecording(true);
+
+      // Keep stream ref so we can stop it later
+      mediaRecorderRef.current = stream;
     } catch {
       setMessages((prev) => [...prev, { type: 'error', text: 'Microphone access denied.' }]);
     }
@@ -180,9 +202,17 @@ const Interview = () => {
     setIsRecording(false);
 
     const recognition = recognitionRef.current;
+    recognitionRef.current = null;
+
+    // Stop the mic stream
+    const stream = mediaRecorderRef.current;
+    if (stream && stream.getTracks) {
+      stream.getTracks().forEach((t) => t.stop());
+    }
+
     if (!recognition) return;
 
-    // Wait for recognition to finish and deliver final results
+    // Remove auto-restart handler and wait for final results
     recognition.onend = () => {
       const transcript = sttFallbackTextRef.current;
       if (transcript) {
