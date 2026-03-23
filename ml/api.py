@@ -3,24 +3,27 @@ FastAPI ML Service
 REST API endpoints for career prediction, skill gap analysis, and resume matching.
 """
 
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from fastapi import FastAPI, HTTPException  # type: ignore
+from fastapi.middleware.cors import CORSMiddleware  # type: ignore
+from pydantic import BaseModel  # type: ignore
 from typing import List, Optional
-import numpy as np
-import pandas as pd
-import joblib
+import numpy as np  # type: ignore
+import pandas as pd  # type: ignore
+import joblib  # type: ignore
 import os
-from sklearn.metrics.pairwise import cosine_similarity
+from dotenv import load_dotenv  # type: ignore
+
+load_dotenv()
+from sklearn.metrics.pairwise import cosine_similarity  # type: ignore
 import warnings
 warnings.filterwarnings('ignore')
 
 # OpenRouter API
-import httpx
+import httpx  # type: ignore
 import json
 
 # Import preprocessing utilities
-from preprocessing import FeaturePreprocessor
+from preprocessing import FeaturePreprocessor  # type: ignore
 
 app = FastAPI(
     title="AI-Powered Career & Skills Advisor API",
@@ -123,14 +126,63 @@ class RoadmapSearchResponse(BaseModel):
     timeline: str
 
 
+# Interview models
+class InterviewStartRequest(BaseModel):
+    role: str
+    level: str  # Fresher / Intermediate / Advanced
+    tech_stack: str
+
+
+class InterviewAnswerRequest(BaseModel):
+    answer: str
+    session_id: str
+
+
+class InterviewSession(BaseModel):
+    session_id: str
+    role: str
+    level: str
+    tech_stack: str
+    question_count: int = 0
+    conversation: list = []
+    scores: list = []
+
+
+# Interview sessions storage (in-memory)
+from typing import Dict, Any, List
+interview_sessions: Dict[str, Any] = {}
+
+# Gemini API Configuration for Interview
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
+GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
+
+# NVIDIA NIM API Configuration for STT/TTS
+NVIDIA_STT_API_KEY = os.getenv('NVIDIA_STT_API_KEY', '')
+NVIDIA_TTS_API_KEY = os.getenv('NVIDIA_TTS_API_KEY', '')
+NVIDIA_STT_URL = "https://integrate.api.nvidia.com/v1/audio/transcriptions"
+NVIDIA_TTS_URL = "https://integrate.api.nvidia.com/v1/audio/speech"
+
+if GEMINI_API_KEY:
+    print(f"[OK] Gemini API configured for Interview feature")
+else:
+    print("[WARNING] GEMINI_API_KEY not set. Interview feature will be unavailable.")
+
+if NVIDIA_STT_API_KEY:
+    print(f"[OK] NVIDIA STT API configured")
+if NVIDIA_TTS_API_KEY:
+    print(f"[OK] NVIDIA TTS API configured")
+
 # OpenRouter API Configuration
 OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_MODEL = "openai/gpt-4o-mini"  # Using GPT-4o-mini via OpenRouter
 
-if OPENROUTER_API_KEY:
+if OPENROUTER_API_KEY and isinstance(OPENROUTER_API_KEY, str):
     print(f"[OK] OpenRouter API configured")
-    print(f"[OK] API Key configured: {OPENROUTER_API_KEY[:20]}...{OPENROUTER_API_KEY[-10:]}")
+    # Use slicing only after type asserting it's a string, or avoid slicing to bypass Pyright stub bug
+    key_start = OPENROUTER_API_KEY[0:20]  # type: ignore
+    key_end = OPENROUTER_API_KEY[len(OPENROUTER_API_KEY)-10:len(OPENROUTER_API_KEY)]  # type: ignore
+    print(f"[OK] API Key configured: {key_start}...{key_end}")
     print(f"[OK] Using model: {OPENROUTER_MODEL}")
 else:
     print("[WARNING] OpenRouter API key not available.")
@@ -290,8 +342,8 @@ async def predict_career(request: CareerPredictionRequest):
             confidence = 0.85
         
         return CareerPredictionResponse(
-            predicted_career=predicted_role,
-            confidence=confidence
+            predicted_career=predicted_role,  # type: ignore
+            confidence=confidence  # type: ignore
         )
         
     except Exception as e:
@@ -349,8 +401,8 @@ async def analyze_skill_gap(request: SkillGapRequest):
             readiness_level = "Beginner"
         
         return SkillGapResponse(
-            missing_skills=missing_skills,
-            readiness_level=readiness_level
+            missing_skills=missing_skills,  # type: ignore
+            readiness_level=readiness_level  # type: ignore
         )
         
     except Exception as e:
@@ -400,15 +452,16 @@ async def match_resume(request: ResumeMatchRequest):
         for term in top_job_terms:
             if term in feature_names:
                 term_idx = list(feature_names).index(term)
-                if resume_tfidf[term_idx] == 0:  # Term not in resume
+                if resume_tfidf[term_idx] == 0:  # Term not in resume  # type: ignore
                     missing_keywords.append(term)
         
         # Limit missing keywords to top 10
-        missing_keywords = missing_keywords[:10]
+        if len(missing_keywords) > 10:
+            missing_keywords = [missing_keywords[i] for i in range(10)]
         
         return ResumeMatchResponse(
-            match_percentage=round(match_percentage, 2),
-            missing_keywords=missing_keywords
+            match_percentage=round(match_percentage, 2),  # type: ignore
+            missing_keywords=missing_keywords  # type: ignore
         )
         
     except Exception as e:
@@ -450,8 +503,12 @@ Be helpful, professional, and concise. If the user asks about specific features,
         ]
         
         # Add conversation history (last 10 messages for context)
-        if request.conversation_history:
-            for msg in request.conversation_history[-10:]:
+        hist = request.conversation_history
+        if isinstance(hist, list) and len(hist) > 0:
+            hist_len = len(hist)
+            start_idx = max(0, hist_len - 10)
+            for i in range(start_idx, hist_len):
+                msg = hist[i]
                 role = msg.get('role', 'user')
                 content = msg.get('content', '')
                 if role in ['user', 'assistant']:
@@ -492,7 +549,7 @@ Be helpful, professional, and concise. If the user asks about specific features,
                         status_code=500,
                         detail="Empty response from AI model"
                     )
-                return ChatResponse(reply=reply)
+                return ChatResponse(reply=reply)  # type: ignore
             elif response.status_code == 429:
                 raise HTTPException(
                     status_code=429,
@@ -558,8 +615,10 @@ User Query: {request.query}
             user_query += f"Current Role: {request.current_role}\n"
         if request.target_role:
             user_query += f"Target Role: {request.target_role}\n"
-        if request.current_skills:
-            user_query += f"Current Skills: {', '.join(request.current_skills)}\n"
+        if request.current_skills is not None:
+            skills_list = request.current_skills
+            if isinstance(skills_list, list) and len(skills_list) > 0:
+                user_query += f"Current Skills: {', '.join(skills_list)}\n"
         
         user_query += """
 Please provide a structured roadmap with:
@@ -645,13 +704,13 @@ Return ONLY the JSON, no additional text or markdown formatting."""
                 steps = roadmap_data.get('steps', [])
                 
                 return RoadmapSearchResponse(
-                    roadmap={
+                    roadmap={  # type: ignore
                         "title": roadmap_data.get('title', 'Career Roadmap'),
                         "description": roadmap_data.get('description', ''),
                         "timeline": roadmap_data.get('timeline', '')
                     },
-                    steps=steps,
-                    timeline=roadmap_data.get('timeline', '3-6 months')
+                    steps=steps,  # type: ignore
+                    timeline=roadmap_data.get('timeline', '3-6 months')  # type: ignore
                 )
             elif response.status_code == 429:
                 raise HTTPException(
@@ -690,6 +749,306 @@ Return ONLY the JSON, no additional text or markdown formatting."""
         )
 
 
+# ========================
+# INTERVIEW ENDPOINTS
+# ========================
+
+import uuid
+from fastapi import UploadFile, File, Form  # type: ignore
+from fastapi.responses import StreamingResponse  # type: ignore
+import io
+import base64
+
+
+def build_interview_system_prompt(role: str, level: str, tech_stack: str) -> str:
+    return f"""You are Skillence AI Interviewer, a highly professional and realistic job interviewer.
+
+INTERVIEW CONTEXT:
+Role: {role}
+Level: {level} (Fresher / Intermediate / Advanced)
+Tech Stack: {tech_stack}
+
+BEHAVIOR RULES:
+- Ask ONLY one question at a time
+- Keep responses concise and voice-friendly (max 2-3 sentences for questions)
+- Mix HR + Technical questions
+- Adjust difficulty based on candidate performance
+- Do NOT provide answers to questions
+- Maintain a professional, slightly strict tone
+- Simulate real interview pressure (but not rude)
+
+EVALUATION CRITERIA - Score each from 0-10:
+- Technical Accuracy
+- Communication Clarity
+- Confidence & Structure
+- Relevance to Question
+
+Be slightly strict like a real interviewer.
+
+ADAPTIVE INTELLIGENCE:
+- If answer is weak, ask easier or foundational question
+- If answer is strong, ask deeper or scenario-based question
+- If answer is vague, ask follow-up for clarification
+- Track performance across responses
+
+VOICE OPTIMIZATION:
+- Keep questions natural and conversational
+- Avoid long paragraphs
+- Make output suitable for text-to-speech
+
+IMPORTANT RESTRICTIONS:
+- ALWAYS return valid JSON (no extra text)
+- NEVER break JSON format
+- NEVER include explanations outside JSON
+- NEVER ask multiple questions at once
+
+RESPONSE FORMAT:
+For ongoing interview (when asking questions):
+{{
+  "type": "question",
+  "question": "Next interview question (short and clear)",
+  "evaluation": {{
+    "technical_score": number,
+    "communication_score": number,
+    "confidence_score": number,
+    "overall_score": number,
+    "feedback": "Short constructive feedback (2-3 lines)",
+    "improvements": ["point 1", "point 2", "point 3"]
+  }}
+}}
+
+For the FIRST question only, set all evaluation scores to 0 and feedback to empty since there's no answer to evaluate yet.
+
+For final response (after 5-7 questions have been asked):
+{{
+  "type": "final_report",
+  "final_score": number,
+  "strengths": ["point", "point"],
+  "weaknesses": ["point", "point"],
+  "hire_recommendation": "Yes or No",
+  "summary": "Detailed overall performance summary (4-5 lines)"
+}}
+"""
+
+
+async def call_interview_llm(messages: List[Dict[str, str]]) -> str:
+    """Call LLM for interview. Uses OpenRouter (primary) or Gemini (fallback)."""
+    # Convert messages: first message content becomes system prompt
+    openrouter_messages = []
+    for i, msg in enumerate(messages):
+        if i == 0 and msg["role"] == "user":
+            # First user message contains the system prompt + instruction
+            openrouter_messages.append({"role": "system", "content": msg["content"]})
+        else:
+            role = msg["role"] if msg["role"] in ("user", "assistant") else "user"
+            openrouter_messages.append({"role": role, "content": msg["content"]})
+
+    # Try OpenRouter first
+    if OPENROUTER_API_KEY:
+        try:
+            async with httpx.AsyncClient(timeout=60.0) as client:
+                response = await client.post(
+                    OPENROUTER_API_URL,
+                    headers={
+                        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+                        "Content-Type": "application/json",
+                        "HTTP-Referer": "https://skillence.app",
+                        "X-Title": "Skillence AI Interviewer"
+                    },
+                    json={
+                        "model": OPENROUTER_MODEL,
+                        "messages": openrouter_messages,
+                        "temperature": 0.7,
+                        "max_tokens": 1000,
+                        "response_format": {"type": "json_object"}
+                    }
+                )
+                if response.status_code == 200:
+                    data = response.json()
+                    reply = data.get("choices", [{}])[0].get("message", {}).get("content", "").strip()
+                    if reply:
+                        return reply
+                print(f"[WARNING] OpenRouter failed ({response.status_code}), falling back to Gemini")
+        except Exception as e:
+            print(f"[WARNING] OpenRouter error: {e}, falling back to Gemini")
+
+    # Fallback to Gemini
+    if GEMINI_API_KEY:
+        contents = []
+        for msg in messages:
+            role = "user" if msg["role"] == "user" else "model"
+            contents.append({"role": role, "parts": [{"text": msg["content"]}]})
+
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            response = await client.post(
+                f"{GEMINI_API_URL}?key={GEMINI_API_KEY}",
+                json={
+                    "contents": contents,
+                    "generationConfig": {
+                        "temperature": 0.7,
+                        "maxOutputTokens": 1000,
+                        "responseMimeType": "application/json"
+                    }
+                }
+            )
+            if response.status_code == 200:
+                data = response.json()
+                return data["candidates"][0]["content"]["parts"][0]["text"]
+            raise Exception(f"Gemini API error {response.status_code}: {response.text}")
+
+    raise Exception("No LLM API key configured. Set OPENROUTER_API_KEY or GEMINI_API_KEY.")
+
+
+@app.post("/api/interview/start")
+async def start_interview(request: InterviewStartRequest):
+    """Start a new interview session."""
+    if not OPENROUTER_API_KEY and not GEMINI_API_KEY:
+        raise HTTPException(status_code=503, detail="No LLM API key configured for interview feature.")
+
+    session_id = str(uuid.uuid4())
+    system_prompt = build_interview_system_prompt(request.role, request.level, request.tech_stack)
+
+    # Get first question from Gemini
+    messages = [
+        {"role": "user", "content": system_prompt + "\n\nStart the interview now. Greet briefly and ask the first question. Return JSON only."}
+    ]
+
+    try:
+        reply = await call_interview_llm(messages)
+        result = json.loads(reply)
+
+        # Store session
+        interview_sessions[session_id] = {
+            "role": request.role,
+            "level": request.level,
+            "tech_stack": request.tech_stack,
+            "question_count": 1,
+            "system_prompt": system_prompt,
+            "conversation": [
+                {"role": "user", "content": messages[0]["content"]},
+                {"role": "assistant", "content": reply}
+            ]
+        }
+
+        return {"session_id": session_id, "response": result}
+
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Failed to parse interview response")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Interview start error: {str(e)}")
+
+
+@app.post("/api/interview/answer")
+async def submit_interview_answer(request: InterviewAnswerRequest):
+    """Submit an answer and get the next question or final report."""
+    if not OPENROUTER_API_KEY and not GEMINI_API_KEY:
+        raise HTTPException(status_code=503, detail="No LLM API key configured.")
+
+    session = interview_sessions.get(request.session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail="Interview session not found.")
+
+    session["question_count"] += 1
+    is_final = session["question_count"] > 6  # End after 6 questions
+
+    user_msg = f"Candidate's answer: {request.answer}"
+    if is_final:
+        user_msg += "\n\nThis was the last question. Generate the final_report JSON now."
+    else:
+        user_msg += "\n\nEvaluate this answer and ask the next question. Return JSON only."
+
+    session["conversation"].append({"role": "user", "content": user_msg})
+
+    try:
+        reply = await call_interview_llm(session["conversation"])
+        session["conversation"].append({"role": "assistant", "content": reply})
+        result = json.loads(reply)
+
+        if result.get("type") == "final_report":
+            # Clean up session after final report
+            interview_sessions.pop(request.session_id, None)
+
+        return {"response": result, "question_number": session.get("question_count", 0)}
+
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Failed to parse interview response")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Interview error: {str(e)}")
+
+
+@app.post("/api/interview/stt")
+async def speech_to_text(audio: UploadFile = File(...)):
+    """Convert speech to text using NVIDIA NIM STT API."""
+    if not NVIDIA_STT_API_KEY:
+        raise HTTPException(status_code=503, detail="NVIDIA STT API key not configured.")
+
+    try:
+        audio_bytes = await audio.read()
+
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            response = await client.post(
+                NVIDIA_STT_URL,
+                headers={
+                    "Authorization": f"Bearer {NVIDIA_STT_API_KEY}",
+                },
+                files={
+                    "file": (audio.filename or "audio.wav", audio_bytes, audio.content_type or "audio/wav"),
+                },
+                data={
+                    "model": "nvidia/parakeet-ctc-1.1b-asr",
+                    "language": "en",
+                }
+            )
+
+            if response.status_code == 200:
+                data = response.json()
+                return {"text": data.get("text", "")}
+            else:
+                raise HTTPException(status_code=500, detail=f"NVIDIA STT error: {response.text}")
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"STT error: {str(e)}")
+
+
+@app.post("/api/interview/tts")
+async def text_to_speech(text: str = Form(...)):
+    """Convert text to speech using NVIDIA NIM TTS API."""
+    if not NVIDIA_TTS_API_KEY:
+        raise HTTPException(status_code=503, detail="NVIDIA TTS API key not configured.")
+
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            response = await client.post(
+                NVIDIA_TTS_URL,
+                headers={
+                    "Authorization": f"Bearer {NVIDIA_TTS_API_KEY}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": "nvidia/fastpitch-hifigan-tts",
+                    "input": text,
+                    "voice": "English-US.Female-1",
+                    "response_format": "mp3",
+                }
+            )
+
+            if response.status_code == 200:
+                return StreamingResponse(
+                    io.BytesIO(response.content),
+                    media_type="audio/mpeg",
+                    headers={"Content-Disposition": "inline; filename=speech.mp3"}
+                )
+            else:
+                raise HTTPException(status_code=500, detail=f"NVIDIA TTS error: {response.text}")
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"TTS error: {str(e)}")
+
+
 if __name__ == "__main__":
-    import uvicorn
+    import uvicorn  # type: ignore
     uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -21,6 +21,7 @@ const Navbar = () => {
     { path: '/resume-match', label: 'Resume Match' },
     { path: '/career-switch', label: 'Career Switch' },
     { path: '/chatbot', label: 'AI Chat' },
+    { path: '/interview', label: 'Interview' },
     { path: '/about', label: 'About' },
   ];
 

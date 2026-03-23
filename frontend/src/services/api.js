@@ -140,6 +140,64 @@ export const getApiData = async () => {
 };
 
 /**
+ * Start a new AI interview session
+ */
+export const startInterview = async (data) => {
+  try {
+    const response = await api.post('/api/interview/start', data);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};
+
+/**
+ * Submit an interview answer
+ */
+export const submitInterviewAnswer = async (data) => {
+  try {
+    const response = await api.post('/api/interview/answer', data);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};
+
+/**
+ * Convert speech to text via NVIDIA STT
+ */
+export const speechToText = async (audioBlob) => {
+  try {
+    const formData = new FormData();
+    formData.append('audio', audioBlob, 'recording.wav');
+    const response = await api.post('/api/interview/stt', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      timeout: 30000,
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};
+
+/**
+ * Convert text to speech via NVIDIA TTS
+ */
+export const textToSpeech = async (text) => {
+  try {
+    const formData = new FormData();
+    formData.append('text', text);
+    const response = await api.post('/api/interview/tts', formData, {
+      responseType: 'blob',
+      timeout: 30000,
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};
+
+/**
  * Check API health status
  * @returns {Promise} API health response
  */

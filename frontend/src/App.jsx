@@ -17,6 +17,7 @@ import SkillGap from './pages/SkillGap';
 import ResumeMatch from './pages/ResumeMatch';
 import CareerSwitch from './pages/CareerSwitch';
 import ChatbotPage from './pages/Chatbot';
+import Interview from './pages/Interview';
 import About from './pages/About';
 
 function AppContent() {
@@ -36,6 +37,7 @@ function AppContent() {
           <Route path="/resume-match" element={<ResumeMatch />} />
           <Route path="/career-switch" element={<CareerSwitch />} />
           <Route path="/chatbot" element={<ChatbotPage />} />
+          <Route path="/interview" element={<Interview />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </AnimatePresence>

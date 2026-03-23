@@ -12,6 +12,7 @@ ml/.venv/
 ml/venv/
 ml/*.log
 ml/.env
+ml/start_backend.bat
 
 # IDE
 .vscode/
