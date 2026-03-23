@@ -144,6 +144,18 @@ const Interview = () => {
     }
   };
 
+  const waitForRecognitionEnd = () => {
+    return new Promise((resolve) => {
+      const recognition = recognitionRef.current;
+      if (!recognition) { resolve(); return; }
+      recognition.onend = () => resolve();
+      recognition.onerror = () => resolve();
+      recognition.stop();
+      // Safety timeout in case onend never fires
+      setTimeout(resolve, 2000);
+    });
+  };
+
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -179,25 +191,27 @@ const Interview = () => {
 
       mediaRecorder.onstop = async () => {
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
-        stream.getTracks().forEach((t) => t.stop());
-
-        // Stop Web Speech API recognition
-        if (recognitionRef.current) {
-          recognitionRef.current.stop();
-        }
 
         // Try NVIDIA STT first
+        let nvidiaSucceeded = false;
         try {
           const result = await speechToText(audioBlob);
           if (result.text) {
+            if (recognitionRef.current) recognitionRef.current.abort();
+            stream.getTracks().forEach((t) => t.stop());
             handleAnswer(result.text);
-            return;
+            nvidiaSucceeded = true;
           }
         } catch {
           // NVIDIA STT failed, fall through to browser fallback
         }
 
-        // Use Web Speech API fallback transcript
+        if (nvidiaSucceeded) return;
+
+        // Wait for Web Speech API to finish delivering final results
+        await waitForRecognitionEnd();
+        stream.getTracks().forEach((t) => t.stop());
+
         if (sttFallbackTextRef.current) {
           handleAnswer(sttFallbackTextRef.current);
         } else {
