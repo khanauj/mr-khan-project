@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, MicOff, Send, Play, Square, RotateCcw, User, Bot, Volume2, VolumeX, Loader2 } from 'lucide-react';
-import { startInterview, submitInterviewAnswer, speechToText, textToSpeech } from '../services/api';
+import { startInterview, submitInterviewAnswer, textToSpeech } from '../services/api';
 
 const ROLES = [
   'Frontend Developer', 'Backend Developer', 'Full Stack Developer',
@@ -36,8 +36,6 @@ const Interview = () => {
   const [useVoice, setUseVoice] = useState(true);
 
   // Refs
-  const mediaRecorderRef = useRef(null);
-  const audioChunksRef = useRef([]);
   const chatEndRef = useRef(null);
   const synthRef = useRef(window.speechSynthesis);
   const recognitionRef = useRef(null);
@@ -144,29 +142,12 @@ const Interview = () => {
     }
   };
 
-  const waitForRecognitionEnd = () => {
-    return new Promise((resolve) => {
-      const recognition = recognitionRef.current;
-      if (!recognition) { resolve(); return; }
-      recognition.onend = () => resolve();
-      recognition.onerror = () => resolve();
-      recognition.stop();
-      // Safety timeout in case onend never fires
-      setTimeout(resolve, 2000);
-    });
-  };
-
   const startRecording = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mediaRecorder = new MediaRecorder(stream);
-      mediaRecorderRef.current = mediaRecorder;
-      audioChunksRef.current = [];
-      sttFallbackTextRef.current = '';
-
-      // Start Web Speech API live recognition as fallback
+      // Use Web Speech API for live transcription (works on all modern browsers over HTTPS)
       const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (SpeechRecognitionAPI) {
+        sttFallbackTextRef.current = '';
         const recognition = new SpeechRecognitionAPI();
         recognition.lang = 'en-US';
         recognition.continuous = true;
@@ -180,57 +161,37 @@ const Interview = () => {
           }
           sttFallbackTextRef.current = transcript.trim();
         };
-        recognition.onerror = () => {};
+        recognition.onerror = (e) => {
+          console.warn('Speech recognition error:', e.error);
+        };
         recognitionRef.current = recognition;
         recognition.start();
+        setIsRecording(true);
+      } else {
+        setMessages((prev) => [...prev, { type: 'error', text: 'Speech recognition is not supported in this browser. Please use Chrome or Edge, or type your answer.' }]);
       }
-
-      mediaRecorder.ondataavailable = (e) => {
-        if (e.data.size > 0) audioChunksRef.current.push(e.data);
-      };
-
-      mediaRecorder.onstop = async () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
-
-        // Try NVIDIA STT first
-        let nvidiaSucceeded = false;
-        try {
-          const result = await speechToText(audioBlob);
-          if (result.text) {
-            if (recognitionRef.current) recognitionRef.current.abort();
-            stream.getTracks().forEach((t) => t.stop());
-            handleAnswer(result.text);
-            nvidiaSucceeded = true;
-          }
-        } catch {
-          // NVIDIA STT failed, fall through to browser fallback
-        }
-
-        if (nvidiaSucceeded) return;
-
-        // Wait for Web Speech API to finish delivering final results
-        await waitForRecognitionEnd();
-        stream.getTracks().forEach((t) => t.stop());
-
-        if (sttFallbackTextRef.current) {
-          handleAnswer(sttFallbackTextRef.current);
-        } else {
-          setMessages((prev) => [...prev, { type: 'error', text: 'Could not recognize speech. Please try again or type your answer.' }]);
-        }
-      };
-
-      mediaRecorder.start();
-      setIsRecording(true);
     } catch {
       setMessages((prev) => [...prev, { type: 'error', text: 'Microphone access denied.' }]);
     }
   };
 
   const stopRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
-      mediaRecorderRef.current.stop();
-      setIsRecording(false);
-    }
+    if (!isRecording) return;
+    setIsRecording(false);
+
+    const recognition = recognitionRef.current;
+    if (!recognition) return;
+
+    // Wait for recognition to finish and deliver final results
+    recognition.onend = () => {
+      const transcript = sttFallbackTextRef.current;
+      if (transcript) {
+        handleAnswer(transcript);
+      } else {
+        setMessages((prev) => [...prev, { type: 'error', text: 'Could not recognize speech. Please try again or type your answer.' }]);
+      }
+    };
+    recognition.stop();
   };
 
   // Clean up recognition on unmount
