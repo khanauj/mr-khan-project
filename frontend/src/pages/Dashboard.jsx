@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { TrendingUp, CheckCircle2, ArrowRight, Target, Sparkles } from 'lucide-react';
 import AnimatedButton from '../components/AnimatedButton';
+import JobMarketTrends from '../components/JobMarketTrends';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -210,6 +211,9 @@ const Dashboard = () => {
             <ArrowRight className="inline-block ml-2 w-5 h-5" />
           </AnimatedButton>
         </motion.div>
+
+        {/* Job Market Trends */}
+        <JobMarketTrends highlightCareer={careerName} />
       </div>
     </div>
   );

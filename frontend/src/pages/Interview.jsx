@@ -1,7 +1,28 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mic, MicOff, Send, Play, Square, RotateCcw, User, Bot, Volume2, VolumeX, Loader2 } from 'lucide-react';
+import { Mic, MicOff, Send, Play, Square, RotateCcw, User, Bot, Volume2, VolumeX, Loader2, History, Trash2, TrendingUp } from 'lucide-react';
 import { startInterview, submitInterviewAnswer, textToSpeech } from '../services/api';
+
+const HISTORY_KEY = 'interviewHistory';
+
+const saveSessionToHistory = (role, level, report) => {
+  try {
+    const prev = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+    const entry = {
+      id: Date.now(),
+      date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+      role,
+      level,
+      score: report.final_score,
+      recommendation: report.hire_recommendation,
+      strengths: report.strengths || [],
+      weaknesses: report.weaknesses || [],
+    };
+    const updated = [entry, ...prev].slice(0, 20); // keep last 20
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(updated));
+    return updated;
+  } catch { return []; }
+};
 
 const ROLES = [
   'Frontend Developer', 'Backend Developer', 'Full Stack Developer',
@@ -27,6 +48,12 @@ const Interview = () => {
   const [finalReport, setFinalReport] = useState(null);
   const [questionNumber, setQuestionNumber] = useState(0);
   const [loading, setLoading] = useState(false);
+
+  // History
+  const [history, setHistory] = useState(() => {
+    try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch { return []; }
+  });
+  const [showHistory, setShowHistory] = useState(false);
 
   // Voice state
   const [isRecording, setIsRecording] = useState(false);
@@ -125,6 +152,8 @@ const Interview = () => {
         setFinalReport(resp);
         setMessages((prev) => [...prev, { type: 'report', data: resp }]);
         speakText(resp.summary);
+        const updated = saveSessionToHistory(role, level, resp);
+        setHistory(updated);
       } else {
         if (resp.evaluation) setCurrentEvaluation(resp.evaluation);
         setCurrentQuestion(resp.question);
@@ -260,6 +289,66 @@ const Interview = () => {
     </div>
   );
 
+  const clearHistory = () => {
+    localStorage.removeItem(HISTORY_KEY);
+    setHistory([]);
+  };
+
+  // Mini SVG bar chart for scores over time (last 10, oldest→newest left→right)
+  const ScoreChart = ({ sessions }) => {
+    const pts = [...sessions].reverse().slice(-10); // oldest first, max 10
+    if (pts.length < 2) return null;
+    const W = 320, H = 80, PAD = 8;
+    const xStep = (W - PAD * 2) / (pts.length - 1);
+    const yScale = (s) => H - PAD - ((s / 10) * (H - PAD * 2));
+    const polyline = pts.map((p, i) => `${PAD + i * xStep},${yScale(p.score)}`).join(' ');
+    const avg = (pts.reduce((s, p) => s + p.score, 0) / pts.length).toFixed(1);
+    return (
+      <div className="mt-4">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-xs text-gray-400 flex items-center gap-1"><TrendingUp className="w-3 h-3" /> Score Trend (last {pts.length} sessions)</span>
+          <span className="text-xs text-cyan-400 font-semibold">Avg: {avg}/10</span>
+        </div>
+        <svg width="100%" viewBox={`0 0 ${W} ${H}`} className="overflow-visible">
+          {/* Grid lines */}
+          {[2, 4, 6, 8, 10].map(v => (
+            <line key={v} x1={PAD} y1={yScale(v)} x2={W - PAD} y2={yScale(v)}
+              stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
+          ))}
+          {/* Area fill */}
+          <polygon
+            points={`${PAD},${H - PAD} ${polyline} ${PAD + (pts.length - 1) * xStep},${H - PAD}`}
+            fill="url(#scoreGrad)" opacity="0.3"
+          />
+          <defs>
+            <linearGradient id="scoreGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#06b6d4" />
+              <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          {/* Line */}
+          <polyline points={polyline} fill="none" stroke="#06b6d4" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+          {/* Dots */}
+          {pts.map((p, i) => (
+            <g key={i}>
+              <circle cx={PAD + i * xStep} cy={yScale(p.score)} r="4"
+                fill={p.score >= 7 ? '#22c55e' : p.score >= 5 ? '#eab308' : '#ef4444'}
+                stroke="#000" strokeWidth="1.5" />
+              <text x={PAD + i * xStep} y={yScale(p.score) - 7} textAnchor="middle"
+                fontSize="9" fill="rgba(255,255,255,0.6)">{p.score}</text>
+            </g>
+          ))}
+        </svg>
+        {/* x-axis labels */}
+        <div className="flex justify-between mt-1">
+          {pts.map((p, i) => (
+            <span key={i} className="text-gray-600" style={{ fontSize: 9 }}>{p.date.split(' ').slice(0, 2).join(' ')}</span>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   // Setup Screen
   if (!started) {
     return (
@@ -370,6 +459,96 @@ const Interview = () => {
               )}
             </motion.button>
           </motion.div>
+
+          {/* Score History Panel */}
+          {history.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="glass-card p-6 mt-6"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between mb-4">
+                <button
+                  onClick={() => setShowHistory(!showHistory)}
+                  className="flex items-center gap-2 text-white font-semibold hover:text-cyan-400 transition-colors"
+                >
+                  <History className="w-5 h-5 text-cyan-400" />
+                  <span>Score History</span>
+                  <span className="text-xs text-gray-400">({history.length} sessions)</span>
+                </button>
+                <button
+                  onClick={clearHistory}
+                  className="flex items-center gap-1 text-xs text-gray-500 hover:text-red-400 transition-colors"
+                >
+                  <Trash2 className="w-3 h-3" /> Clear
+                </button>
+              </div>
+
+              {/* Best / Latest / Avg summary */}
+              <div className="grid grid-cols-3 gap-3 mb-4">
+                {[
+                  { label: 'Best',   value: Math.max(...history.map(h => h.score)),                               color: 'text-green-400' },
+                  { label: 'Latest', value: history[0]?.score,                                                   color: 'text-cyan-400' },
+                  { label: 'Avg',    value: (history.reduce((s, h) => s + h.score, 0) / history.length).toFixed(1), color: 'text-purple-400' },
+                ].map(({ label, value, color }) => (
+                  <div key={label} className="text-center p-3 bg-white/5 rounded-xl">
+                    <div className={`text-2xl font-bold ${color}`}>{value}<span className="text-sm text-gray-500">/10</span></div>
+                    <div className="text-xs text-gray-400 mt-1">{label}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Trend chart */}
+              <ScoreChart sessions={history} />
+
+              {/* Session log (toggle) */}
+              <AnimatePresence>
+                {showHistory && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-4 space-y-2 max-h-64 overflow-y-auto pr-1">
+                      {history.map((h) => (
+                        <div key={h.id} className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/5 hover:border-white/10 transition-colors">
+                          <div>
+                            <div className="text-sm text-white font-medium">{h.role}</div>
+                            <div className="text-xs text-gray-500">{h.level} · {h.date}</div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <span className={`text-xs px-2 py-0.5 rounded-full border font-medium ${
+                              h.recommendation === 'Yes'
+                                ? 'bg-green-500/10 border-green-500/30 text-green-400'
+                                : 'bg-red-500/10 border-red-500/30 text-red-400'
+                            }`}>
+                              {h.recommendation === 'Yes' ? 'Hired' : 'Not hired'}
+                            </span>
+                            <span className={`text-lg font-bold ${
+                              h.score >= 7 ? 'text-green-400' : h.score >= 5 ? 'text-yellow-400' : 'text-red-400'
+                            }`}>
+                              {h.score}<span className="text-xs text-gray-500">/10</span>
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <button
+                onClick={() => setShowHistory(!showHistory)}
+                className="mt-3 w-full text-xs text-gray-500 hover:text-gray-300 transition-colors text-center"
+              >
+                {showHistory ? '▲ Hide session log' : '▼ Show session log'}
+              </button>
+            </motion.div>
+          )}
         </div>
       </div>
     );

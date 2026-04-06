@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingChatbot from './components/Chatbot';
+import { AuthProvider } from './context/AuthContext';
 
 // Pages
 import Home from './pages/Home';
@@ -19,6 +20,7 @@ import CareerSwitch from './pages/CareerSwitch';
 import ChatbotPage from './pages/Chatbot';
 import Interview from './pages/Interview';
 import About from './pages/About';
+import Auth from './pages/Auth';
 
 function AppContent() {
   const location = useLocation();
@@ -39,6 +41,7 @@ function AppContent() {
           <Route path="/chatbot" element={<ChatbotPage />} />
           <Route path="/interview" element={<Interview />} />
           <Route path="/about" element={<About />} />
+          <Route path="/auth" element={<Auth />} />
         </Routes>
       </AnimatePresence>
 
@@ -53,7 +56,9 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AppContent />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </Router>
   );
 }

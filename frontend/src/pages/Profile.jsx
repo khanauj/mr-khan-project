@@ -6,9 +6,18 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { User, GraduationCap, Heart, Briefcase } from 'lucide-react';
+import { User, GraduationCap, Heart, Briefcase, Save } from 'lucide-react';
 import AnimatedButton from '../components/AnimatedButton';
 import { predictCareer } from '../services/api';
+import { useAuth } from '../context/AuthContext';
+
+const loadSavedProfile = () => {
+  try {
+    const saved = localStorage.getItem('userProfile');
+    if (saved) return JSON.parse(saved);
+  } catch { /* ignore */ }
+  return { education: '', skills: [], interest: '', experience_years: 0 };
+};
 
 const educations = ['BCA', 'BBA', 'BA', 'BSc', 'BCom', 'MBA'];
 const interests = ['Data', 'Web', 'Business', 'AI', 'Teaching', 'Sales'];
@@ -19,14 +28,11 @@ const allSkills = [
 
 const Profile = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    education: '',
-    skills: [],
-    interest: '',
-    experience_years: 0,
-  });
+  const { saveProfileToCloud } = useAuth();
+  const [formData, setFormData] = useState(loadSavedProfile);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const hasSavedProfile = !!localStorage.getItem('userProfile');
 
   const handleSkillToggle = (skill) => {
     setFormData(prev => ({
@@ -51,9 +57,11 @@ const Profile = () => {
 
     try {
       const response = await predictCareer(formData);
-      // Store result and navigate to dashboard
+      // Always persist locally
       localStorage.setItem('careerPrediction', JSON.stringify(response));
       localStorage.setItem('userProfile', JSON.stringify(formData));
+      // Also save to Supabase if the user is logged in
+      await saveProfileToCloud(formData, response);
       navigate('/dashboard');
     } catch (err) {
       console.error('Prediction error:', err);
@@ -100,6 +108,17 @@ const Profile = () => {
             <p className="text-gray-400">
               Tell us about yourself to get personalized career recommendations
             </p>
+            {hasSavedProfile && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.4 }}
+                className="inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full bg-green-500/15 border border-green-500/30 text-green-400 text-xs font-medium"
+              >
+                <Save className="w-3 h-3" />
+                Profile auto-restored from last session
+              </motion.div>
+            )}
           </div>
 
           {/* Form */}
