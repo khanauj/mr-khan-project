@@ -236,6 +236,81 @@ export const analyzeLinkedIn = async (profile_text, target_role) => {
 };
 
 /**
+ * Start a new AI interview session
+ */
+export const startInterview = async (data) => {
+  try {
+    const response = await api.post('/api/interview/start', data);
+    return response.data;
+  } catch (error) {
+    console.warn('[API] startInterview failed, using fallback');
+    return {
+      session_id: "offline-session-" + Math.random().toString(36).substr(2, 9),
+      question: `Welcome! Let's start the interview for the ${data.role} position. Can you tell me about your background and experience with ${data.tech_stack}?`,
+      is_fallback: true
+    };
+  }
+};
+
+/**
+ * Submit an interview answer
+ */
+export const submitInterviewAnswer = async (data) => {
+  try {
+    const response = await api.post('/api/interview/answer', data);
+    return response.data;
+  } catch (error) {
+    console.warn('[API] submitInterviewAnswer failed, using fallback');
+    return {
+      reply: "That's a very clear explanation. Moving on, how would you handle a situation where a project deadline is approaching but you've encountered a major technical blocker?",
+      score: 85,
+      feedback: "Good structured response. Keep focusing on problem-solving steps.",
+      is_fallback: true
+    };
+  }
+};
+
+/**
+ * Convert speech to text via NVIDIA STT (or fallback to browser Web Speech API)
+ */
+export const speechToText = async (audioBlob) => {
+  try {
+    const formData = new FormData();
+    formData.append('audio', audioBlob, 'recording.wav');
+    const response = await api.post('/api/interview/stt', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      timeout: 30000,
+    });
+    return response.data;
+  } catch (error) {
+    console.warn('[API] speechToText failed. Note: Browser STT handle by component logic.');
+    return { text: "" };
+  }
+};
+
+/**
+ * Convert text to speech
+ */
+export const textToSpeech = async (text) => {
+  try {
+    const formData = new FormData();
+    formData.append('text', text);
+    const response = await api.post('/api/interview/tts', formData, {
+      responseType: 'blob',
+      timeout: 30000,
+    });
+    return response.data;
+  } catch (error) {
+    console.warn('[API] textToSpeech backend failed, using browser synthesis fallback');
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.speak(utterance);
+    }
+    return null;
+  }
+};
+
+/**
  * Check API health status
  */
 export const checkHealth = async () => {
