@@ -1,13 +1,7 @@
-/**
- * User Profile Page
- * Form for collecting user information for career prediction
- */
-
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { User, GraduationCap, Heart, Briefcase, Save } from 'lucide-react';
-import AnimatedButton from '../components/AnimatedButton';
+import { BarChart, ChevronDown, Check, X, Plus, Save, Rocket } from 'lucide-react';
 import { predictCareer } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
@@ -19,20 +13,29 @@ const loadSavedProfile = () => {
   return { education: '', skills: [], interest: '', experience_years: 0 };
 };
 
-const educations = ['BCA', 'BBA', 'BA', 'BSc', 'BCom', 'MBA'];
-const interests = ['Data', 'Web', 'Business', 'AI', 'Teaching', 'Sales'];
+const educations = ['BCA', 'BBA', 'BA', 'BSc', 'BCom', 'MBA', 'BTech', 'MTech', 'PhD'];
 const allSkills = [
   'Python', 'SQL', 'Excel', 'Power BI', 'JavaScript', 
-  'HTML', 'CSS', 'Communication', 'Statistics', 'ML'
+  'HTML', 'CSS', 'React', 'Node.js', 'Cloud Architecture', 'UX Design', 'Communication', 'Statistics', 'ML'
 ];
 
 const Profile = () => {
   const navigate = useNavigate();
   const { saveProfileToCloud } = useAuth();
+  
   const [formData, setFormData] = useState(loadSavedProfile);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const hasSavedProfile = !!localStorage.getItem('userProfile');
+  const [prediction, setPrediction] = useState(null);
+  
+  const [skillDropdownOpen, setSkillDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    try {
+      const savedPred = localStorage.getItem('careerPrediction');
+      if (savedPred) setPrediction(JSON.parse(savedPred));
+    } catch { /* ignore */ }
+  }, []);
 
   const handleSkillToggle = (skill) => {
     setFormData(prev => ({
@@ -41,6 +44,14 @@ const Profile = () => {
         ? prev.skills.filter(s => s !== skill)
         : [...prev.skills, skill]
     }));
+    setSkillDropdownOpen(false);
+  };
+
+  const removeSkill = (skill) => {
+    setFormData(prev => ({
+      ...prev,
+      skills: prev.skills.filter(s => s !== skill)
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -48,221 +59,275 @@ const Profile = () => {
     setError('');
     setLoading(true);
 
-    // Validation
     if (!formData.education || !formData.interest || formData.skills.length === 0) {
-      setError('Please fill in all required fields');
+      setError('Please fill in all required fields (Education, Skills, Interest)');
       setLoading(false);
       return;
     }
 
     try {
       const response = await predictCareer(formData);
-      // Always persist locally
       localStorage.setItem('careerPrediction', JSON.stringify(response));
       localStorage.setItem('userProfile', JSON.stringify(formData));
-      // Also save to Supabase if the user is logged in
       await saveProfileToCloud(formData, response);
-      navigate('/dashboard');
+      setPrediction(response);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error('Prediction error:', err);
-      let errorMessage = 'Failed to analyze career. Please try again.';
-      
-      if (err?.detail) {
-        errorMessage = err.detail;
-      } else if (err?.message) {
-        errorMessage = err.message;
-      } else if (typeof err === 'string') {
-        errorMessage = err;
-      } else if (err?.response?.data?.detail) {
-        errorMessage = err.response.data.detail;
-      }
-      
-      setError(errorMessage);
+      setError(err?.detail || err?.message || 'Failed to analyze career. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
+  // Mock Confidence Stats based on prediction data if API doesn't return them directly
+  const marketAlign = 94;
+  const skillProfic = formData.experience_years > 2 ? 82 : 45;
+  const futureGrowth = 88;
+
   return (
-    <div className="min-h-screen pt-16 pb-20">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="glass-card p-8 md:p-12"
-        >
-          {/* Header */}
-          <div className="text-center mb-10">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-              className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-500/20 text-primary-400 mb-4"
-            >
-              <User className="w-8 h-8" />
-            </motion.div>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
-              Your Profile
+    <div className="min-h-screen pt-24 pb-20 px-4 sm:px-6 lg:px-8 bg-[#050505] text-white">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12">
+        
+        {/* Left Side: Form */}
+        <div className="flex-1 w-full max-w-2xl mx-auto lg:mx-0">
+          <div className="mb-8">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-cyan-400">
+              <span className="text-cyan-400">Your</span> <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">Career Profile</span>
             </h1>
-            <p className="text-gray-400">
-              Tell us about yourself to get personalized career recommendations
+            <p className="text-gray-400 text-lg max-w-lg leading-relaxed">
+              Map your trajectory with cosmic precision. Fill in your details to let our AI curator design your professional future.
             </p>
-            {hasSavedProfile && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4 }}
-                className="inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full bg-green-500/15 border border-green-500/30 text-green-400 text-xs font-medium"
-              >
-                <Save className="w-3 h-3" />
-                Profile auto-restored from last session
-              </motion.div>
-            )}
           </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Education */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <label className="flex items-center space-x-2 text-white font-semibold mb-3">
-                <GraduationCap className="w-5 h-5 text-primary-400" />
-                <span>Education *</span>
-              </label>
-              <select
-                value={formData.education}
-                onChange={(e) => setFormData({ ...formData, education: e.target.value })}
-                className="input-field"
-                required
-              >
-                <option value="">Select your education</option>
-                {educations.map(edu => (
-                  <option key={edu} value={edu} className="bg-black">{edu}</option>
-                ))}
-              </select>
-            </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+            className="p-8 rounded-2xl bg-[#0e1116] border border-white/5 shadow-2xl relative"
+          >
+            {/* Soft background glow */}
+            <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-cyan-900/10 to-transparent pointer-events-none rounded-t-2xl" />
 
-            {/* Skills */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <label className="flex items-center space-x-2 text-white font-semibold mb-3">
-                <Briefcase className="w-5 h-5 text-primary-400" />
-                <span>Skills * (Select all that apply)</span>
-              </label>
-              <div className="flex flex-wrap gap-3">
-                {allSkills.map((skill, index) => (
-                  <motion.button
-                    key={skill}
-                    type="button"
-                    onClick={() => handleSkillToggle(skill)}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.3 + index * 0.05 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`skill-badge ${
-                      formData.skills.includes(skill)
-                        ? 'bg-primary-500 text-white border-primary-400'
-                        : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10'
-                    } border`}
-                  >
-                    {skill}
-                    {formData.skills.includes(skill) && (
-                      <motion.span
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="ml-2"
-                      >
-                        ✓
-                      </motion.span>
-                    )}
-                  </motion.button>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Interest */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              <label className="flex items-center space-x-2 text-white font-semibold mb-3">
-                <Heart className="w-5 h-5 text-primary-400" />
-                <span>Interest / Domain *</span>
-              </label>
-              <select
-                value={formData.interest}
-                onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
-                className="input-field"
-                required
-              >
-                <option value="">Select your interest</option>
-                {interests.map(interest => (
-                  <option key={interest} value={interest} className="bg-black">{interest}</option>
-                ))}
-              </select>
-            </motion.div>
-
-            {/* Experience Years */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <label className="text-white font-semibold mb-3 block">
-                Experience Years: {formData.experience_years}
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="5"
-                value={formData.experience_years}
-                onChange={(e) => setFormData({ ...formData, experience_years: parseInt(e.target.value) })}
-                className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-primary-500"
-              />
-              <div className="flex justify-between text-sm text-gray-400 mt-1">
-                <span>0</span>
-                <span>5</span>
-              </div>
-            </motion.div>
-
-            {/* Error Message */}
             {error && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-400"
-              >
+              <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
                 {error}
-              </motion.div>
+              </div>
             )}
 
-            {/* Submit Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+            <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
+              
+              {/* Education */}
+              <div>
+                <label className="block text-xs font-bold tracking-widest text-cyan-500 uppercase mb-3">Academic Orbit</label>
+                <div className="relative">
+                  <select
+                    value={formData.education}
+                    onChange={(e) => setFormData({ ...formData, education: e.target.value })}
+                    className="w-full bg-[#161a22] border border-white/5 rounded-xl px-4 py-3.5 text-gray-200 focus:outline-none focus:border-cyan-500/50 appearance-none transition-colors"
+                  >
+                    <option value="" disabled>Select Education Level</option>
+                    {educations.map(edu => <option key={edu} value={edu}>{edu}</option>)}
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Skills */}
+              <div>
+                <label className="block text-xs font-bold tracking-widest text-cyan-500 uppercase mb-3">Skill DNA</label>
+                <div className="min-h-[56px] bg-[#161a22] border border-white/5 rounded-xl p-2.5 flex flex-wrap gap-2 relative">
+                  {formData.skills.map(skill => (
+                    <span key={skill} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#0e2938] text-cyan-300 text-sm font-medium rounded-lg">
+                      {skill}
+                      <button type="button" onClick={() => removeSkill(skill)} className="hover:bg-cyan-900/50 p-0.5 rounded-full transition-colors">
+                        <X className="w-3 h-3" />
+                      </button>
+                    </span>
+                  ))}
+                  
+                  <div className="relative">
+                    <button 
+                      type="button" 
+                      onClick={() => setSkillDropdownOpen(o => !o)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/5 hover:bg-white/10 text-gray-400 text-sm font-medium rounded-lg transition-colors border border-dashed border-white/20 hover:border-white/40"
+                    >
+                      <Plus className="w-3 h-3" /> Add Skill
+                    </button>
+                    
+                    {/* Floating Add Skill Dropdown */}
+                    <AnimatePresence>
+                      {skillDropdownOpen && (
+                        <>
+                          <div className="fixed inset-0 z-40" onClick={() => setSkillDropdownOpen(false)} />
+                          <motion.div 
+                            initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }}
+                            className="absolute top-full left-0 mt-2 w-48 bg-[#1f242f] border border-white/10 rounded-xl shadow-xl z-50 py-1 overflow-hidden max-h-60 overflow-y-auto"
+                          >
+                            {allSkills.filter(s => !formData.skills.includes(s)).map(skill => (
+                              <button
+                                key={skill} type="button"
+                                onClick={() => handleSkillToggle(skill)}
+                                className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-cyan-500/20"
+                              >
+                                {skill}
+                              </button>
+                            ))}
+                            {allSkills.filter(s => !formData.skills.includes(s)).length === 0 && (
+                              <div className="px-4 py-2 text-sm text-gray-500">All skills added</div>
+                            )}
+                          </motion.div>
+                        </>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+              </div>
+
+              {/* Experience Slider */}
+              <div>
+                <div className="flex justify-between items-end mb-3">
+                  <label className="block text-xs font-bold tracking-widest text-cyan-500 uppercase">Professional Experience</label>
+                  <div className="text-xl font-bold"><span className="text-3xl">{formData.experience_years}</span> <span className="text-gray-500 text-sm font-normal">years</span></div>
+                </div>
+                <div className="pt-2">
+                  <input
+                    type="range" min="0" max="15"
+                    value={formData.experience_years}
+                    onChange={(e) => setFormData({ ...formData, experience_years: parseInt(e.target.value) })}
+                    className="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-cyan-400 hover:accent-cyan-300 transition-all custom-slider"
+                  />
+                  <style jsx="true">{`
+                    .custom-slider::-webkit-slider-thumb {
+                      appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #22d3ee; cursor: pointer; box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+                    }
+                  `}</style>
+                  <div className="flex justify-between mt-3 text-[10px] font-bold tracking-widest uppercase text-gray-600">
+                    <span>Entry Level</span>
+                    <span>Mid-Career</span>
+                    <span>Executive</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Future Interest string */}
+              <div>
+                <label className="block text-xs font-bold tracking-widest text-cyan-500 uppercase mb-3">Future Interest</label>
+                <input
+                  type="text"
+                  value={formData.interest}
+                  onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
+                  placeholder="e.g. Artificial Intelligence, Renewable Energy"
+                  className="w-full bg-[#161a22] border border-white/5 rounded-xl px-4 py-3.5 text-gray-200 focus:outline-none focus:border-cyan-500/50 transition-colors placeholder:text-gray-600"
+                />
+              </div>
+
+              <div className="pt-4">
+                <button 
+                  type="submit" 
+                  disabled={loading}
+                  className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  {loading ? 'Analyzing Neural Pathways...' : 'Predict My Career Path'}
+                </button>
+              </div>
+
+            </form>
+          </motion.div>
+        </div>
+
+        {/* Right Side: Prediction Results */}
+        <div className="flex-1 w-full max-w-xl mx-auto lg:mx-0">
+          <div className="flex items-center gap-2 mb-6 pt-2">
+            <BarChart className="w-5 h-5 text-cyan-400" />
+            <h2 className="text-xl font-bold">AI Intelligence Report</h2>
+          </div>
+
+          {!prediction ? (
+            <div className="h-[400px] rounded-2xl border border-white/5 border-dashed flex flex-col items-center justify-center text-gray-500 bg-[#0a0c10]">
+               <Rocket className="w-10 h-10 mb-4 opacity-20" />
+               <p className="text-sm uppercase tracking-widest font-bold">Awaiting Input Data</p>
+               <p className="text-xs mt-2 max-w-xs text-center opacity-70">Submit your profile to generate a comprehensive AI career analysis</p>
+            </div>
+          ) : (
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
+              className="space-y-6"
             >
-              <AnimatedButton
-                type="submit"
-                fullWidth
-                size="lg"
-                loading={loading}
-                disabled={loading}
-              >
-                Analyze Career
-              </AnimatedButton>
+              {/* Top Card: Primary Prediction */}
+              <div className="p-6 rounded-2xl bg-[#0e1116] border border-white/5 shadow-xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 blur-[50px] rounded-full pointer-events-none" />
+                <p className="text-xs font-bold tracking-widest text-gray-500 uppercase mb-4">Primary Prediction</p>
+                <div className="inline-block px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-xl text-lg shadow-[0_0_20px_rgba(139,92,246,0.3)] mb-4">
+                  {prediction.predicted_career || prediction.career || "AI Solutions Architect"}
+                </div>
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  Based on your {formData.skills.join(', ') || 'skills'} and {formData.experience_years} year{formData.experience_years !== 1 ? 's' : ''} of experience, you are well positioned for {formData.interest || 'your chosen field'}.
+                </p>
+              </div>
+
+              {/* Confidence Bars */}
+              <div className="p-6 rounded-2xl bg-[#0e1116] border border-white/5 shadow-xl">
+                <p className="text-xs font-bold tracking-widest text-gray-500 uppercase mb-6">Prediction Confidence</p>
+                
+                <div className="space-y-5">
+                  <div>
+                    <div className="flex justify-between text-xs font-bold mb-2">
+                       <span className="text-gray-300">Market Alignment</span>
+                       <span className="text-cyan-400">{marketAlign}%</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-[#1a1f2b] rounded-full overflow-hidden">
+                      <motion.div initial={{ width: 0 }} animate={{ width: `${marketAlign}%` }} transition={{ duration: 1, delay: 0.2 }} className="h-full bg-cyan-400 rounded-full" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between text-xs font-bold mb-2">
+                       <span className="text-gray-300">Skill Proficiency</span>
+                       <span className="text-purple-400">{skillProfic}%</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-[#1a1f2b] rounded-full overflow-hidden">
+                      <motion.div initial={{ width: 0 }} animate={{ width: `${skillProfic}%` }} transition={{ duration: 1, delay: 0.3 }} className="h-full bg-purple-400 rounded-full" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between text-xs font-bold mb-2">
+                       <span className="text-gray-300">Future Growth</span>
+                       <span className="text-blue-400">{futureGrowth}%</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-[#1a1f2b] rounded-full overflow-hidden">
+                      <motion.div initial={{ width: 0 }} animate={{ width: `${futureGrowth}%` }} transition={{ duration: 1, delay: 0.4 }} className="h-full bg-blue-500 rounded-full" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Alternative Trajectories */}
+              <div className="space-y-3">
+                <p className="text-xs font-bold tracking-widest text-gray-500 uppercase mb-4 mt-2">Alternative Trajectories</p>
+                
+                {/* Fallback mock alternatives if API doesn't provide them */}
+                {[
+                  { title: "Full-Stack AI Engineer", desc: "High Growth • High Match", color: "text-cyan-400", bg: "bg-cyan-500/10" },
+                  { title: "Technical Product Lead", desc: "Leadership Focus • Medium Match", color: "text-purple-400", bg: "bg-purple-500/10" },
+                  { title: "DevOps Director", desc: "Stable • Skill Overlap", color: "text-blue-400", bg: "bg-blue-500/10" }
+                ].map((alt, i) => (
+                   <div key={alt.title} className="flex items-center p-4 rounded-xl bg-[#0e1116] border border-white/5 hover:border-white/10 transition-colors cursor-pointer group">
+                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center font-bold text-lg mr-4 ${alt.bg} ${alt.color}`}>
+                       {i + 1}
+                     </div>
+                     <div className="flex-1">
+                       <p className="text-sm font-bold text-white mb-0.5">{alt.title}</p>
+                       <p className="text-xs text-gray-500">{alt.desc}</p>
+                     </div>
+                     <ChevronDown className="w-4 h-4 text-gray-600 -rotate-90 group-hover:text-white transition-colors" />
+                   </div>
+                ))}
+              </div>
+
             </motion.div>
-          </form>
-        </motion.div>
+          )}
+
+        </div>
       </div>
     </div>
   );

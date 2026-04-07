@@ -4,50 +4,105 @@
 
 @layer base {
   body {
-    @apply bg-black text-gray-100 min-h-screen;
+    @apply bg-[#030303] text-gray-100 min-h-screen selection:bg-primary-500/30;
+    font-feature-settings: "cv02", "cv05", "cv11";
   }
   
   * {
-    @apply scroll-smooth;
+    @apply border-white/10;
+  }
+
+  /* Custom Premium Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-xl;
+    @apply bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl;
   }
   
   .glass-card-hover {
-    @apply glass-card transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:shadow-2xl;
+    @apply glass-card transition-all duration-500 hover:bg-white/[0.06] hover:border-white/20 hover:shadow-primary-500/10;
   }
   
   .gradient-text {
-    @apply bg-gradient-to-r from-primary-400 via-primary-300 to-primary-500 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent;
   }
   
-  .skillence-gradient {
-    @apply bg-gradient-to-r from-primary-500 via-purple-500 to-purple-600 bg-clip-text text-transparent;
+  .glow-cyan {
+    @apply shadow-[0_0_20px_-5px_rgba(6,182,212,0.3)];
   }
-  
+
+  .glow-purple {
+    @apply shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)];
+  }
+
   .btn-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-primary-500 via-purple-500 to-purple-600 text-white font-semibold rounded-xl 
-           shadow-lg hover:shadow-xl hover:from-primary-600 hover:via-purple-600 hover:to-purple-700 
-           transition-all duration-300 transform hover:scale-105 active:scale-95;
+    @apply relative px-6 py-3 bg-gradient-to-r from-primary-500 to-purple-600 text-white font-semibold rounded-xl 
+           shadow-lg shadow-primary-500/20 hover:shadow-primary-500/40 
+           transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]
+           flex items-center justify-center gap-2 overflow-hidden;
+  }
+  
+  .btn-primary::after {
+    content: '';
+    @apply absolute inset-0 bg-white/10 opacity-0 hover:opacity-100 transition-opacity duration-300;
   }
   
   .btn-secondary {
-    @apply px-6 py-3 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-xl 
-           border border-white/20 hover:bg-white/20 transition-all duration-300 
-           transform hover:scale-105 active:scale-95;
+    @apply px-6 py-3 bg-white/[0.05] backdrop-blur-md text-white font-semibold rounded-xl 
+           border border-white/10 hover:bg-white/[0.08] hover:border-white/20 transition-all duration-300 
+           transform hover:scale-[1.02] active:scale-[0.98]
+           flex items-center justify-center gap-2;
   }
   
   .input-field {
-    @apply w-full px-4 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 
-           text-white placeholder-gray-400 focus:outline-none focus:ring-2 
-           focus:ring-primary-500 focus:border-transparent transition-all duration-300;
+    @apply w-full px-4 py-3 bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-xl 
+           text-white placeholder-gray-500 focus:outline-none focus:ring-2 
+           focus:ring-primary-500/50 focus:border-primary-500/50 transition-all duration-300;
   }
   
   .skill-badge {
-    @apply px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105;
+    @apply px-3 py-1 rounded-lg font-medium text-sm transition-all duration-300 
+           bg-white/[0.05] border border-white/10 hover:bg-white/[0.1] hover:border-white/20;
   }
+
+  /* Shimmer effect for loaders */
+  .shimmer {
+    @apply relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full 
+           before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent 
+           before:animate-[shimmer_2s_infinite];
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Quick-win light theme using CSS inversion */
+body.light-theme {
+  background-color: #0f172a; /* Give it a slightly different tone to invert smoothly to white */
+  filter: invert(1) hue-rotate(180deg);
+  transition: filter 0.5s ease;
+}
+
+body.light-theme img,
+body.light-theme video,
+body.light-theme canvas,
+body.light-theme [data-theme-ignore] {
+  filter: invert(1) hue-rotate(-180deg);
+  transition: filter 0.5s ease;
 }

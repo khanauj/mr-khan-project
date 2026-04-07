@@ -14,6 +14,7 @@ import os
 from dotenv import load_dotenv  # type: ignore
 
 load_dotenv()
+from sklearn.feature_extraction.text import TfidfVectorizer  # type: ignore
 from sklearn.metrics.pairwise import cosine_similarity  # type: ignore
 import warnings
 warnings.filterwarnings('ignore')
@@ -126,6 +127,25 @@ class RoadmapSearchResponse(BaseModel):
     timeline: str
 
 
+class CompareCareersRequest(BaseModel):
+    careers: List[str]
+
+
+class CompareCareersResponse(BaseModel):
+    comparison_data: List[dict]
+
+
+class LinkedInAnalyzeRequest(BaseModel):
+    profile_text: str
+    target_role: str
+
+
+class LinkedInAnalyzeResponse(BaseModel):
+    fit_score: float
+    gap_analysis: List[str]
+    strengths: List[str]
+
+
 # Interview models
 class InterviewStartRequest(BaseModel):
     role: str
@@ -219,6 +239,47 @@ def load_models():
     except Exception as e:
         print(f"Warning: Error loading models: {e}")
         print("Make sure models are trained first by running train_models.py")
+
+
+def build_tfidf_vectors(source_text: str, target_text: str):
+    """Use the trained vectorizer when available, otherwise fit one for this request."""
+    if tfidf_vectorizer is not None:
+        vectorizer = tfidf_vectorizer
+        source_vec = vectorizer.transform([source_text])
+        target_vec = vectorizer.transform([target_text])
+    else:
+        vectorizer = TfidfVectorizer(
+            max_features=500,
+            ngram_range=(1, 2),
+            stop_words='english'
+        )
+        source_vec, target_vec = vectorizer.fit_transform([source_text, target_text])
+
+    return vectorizer, source_vec, target_vec
+
+
+def get_missing_keywords(source_vec, target_vec, vectorizer, limit: int):
+    """Return the top target keywords that are absent from the source text."""
+    target_tfidf = target_vec.toarray()[0]
+    source_tfidf = source_vec.toarray()[0]
+    feature_names = vectorizer.get_feature_names_out()
+    feature_index = {term: idx for idx, term in enumerate(feature_names)}
+
+    top_indices = np.argsort(target_tfidf)[::-1]
+    missing_keywords = []
+    for idx in top_indices:
+        if target_tfidf[idx] <= 0:
+            continue
+
+        term = feature_names[idx]
+        term_idx = feature_index[term]
+        if source_tfidf[term_idx] == 0:
+            missing_keywords.append(term)
+
+        if len(missing_keywords) >= limit:
+            break
+
+    return missing_keywords
 
 
 @app.on_event("startup")
@@ -422,42 +483,19 @@ async def match_resume(request: ResumeMatchRequest):
     - match_percentage: Similarity score (0-100)
     - missing_keywords: Important keywords from job description missing in resume
     """
-    if tfidf_vectorizer is None:
-        raise HTTPException(
-            status_code=503,
-            detail="TF-IDF vectorizer not loaded. Please train models first."
-        )
-    
     try:
         # Vectorize resume and job description
-        resume_vec = tfidf_vectorizer.transform([request.resume_text])
-        job_vec = tfidf_vectorizer.transform([request.job_description])
+        vectorizer, resume_vec, job_vec = build_tfidf_vectors(
+            request.resume_text,
+            request.job_description
+        )
         
         # Calculate cosine similarity
         similarity = cosine_similarity(resume_vec, job_vec)[0][0]
         match_percentage = float(similarity * 100)
         
         # Extract missing keywords
-        # Get important terms from job description
-        job_tfidf = job_vec.toarray()[0]
-        feature_names = tfidf_vectorizer.get_feature_names_out()
-        
-        # Get top terms from job description
-        top_indices = np.argsort(job_tfidf)[::-1][:20]  # Top 20 terms
-        top_job_terms = [feature_names[idx] for idx in top_indices if job_tfidf[idx] > 0]
-        
-        # Check which terms are in resume
-        resume_tfidf = resume_vec.toarray()[0]
-        missing_keywords = []
-        for term in top_job_terms:
-            if term in feature_names:
-                term_idx = list(feature_names).index(term)
-                if resume_tfidf[term_idx] == 0:  # Term not in resume  # type: ignore
-                    missing_keywords.append(term)
-        
-        # Limit missing keywords to top 10
-        if len(missing_keywords) > 10:
-            missing_keywords = [missing_keywords[i] for i in range(10)]
+        missing_keywords = get_missing_keywords(resume_vec, job_vec, vectorizer, limit=10)
         
         return ResumeMatchResponse(
             match_percentage=round(match_percentage, 2),  # type: ignore
@@ -1047,6 +1085,85 @@ async def text_to_speech(text: str = Form(...)):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"TTS error: {str(e)}")
+
+
+@app.post("/api/compare-careers", response_model=CompareCareersResponse)
+async def compare_careers(request: CompareCareersRequest):
+    career_db = {
+        'Data Analyst': {'salary': 75000, 'skills_needed': 8, 'demand': 9, 'difficulty': 7},
+        'Data Scientist': {'salary': 105000, 'skills_needed': 9, 'demand': 9, 'difficulty': 9},
+        'Software Engineer': {'salary': 95000, 'skills_needed': 8, 'demand': 8, 'difficulty': 8},
+        'Frontend Developer': {'salary': 85000, 'skills_needed': 7, 'demand': 8, 'difficulty': 6},
+        'Backend Developer': {'salary': 92000, 'skills_needed': 8, 'demand': 8, 'difficulty': 8},
+        'ML Engineer': {'salary': 115000, 'skills_needed': 9, 'demand': 9, 'difficulty': 9},
+        'Product Manager': {'salary': 100000, 'skills_needed': 6, 'demand': 7, 'difficulty': 7},
+        'Business Analyst': {'salary': 78000, 'skills_needed': 6, 'demand': 8, 'difficulty': 6},
+        'UX/UI Designer': {'salary': 82000, 'skills_needed': 7, 'demand': 7, 'difficulty': 6},
+    }
+    
+    comparisons = []
+    for career in request.careers:
+        matched_career = None
+        for key in career_db:
+            if key.lower() in career.lower() or career.lower() in key.lower():
+                matched_career = key
+                break
+        
+        if matched_career:
+            stats = career_db[matched_career]
+            comparisons.append({
+                "career": matched_career,
+                "salary": stats['salary'],
+                "skills_needed": stats['skills_needed'],
+                "demand": stats['demand'],
+                "difficulty": stats['difficulty']
+            })
+        else:
+            comparisons.append({
+                "career": career,
+                "salary": 80000,
+                "skills_needed": 7,
+                "demand": 7,
+                "difficulty": 7
+            })
+            
+    return CompareCareersResponse(comparison_data=comparisons)  # type: ignore
+
+
+@app.post("/api/linkedin-analyze", response_model=LinkedInAnalyzeResponse)
+async def analyze_linkedin(request: LinkedInAnalyzeRequest):
+    """Analyze LinkedIn profile text against a target role."""
+    target_role_descriptions = {
+        'Data Analyst': "Looking for a Data Analyst with skills in Python, SQL, Excel, Data Visualization, Tableau, Power BI, Statistics.",
+        'Software Engineer': "Software Engineer needed with experience in Python, Java, JavaScript, React, System Design, Algorithms, Git, Database.",
+        'Backend Developer': "Backend developer familiar with Python, FastAPI, Node.js, SQL, NoSQL, APIs, Docker.",
+        'Frontend Developer': "Frontend developer proficient in HTML, CSS, JavaScript, React, UI/UX, responsive design.",
+        'ML Engineer': "Machine Learning Engineer with strong Python, TensorFlow, PyTorch, scikit-learn, Statistics, model deployment."
+    }
+    
+    job_desc = target_role_descriptions.get(request.target_role, f"Looking for {request.target_role} with relevant industry skills, communication, and technical expertise.")
+    
+    try:
+        vectorizer, resume_vec, job_vec = build_tfidf_vectors(request.profile_text, job_desc)
+        
+        similarity = cosine_similarity(resume_vec, job_vec)[0][0]
+        match_percentage = min(float(similarity * 150), 100.0)  # Boost scaling for typical texts
+        
+        resume_tfidf = resume_vec.toarray()[0]
+        feature_names = vectorizer.get_feature_names_out()
+        missing_keywords = get_missing_keywords(resume_vec, job_vec, vectorizer, limit=8)
+        strengths = []
+        for idx, term in enumerate(feature_names):
+            if resume_tfidf[idx] > 0:
+                strengths.append(term)
+                    
+        return LinkedInAnalyzeResponse(
+            fit_score=round(match_percentage, 2),  # type: ignore
+            gap_analysis=missing_keywords,  # type: ignore
+            strengths=strengths[:5]  # type: ignore
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"LinkedIn analysis error: {str(e)}")
 
 
 if __name__ == "__main__":

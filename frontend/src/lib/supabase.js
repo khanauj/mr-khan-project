@@ -44,6 +44,44 @@ export const upsertProfile = async (userId, profileData, careerPrediction = null
   if (error) throw error;
 };
 
+// ─── Activity tracking ───────────────────────────────────────────────────────
+
+/** Log a user action to the user_activity table */
+export const logActivity = async (userId, userEmail, action, page = '/', details = {}) => {
+  try {
+    await supabase.from('user_activity').insert({
+      user_id: userId || null,
+      user_email: userEmail || 'anonymous',
+      action,
+      page,
+      details,
+    });
+  } catch (_) {
+    // Never break the user experience
+  }
+};
+
+/** Fetch recent activity logs (admin only) */
+export const fetchActivityLogs = async (limit = 200) => {
+  const { data, error } = await supabase
+    .from('user_activity')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(limit);
+  if (error) throw error;
+  return data || [];
+};
+
+/** Fetch all user profiles (requires admin read policy) */
+export const fetchAllProfiles = async () => {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('*')
+    .order('updated_at', { ascending: false });
+  if (error) throw error;
+  return data || [];
+};
+
 /*
 ──────────────────────────────────────────────────────────────────────────────
   SUPABASE TABLE SETUP  (run once in your Supabase SQL editor)

@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, LogOut, LogIn, ChevronDown, User } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import RocketIcon from './RocketIcon';
 import { useAuth } from '../context/AuthContext';
 
@@ -29,9 +30,10 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  const handleSignOut = async () => {
-    await signOut();
+  const handleSignOut = () => {
+    signOut();          // clears state immediately
     setUserMenuOpen(false);
+    setMobileMenuOpen(false);
     navigate('/auth');
   };
 
@@ -42,6 +44,10 @@ const Navbar = () => {
     { path: '/skill-gap', label: 'Skill Gap' },
     { path: '/resume-match', label: 'Resume Match' },
     { path: '/career-switch', label: 'Career Switch' },
+    { path: '/compare-careers', label: 'Compare' },
+    { path: '/linkedin-analyzer', label: 'LinkedIn' },
+    { path: '/goals', label: 'Goals' },
+    { path: '/admin', label: 'Admin' },
     { path: '/chatbot', label: 'AI Chat' },
     { path: '/interview', label: 'Interview' },
     { path: '/about', label: 'About' },
@@ -50,6 +56,7 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
+    <>
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -98,7 +105,23 @@ const Navbar = () => {
               </Link>
             ))}
 
-            {/* Auth area */}
+            {/* Auth area & Theme Toggle */}
+            <div className="flex items-center">
+              {/* Light/Dark Mode Toggle (Desktop) */}
+              <button
+                onClick={() => {
+                  if (document.body.classList.contains('light-theme')) {
+                    document.body.classList.remove('light-theme');
+                  } else {
+                    document.body.classList.add('light-theme');
+                  }
+                }}
+                className="p-2 mr-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
+                title="Toggle Light/Dark Mode"
+              >
+                <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-gray-400 to-white" />
+              </button>
+
             {user ? (
               <div className="relative ml-2" ref={userMenuRef}>
                 <button
@@ -112,35 +135,6 @@ const Navbar = () => {
                   <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
-                <AnimatePresence>
-                  {userMenuOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -8, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -8, scale: 0.95 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute right-0 mt-2 w-48 bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50"
-                    >
-                      <div className="px-4 py-3 border-b border-white/10">
-                        <p className="text-xs text-gray-400">Signed in as</p>
-                        <p className="text-sm text-white font-medium truncate">{user.email}</p>
-                      </div>
-                      <Link
-                        to="/profile"
-                        onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-2 px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-                      >
-                        <User className="w-4 h-4" /> My Profile
-                      </Link>
-                      <button
-                        onClick={handleSignOut}
-                        className="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors"
-                      >
-                        <LogOut className="w-4 h-4" /> Sign Out
-                      </button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
             ) : (
               <Link
@@ -150,7 +144,23 @@ const Navbar = () => {
                 <LogIn className="w-4 h-4" /> Sign In
               </Link>
             )}
+            </div>
           </div>
+
+        {/* Light/Dark Mode Toggle */}
+          <button
+            onClick={() => {
+              if (document.body.classList.contains('light-theme')) {
+                document.body.classList.remove('light-theme');
+              } else {
+                document.body.classList.add('light-theme');
+              }
+            }}
+            className="md:hidden p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-colors mr-2"
+            title="Toggle Light/Dark Mode"
+          >
+            <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-gray-400 to-white" />
+          </button>
 
           {/* Mobile Menu Button */}
           <button
@@ -200,7 +210,7 @@ const Navbar = () => {
                 <>
                   <p className="px-4 py-1 text-xs text-gray-500 truncate">{user.email}</p>
                   <button
-                    onClick={() => { setMobileMenuOpen(false); handleSignOut(); }}
+                    onClick={handleSignOut}
                     className="w-full text-left px-4 py-2 rounded-lg text-red-400 hover:bg-red-500/10 font-medium flex items-center gap-2"
                   >
                     <LogOut className="w-4 h-4" /> Sign Out
@@ -220,6 +230,48 @@ const Navbar = () => {
         </motion.div>
       </div>
     </motion.nav>
+
+      {/* User Profile Modal -> Placed outside <nav> to escape transform clipping */}
+      <AnimatePresence>
+        {userMenuOpen && user && (
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+               onClick={() => setUserMenuOpen(false)}>
+            <motion.div
+              onClick={(e) => e.stopPropagation()}
+              onMouseDown={(e) => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.15 }}
+              className="w-full max-w-sm bg-gray-900 border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden"
+            >
+              <div className="px-6 py-6 border-b border-gray-800 text-center">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center text-2xl font-bold text-white mx-auto mb-3">
+                  {user.email?.[0]?.toUpperCase() ?? 'U'}
+                </div>
+                <p className="text-sm text-gray-400 mb-1">Signed in as</p>
+                <p className="text-lg text-white font-semibold truncate">{user.email}</p>
+              </div>
+              <div className="flex flex-col p-2 space-y-1">
+                <Link
+                  to="/profile"
+                  onClick={() => setUserMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
+                >
+                  <User className="w-5 h-5 text-blue-400" /> My Profile Dashboard
+                </Link>
+                <button
+                  onClick={handleSignOut}
+                  className="w-full flex items-center justify-center gap-2 mt-2 px-4 py-3 text-sm font-medium text-red-400 hover:text-white bg-red-500/10 hover:bg-red-500 transition-colors rounded-xl cursor-pointer"
+                >
+                  <LogOut className="w-4 h-4" /> Sign Out
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

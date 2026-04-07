@@ -21,6 +21,10 @@ import ChatbotPage from './pages/Chatbot';
 import Interview from './pages/Interview';
 import About from './pages/About';
 import Auth from './pages/Auth';
+import CompareCareers from './pages/CompareCareers';
+import LinkedInAnalyzer from './pages/LinkedInAnalyzer';
+import GoalSetting from './pages/GoalSetting';
+import AdminDashboard from './pages/AdminDashboard';
 
 function AppContent() {
   const location = useLocation();
@@ -42,6 +46,10 @@ function AppContent() {
           <Route path="/interview" element={<Interview />} />
           <Route path="/about" element={<About />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/compare-careers" element={<CompareCareers />} />
+          <Route path="/linkedin-analyzer" element={<LinkedInAnalyzer />} />
+          <Route path="/goals" element={<GoalSetting />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </AnimatePresence>
 
