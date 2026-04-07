@@ -14,7 +14,7 @@ import { useAuth } from '../context/AuthContext';
 const Navbar = () => {
   const location = useLocation();
   const navigate  = useNavigate();
-  const { user, signOut, guestMode, exitGuestMode } = useAuth();
+  const { user, signOut } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen,   setUserMenuOpen]   = useState(false);
   const userMenuRef = useRef(null);
@@ -39,7 +39,6 @@ const Navbar = () => {
 
   const navLinks = [
     { path: '/', label: 'Home' },
-    { path: '/guest-experience', label: 'Guest Tour' },
     { path: '/profile', label: 'Profile' },
     { path: '/dashboard', label: 'Dashboard' },
     { path: '/skill-gap', label: 'Skill Gap' },
@@ -122,18 +121,6 @@ const Navbar = () => {
             >
               <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-gray-400 to-white" />
             </button>
-
-            {guestMode && (
-              <button
-                onClick={() => {
-                  exitGuestMode();
-                  navigate('/');
-                }}
-                className="px-3 py-1 rounded-full border border-cyan-400 text-cyan-300 text-xs uppercase tracking-[0.3em] hover:bg-white/5 transition-colors"
-              >
-                Guest session
-              </button>
-            )}
 
             {user ? (
               <div className="relative ml-2" ref={userMenuRef}>

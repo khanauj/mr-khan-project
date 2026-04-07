@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Target, Zap, Sparkles, MessageSquare, Headphones, Share2 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
 import Hyperspeed from '../components/Hyperspeed/Hyperspeed';
 import { hyperspeedPresets } from '../components/Hyperspeed/HyperSpeedPresets';
 
@@ -29,7 +28,6 @@ const homeHyperspeedOptions = {
 
 const Home = () => {
   const navigate = useNavigate();
-  const { enterGuestMode } = useAuth();
 
   const tools = [
     {
@@ -98,7 +96,7 @@ const Home = () => {
           initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }}
           className="relative z-10 flex flex-col sm:flex-row gap-6 mb-16"
         >
-          <button 
+          <button
             onClick={() => navigate('/profile')}
             className="px-12 py-4 rounded-full bg-white text-black font-bold text-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)] active:scale-95"
           >
@@ -106,15 +104,6 @@ const Home = () => {
           </button>
           <button className="px-12 py-4 rounded-full bg-white/5 border border-white/10 text-white font-bold text-lg hover:bg-white/10 backdrop-blur-md transition-all active:scale-95">
             Learn More
-          </button>
-          <button
-            onClick={() => {
-              enterGuestMode();
-              navigate('/guest-experience');
-            }}
-            className="px-12 py-4 rounded-full border border-cyan-400 text-cyan-300 font-bold text-lg hover:border-cyan-300 hover:text-white transition-all active:scale-95"
-          >
-            Try Without Login
           </button>
         </motion.div>
 

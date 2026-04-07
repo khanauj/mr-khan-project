@@ -12,7 +12,7 @@ import RocketIcon from '../components/RocketIcon';
 
 const Auth = () => {
   const navigate = useNavigate();
-  const { signIn, signUp, enterGuestMode } = useAuth();
+  const { signIn, signUp } = useAuth();
 
   const [mode, setMode]         = useState('login'); // 'login' | 'signup'
   const [email, setEmail]       = useState('');
@@ -191,7 +191,7 @@ const Auth = () => {
             </button>
           </p>
 
-          {/* Guest divider */}
+          {/* Admin divider */}
           <div className="flex items-center gap-3 my-5">
             <div className="flex-1 h-px bg-white/10" />
             <span className="text-gray-600 text-xs">or</span>
@@ -200,13 +200,10 @@ const Auth = () => {
 
           <button
             type="button"
-            onClick={() => {
-              enterGuestMode();
-              navigate('/guest-experience');
-            }}
+            onClick={() => navigate('/admin')}
             className="w-full text-center py-3 rounded-xl border border-white/10 text-gray-400 hover:text-gray-200 hover:border-white/20 text-sm font-medium transition-all"
           >
-            Continue as guest
+            Admin Login
           </button>
         </motion.div>
       </div>
