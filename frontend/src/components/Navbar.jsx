@@ -14,7 +14,7 @@ import { useAuth } from '../context/AuthContext';
 const Navbar = () => {
   const location = useLocation();
   const navigate  = useNavigate();
-  const { user, signOut } = useAuth();
+  const { user, signOut, guestMode, exitGuestMode } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen,   setUserMenuOpen]   = useState(false);
   const userMenuRef = useRef(null);
@@ -39,6 +39,7 @@ const Navbar = () => {
 
   const navLinks = [
     { path: '/', label: 'Home' },
+    { path: '/guest-experience', label: 'Guest Tour' },
     { path: '/profile', label: 'Profile' },
     { path: '/dashboard', label: 'Dashboard' },
     { path: '/skill-gap', label: 'Skill Gap' },
@@ -106,21 +107,33 @@ const Navbar = () => {
             ))}
 
             {/* Auth area & Theme Toggle */}
-            <div className="flex items-center">
-              {/* Light/Dark Mode Toggle (Desktop) */}
+          <div className="flex items-center">
+            {/* Light/Dark Mode Toggle (Desktop) */}
+            <button
+              onClick={() => {
+                if (document.body.classList.contains('light-theme')) {
+                  document.body.classList.remove('light-theme');
+                } else {
+                  document.body.classList.add('light-theme');
+                }
+              }}
+              className="p-2 mr-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
+              title="Toggle Light/Dark Mode"
+            >
+              <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-gray-400 to-white" />
+            </button>
+
+            {guestMode && (
               <button
                 onClick={() => {
-                  if (document.body.classList.contains('light-theme')) {
-                    document.body.classList.remove('light-theme');
-                  } else {
-                    document.body.classList.add('light-theme');
-                  }
+                  exitGuestMode();
+                  navigate('/');
                 }}
-                className="p-2 mr-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
-                title="Toggle Light/Dark Mode"
+                className="px-3 py-1 rounded-full border border-cyan-400 text-cyan-300 text-xs uppercase tracking-[0.3em] hover:bg-white/5 transition-colors"
               >
-                <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-gray-400 to-white" />
+                Guest session
               </button>
+            )}
 
             {user ? (
               <div className="relative ml-2" ref={userMenuRef}>

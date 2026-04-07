@@ -12,7 +12,7 @@ import RocketIcon from '../components/RocketIcon';
 
 const Auth = () => {
   const navigate = useNavigate();
-  const { signIn, signUp } = useAuth();
+  const { signIn, signUp, enterGuestMode } = useAuth();
 
   const [mode, setMode]         = useState('login'); // 'login' | 'signup'
   const [email, setEmail]       = useState('');
@@ -198,12 +198,16 @@ const Auth = () => {
             <div className="flex-1 h-px bg-white/10" />
           </div>
 
-          <Link
-            to="/profile"
-            className="block w-full text-center py-3 rounded-xl border border-white/10 text-gray-400 hover:text-gray-200 hover:border-white/20 text-sm font-medium transition-all"
+          <button
+            type="button"
+            onClick={() => {
+              enterGuestMode();
+              navigate('/guest-experience');
+            }}
+            className="w-full text-center py-3 rounded-xl border border-white/10 text-gray-400 hover:text-gray-200 hover:border-white/20 text-sm font-medium transition-all"
           >
             Continue as guest
-          </Link>
+          </button>
         </motion.div>
       </div>
     </div>

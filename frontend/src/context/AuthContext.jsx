@@ -7,6 +7,19 @@ export const AuthProvider = ({ children }) => {
   const [user,    setUser]    = useState(null);
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [guestMode, setGuestMode] = useState(false);
+  const enterGuestMode = () => {
+    setGuestMode(true);
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('guestMode', 'true');
+    }
+  };
+  const exitGuestMode = () => {
+    setGuestMode(false);
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem('guestMode');
+    }
+  };
 
   // Load profile from Supabase into localStorage
   const syncProfile = async (userId) => {
@@ -28,6 +41,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedGuestMode = window.localStorage.getItem('guestMode');
+      if (storedGuestMode === 'true') {
+        setGuestMode(true);
+      }
+    }
+
     // Get initial session
     supabase.auth.getSession()
       .then(({ data: { session } }) => {
@@ -60,12 +80,14 @@ export const AuthProvider = ({ children }) => {
   const signUp = async (email, password) => {
     const { data, error } = await supabase.auth.signUp({ email, password });
     if (error) throw error;
+    exitGuestMode();
     return data;
   };
 
   const signIn = async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
+    exitGuestMode();
     if (data.user) {
       logActivity(data.user.id, email, 'login', '/auth', { method: 'email' });
     }
@@ -78,6 +100,7 @@ export const AuthProvider = ({ children }) => {
     }
     setUser(null);
     setSession(null);
+    exitGuestMode();
     localStorage.removeItem('userProfile');
     localStorage.removeItem('careerPrediction');
     supabase.auth.signOut().catch(() => {});
@@ -97,7 +120,18 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, signUp, signIn, signOut, saveProfileToCloud }}>
+    <AuthContext.Provider value={{
+      user,
+      session,
+      loading,
+      guestMode,
+      enterGuestMode,
+      exitGuestMode,
+      signUp,
+      signIn,
+      signOut,
+      saveProfileToCloud
+    }}>
       {children}
     </AuthContext.Provider>
   );

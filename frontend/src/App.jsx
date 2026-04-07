@@ -25,6 +25,7 @@ import CompareCareers from './pages/CompareCareers';
 import LinkedInAnalyzer from './pages/LinkedInAnalyzer';
 import GoalSetting from './pages/GoalSetting';
 import AdminDashboard from './pages/AdminDashboard';
+import GuestExperience from './pages/GuestExperience';
 
 function AppContent() {
   const location = useLocation();
@@ -37,6 +38,7 @@ function AppContent() {
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
+          <Route path="/guest-experience" element={<GuestExperience />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/skill-gap" element={<SkillGap />} />
