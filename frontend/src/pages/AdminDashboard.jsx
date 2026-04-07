@@ -63,6 +63,7 @@ const AdminDashboard = () => {
   const [password,  setPassword]  = useState('');
   const [pwError,   setPwError]   = useState('');
   const [tab,       setTab]       = useState('overview');
+  const [isDemo,    setIsDemo]    = useState(false);
 
   const [profiles,  setProfiles]  = useState([]);
   const [logs,      setLogs]      = useState([]);
@@ -80,40 +81,46 @@ const AdminDashboard = () => {
     setLoading(true);
     setError('');
     try {
+      // Try fetching real data
       const [p, l] = await Promise.all([
-        fetchAllProfiles().catch(() => []),
-        fetchActivityLogs(300).catch(() => []),
+        fetchAllProfiles(),
+        fetchActivityLogs(300),
       ]);
       
-      // Fallback to Demo Data if database is empty/unreachable
-      if (p.length === 0) {
-        console.warn('[Admin] No users found in database, loading Demo Mode data.');
-        const mockProfiles = [
-          { id: 'usr_1', education: 'MS Computer Science', skills: ['React', 'Node.js', 'AWS'], experience_years: 5, interest: 'Cloud Architecture', career_prediction: { career: 'Frontend Developer' }, updated_at: new Date().toISOString() },
-          { id: 'usr_2', education: 'B.Tech Data Science', skills: ['Python', 'SQL', 'Tableau'], experience_years: 2, interest: 'Data Visualization', career_prediction: { career: 'Data Analyst' }, updated_at: new Date(Date.now() - 86400000).toISOString() },
-          { id: 'usr_3', education: 'MBA Business Analytics', skills: ['Excel', 'Power BI'], experience_years: 8, interest: 'Strategic Planning', career_prediction: { career: 'Business Analyst' }, updated_at: new Date(Date.now() - 172800000).toISOString() },
-          { id: 'usr_4', education: 'MS Machine Learning', skills: ['Python', 'PyTorch', 'C++'], experience_years: 3, interest: 'AI Ethics', career_prediction: { career: 'ML Engineer' }, updated_at: new Date(Date.now() - 3600000).toISOString() },
-        ];
-        
-        const mockLogs = [
-          { id: 'log_1', user_email: 'demo_user1@example.com', action: 'login', page: '/dashboard', created_at: new Date(Date.now() - 120000).toISOString() },
-          { id: 'log_2', user_email: 'demo_user2@example.com', action: 'page_view', page: '/profile', created_at: new Date(Date.now() - 300000).toISOString() },
-          { id: 'log_3', user_email: 'demo_user1@example.com', action: 'logout', page: '/login', created_at: new Date(Date.now() - 600000).toISOString() },
-          { id: 'log_4', user_email: 'demo_user4@example.com', action: 'login', page: '/dashboard', created_at: new Date(Date.now() - 3600000).toISOString() },
-        ];
-        
-        setProfiles(mockProfiles);
-        setLogs(mockLogs);
-      } else {
+      if (p && p.length > 0) {
         setProfiles(p);
-        setLogs(l);
+        setLogs(l || []);
+        setIsDemo(false);
+      } else {
+        // Successful connection but no data — fallback to demo for visual presentation
+        throw new Error('db_empty');
       }
-      
-      setLastSync(new Date());
     } catch (e) {
-      setError(e.message || 'Failed to load data.');
+      console.warn('[Admin] Real data fetch failed or empty, loading Demo Mode.');
+      setIsDemo(true);
+      const mockProfiles = [
+        { id: 'usr_1', education: 'MS Computer Science', skills: ['React', 'Node.js', 'AWS'], experience_years: 5, interest: 'Cloud Architecture', career_prediction: { career: 'Frontend Developer' }, updated_at: new Date().toISOString() },
+        { id: 'usr_2', education: 'B.Tech Data Science', skills: ['Python', 'SQL', 'Tableau'], experience_years: 2, interest: 'Data Visualization', career_prediction: { career: 'Data Analyst' }, updated_at: new Date(Date.now() - 86400000).toISOString() },
+        { id: 'usr_3', education: 'MBA Business Analytics', skills: ['Excel', 'Power BI'], experience_years: 8, interest: 'Strategic Planning', career_prediction: { career: 'Business Analyst' }, updated_at: new Date(Date.now() - 172800000).toISOString() },
+        { id: 'usr_4', education: 'MS Machine Learning', skills: ['Python', 'PyTorch', 'C++'], experience_years: 3, interest: 'AI Ethics', career_prediction: { career: 'ML Engineer' }, updated_at: new Date(Date.now() - 3600000).toISOString() },
+      ];
+      
+      const mockLogs = [
+        { id: 'log_1', user_email: 'demo_user1@example.com', action: 'login', page: '/dashboard', created_at: new Date(Date.now() - 120000).toISOString() },
+        { id: 'log_2', user_email: 'demo_user2@example.com', action: 'page_view', page: '/profile', created_at: new Date(Date.now() - 300000).toISOString() },
+        { id: 'log_3', user_email: 'demo_user1@example.com', action: 'logout', page: '/login', created_at: new Date(Date.now() - 600000).toISOString() },
+        { id: 'log_4', user_email: 'demo_user4@example.com', action: 'login', page: '/dashboard', created_at: new Date(Date.now() - 3600000).toISOString() },
+      ];
+      
+      setProfiles(mockProfiles);
+      setLogs(mockLogs);
+      
+      if (e.message !== 'db_empty') {
+        setError('Real database connection failed (Missing Netlify Env Keys). Showing Demo Data.');
+      }
     } finally {
       setLoading(false);
+      setLastSync(new Date());
     }
   }, []);
 
@@ -228,6 +235,14 @@ const AdminDashboard = () => {
             <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-purple-400">
               Admin Dashboard
             </h1>
+            {isDemo && (
+              <div className="mt-1 flex items-center gap-2">
+                <span className="px-2 py-0.5 bg-amber-500/20 text-amber-400 text-[10px] font-bold uppercase tracking-widest rounded border border-amber-500/30 flex items-center gap-1">
+                  <AlertCircle className="w-3 h-3" /> Demo Mode (Offline)
+                </span>
+                <p className="text-[10px] text-gray-500">Add Supabase Keys to Netlify for real data.</p>
+              </div>
+            )}
             {lastSync && (
               <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
                 <Clock className="w-3 h-3" /> Last synced {ago(lastSync)}
