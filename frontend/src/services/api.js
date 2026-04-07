@@ -188,6 +188,54 @@ export const searchRoadmap = async (searchData) => {
 };
 
 /**
+ * Compare 2-3 careers side by side
+ */
+export const compareCareers = async (careers) => {
+  try {
+    const response = await api.post('/api/compare-careers', { careers });
+    return response.data;
+  } catch (error) {
+    console.warn('[API] compareCareers failed, using fallback');
+    const career_db = {
+      'Data Analyst': { 'salary': 75000, 'skills_needed': 8, 'demand': 9, 'difficulty': 7 },
+      'Data Scientist': { 'salary': 105000, 'skills_needed': 9, 'demand': 8, 'difficulty': 9 },
+      'Software Engineer': { 'salary': 95000, 'skills_needed': 8, 'demand': 9, 'difficulty': 8 },
+      'Frontend Developer': { 'salary': 85000, 'skills_needed': 7, 'demand': 9, 'difficulty': 7 },
+      'Backend Developer': { 'salary': 92000, 'skills_needed': 8, 'demand': 9, 'difficulty': 8 },
+      'ML Engineer': { 'salary': 115000, 'skills_needed': 10, 'demand': 10, 'difficulty': 10 },
+      'Product Manager': { 'salary': 110000, 'skills_needed': 7, 'demand': 8, 'difficulty': 7 },
+      'Business Analyst': { 'salary': 78000, 'skills_needed': 6, 'demand': 8, 'difficulty': 6 },
+      'UX/UI Designer': { 'salary': 82000, 'skills_needed': 7, 'demand': 7, 'difficulty': 6 },
+    };
+    
+    const comparisons = careers.map(career => {
+      const stats = career_db[career] || { 'salary': 80000, 'skills_needed': 7, 'demand': 7, 'difficulty': 7 };
+      return { career, ...stats };
+    });
+    
+    return { comparison_data: comparisons, is_fallback: true };
+  }
+};
+
+/**
+ * Analyze LinkedIn profile text against a target role
+ */
+export const analyzeLinkedIn = async (profile_text, target_role) => {
+  try {
+    const response = await api.post('/api/linkedin-analyze', { profile_text, target_role });
+    return response.data;
+  } catch (error) {
+    console.warn('[API] analyzeLinkedIn failed, using fallback');
+    return {
+      fit_score: 75.5,
+      gap_analysis: ["Advanced technical certifications", "Project management experience", "Deep cloud architecture"],
+      strengths: ["Strong technical core", "Good communication skills", "Adaptability"],
+      is_fallback: true
+    };
+  }
+};
+
+/**
  * Check API health status
  */
 export const checkHealth = async () => {

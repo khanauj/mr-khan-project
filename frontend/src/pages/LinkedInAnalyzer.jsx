@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, Brain, CheckCircle, AlertTriangle, ChevronRight } from 'lucide-react';
-import api from '../services/api';
+import { analyzeLinkedIn } from '../services/api';
 
 const LinkedInAnalyzer = () => {
   const [profileText, setProfileText] = useState('');
@@ -23,17 +23,7 @@ const LinkedInAnalyzer = () => {
     setError(null);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/linkedin-analyze`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          profile_text: profileText,
-          target_role: targetRole
-        })
-      });
-
-      if (!response.ok) throw new Error('Analysis failed');
-      const data = await response.json();
+      const data = await analyzeLinkedIn(profileText, targetRole);
       setResults(data);
     } catch (err) {
       setError(err.message || 'Error communicating with analyzer');

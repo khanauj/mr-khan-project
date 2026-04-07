@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend, Tooltip } from 'recharts';
-import api from '../services/api';
+import { compareCareers } from '../services/api';
+
 
 const CompareCareers = () => {
   const [career1, setCareer1] = useState('Data Analyst');
@@ -26,29 +27,18 @@ const CompareCareers = () => {
     if (career3) careersToCompare.push(career3);
 
     try {
-      // Create comparison endpoint in API
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/compare-careers`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ careers: careersToCompare })
-      });
-
-      if (!response.ok) throw new Error('Failed to fetch comparison data');
-      const data = await response.json();
+      const data = await compareCareers(careersToCompare);
       
-      // Transform data for radar chart
-      // Example data[0]: { career: 'Data Analyst', salary: 75000, demand: 9, skills_needed: 8, difficulty: 7 }
       if (data && data.comparison_data) {
         const transformedData = [
           { subject: 'Demand', fullMark: 10 },
           { subject: 'Skills Needed', fullMark: 10 },
           { subject: 'Difficulty', fullMark: 10 },
-          // Normalize salary to 0-10 scale somewhat dynamically for visual comparison
           { subject: 'Salary (Relative)', fullMark: 10 }
         ];
 
         let maxSalary = Math.max(...data.comparison_data.map(d => d.salary));
-        if (maxSalary === 0) maxSalary = 100000;
+        if (maxSalary === 0 || isNaN(maxSalary)) maxSalary = 100000;
 
         transformedData.forEach((item) => {
           data.comparison_data.forEach(c => {
