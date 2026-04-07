@@ -4,8 +4,24 @@
 
 @layer base {
   body {
-    @apply bg-[#030303] text-gray-100 min-h-screen selection:bg-primary-500/30;
+    @apply bg-[#030303] text-gray-100 min-h-screen selection:bg-primary-500/30 overflow-x-hidden;
     font-feature-settings: "cv02", "cv05", "cv11";
+  }
+
+  body::before {
+    content: "";
+    @apply fixed inset-0 -z-50 pointer-events-none opacity-[0.03];
+    background-image: 
+      linear-gradient(to right, #ffffff 1px, transparent 1px),
+      linear-gradient(to bottom, #ffffff 1px, transparent 1px);
+    background-size: 4rem 4rem;
+  }
+
+  body::after {
+    content: "";
+    @apply fixed top-0 left-1/2 -translate-x-1/2 w-full h-[500px] -z-40 pointer-events-none opacity-20;
+    background: radial-gradient(circle 800px at 50% -100px, #4062FF, transparent);
+    filter: blur(100px);
   }
   
   * {

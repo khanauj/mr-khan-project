@@ -1,6 +1,30 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Target, Zap, Sparkles, MessageSquare, Headphones, Share2, Rocket } from 'lucide-react';
+import { Target, Zap, Sparkles, MessageSquare, Headphones, Share2 } from 'lucide-react';
+import Hyperspeed from '../components/Hyperspeed/Hyperspeed';
+import { hyperspeedPresets } from '../components/Hyperspeed/HyperSpeedPresets';
+
+const homeHyperspeedOptions = {
+  ...hyperspeedPresets.one,
+  speedUp: 3,
+  fov: 96,
+  fovSpeedUp: 170,
+  lightPairsPerRoadWay: 55,
+  totalSideLightSticks: 34,
+  movingAwaySpeed: [80, 110],
+  movingCloserSpeed: [-170, -230],
+  carLightsLength: [18, 95],
+  carLightsRadius: [0.04, 0.16],
+  colors: {
+    ...hyperspeedPresets.one.colors,
+    roadColor: 0x050507,
+    islandColor: 0x06060a,
+    background: 0x02020a,
+    leftCars: [0xff4fd8, 0x9b5cff, 0x7c3cff],
+    rightCars: [0x00e5ff, 0x1b8dff, 0x00ffd5],
+    sticks: 0x00e5ff
+  }
+};
 
 const Home = () => {
   const navigate = useNavigate();
@@ -42,42 +66,43 @@ const Home = () => {
     <div className="min-h-screen bg-black text-white selection:bg-cyan-500/30">
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center">
+      <section className="relative isolate min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 text-center overflow-hidden">
+        {/* Hyperspeed Background */}
+        <div className="absolute inset-0 z-0 bg-black pointer-events-none" aria-hidden="true">
+          <Hyperspeed effectOptions={homeHyperspeedOptions} />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(34,211,238,0.14),transparent_28%),linear-gradient(180deg,rgba(0,0,0,0.22)_0%,rgba(0,0,0,0.72)_72%,#000_100%)]" />
+          <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px]" />
+        </div>
+        
         {/* Subtle top glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-0 left-1/2 z-[1] -translate-x-1/2 w-[800px] h-[300px] bg-primary-500/10 blur-[120px] rounded-full pointer-events-none" />
 
-        <motion.div 
-          initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5 }}
-          className="w-16 h-16 rounded-full bg-gradient-to-b from-cyan-500/20 to-purple-500/5 flex items-center justify-center border border-cyan-500/20 mb-8"
-        >
-          <Rocket className="w-6 h-6 text-cyan-400" />
-        </motion.div>
 
         <motion.h1 
           initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }}
-          className="text-5xl md:text-7xl font-bold tracking-tight mb-6"
+          className="relative z-10 text-4xl md:text-6xl lg:text-8xl font-black tracking-tight mb-8 max-w-5xl leading-[1.1]"
         >
-          Discover Your <br /> Perfect <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">Career Path</span>
+          Discover Your <br /> Perfect <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 text-glow">Career Path</span>
         </motion.h1>
 
         <motion.p 
           initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }}
-          className="text-lg md:text-xl text-gray-400 max-w-2xl mb-10 leading-relaxed"
+          className="relative z-10 text-base md:text-lg text-gray-300 max-w-2xl mb-12 leading-relaxed opacity-90"
         >
           Leverage AI-driven intelligence to map your future, bridge your skill gaps, and land your dream role in the evolving job market.
         </motion.p>
 
         <motion.div 
           initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }}
-          className="flex flex-col sm:flex-row gap-4"
+          className="relative z-10 flex flex-col sm:flex-row gap-6 mb-16"
         >
           <button 
             onClick={() => navigate('/profile')}
-            className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-semibold text-lg hover:opacity-90 transition-opacity"
+            className="px-12 py-4 rounded-full bg-white text-black font-bold text-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)] active:scale-95"
           >
             Get Started
           </button>
-          <button className="px-8 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white font-semibold text-lg hover:bg-white/10 transition-colors">
+          <button className="px-12 py-4 rounded-full bg-white/5 border border-white/10 text-white font-bold text-lg hover:bg-white/10 backdrop-blur-md transition-all active:scale-95">
             Learn More
           </button>
         </motion.div>
@@ -85,7 +110,7 @@ const Home = () => {
         {/* Stats Row */}
         <motion.div 
           initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }}
-          className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 w-full max-w-4xl pt-8 border-t border-white/5"
+          className="relative z-10 mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 w-full max-w-4xl pt-8 border-t border-white/10"
         >
           <div>
             <h3 className="text-4xl font-bold mb-2">10,000+</h3>
