@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Target, Zap, Sparkles, MessageSquare, Headphones, Share2 } from 'lucide-react';
 import Hyperspeed from '../components/Hyperspeed/Hyperspeed';
 import { hyperspeedPresets } from '../components/Hyperspeed/HyperSpeedPresets';
+import LaptopScene from '../components/LaptopScene';
 
 const homeHyperspeedOptions = {
   ...hyperspeedPresets.one,
@@ -125,6 +126,46 @@ const Home = () => {
             <p className="text-xs tracking-[0.2em] text-gray-500 font-semibold uppercase">Skills Tracked</p>
           </div>
         </motion.div>
+      </section>
+
+      {/* ── Laptop Showcase Section ── */}
+      <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        {/* subtle divider glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
+
+        <div className="max-w-7xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-[11px] tracking-[0.3em] font-bold text-cyan-400 uppercase mb-4">
+              Powered by AI
+            </p>
+            <h2 className="text-3xl md:text-5xl font-black mb-3 leading-tight">
+              Your Career,{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                Engineered by Data
+              </span>
+            </h2>
+            <p className="text-gray-500 max-w-lg mx-auto text-sm">
+              Every skill, every role, every opportunity — mapped and predicted in real time.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            <LaptopScene />
+          </motion.div>
+        </div>
+
+        {/* bottom divider glow */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
       </section>
 
       {/* Intelligence Tools Section */}
