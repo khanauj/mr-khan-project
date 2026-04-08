@@ -48,6 +48,12 @@ export const AuthProvider = ({ children }) => {
       }
     }
 
+    // Safety net: never block the app longer than 5 s
+    const loadingTimeout = setTimeout(() => {
+      setLoading(false);
+      console.warn('[Auth] getSession timed out — forcing loading=false');
+    }, 5000);
+
     // Get initial session
     supabase.auth.getSession()
       .then(({ data: { session } }) => {
@@ -56,7 +62,10 @@ export const AuthProvider = ({ children }) => {
         if (session?.user) syncProfile(session.user.id);
       })
       .catch((err) => console.warn('[Auth] getSession failed:', err.message))
-      .finally(() => setLoading(false));
+      .finally(() => {
+        clearTimeout(loadingTimeout);
+        setLoading(false);
+      });
 
     // Listen for auth changes
     let subscription;
@@ -74,7 +83,10 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     }
 
-    return () => subscription?.unsubscribe();
+    return () => {
+      clearTimeout(loadingTimeout);
+      subscription?.unsubscribe();
+    };
   }, []);
 
   const signUp = async (email, password) => {
