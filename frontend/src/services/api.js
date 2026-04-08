@@ -246,7 +246,10 @@ export const startInterview = async (data) => {
     console.warn('[API] startInterview failed, using fallback');
     return {
       session_id: "offline-session-" + Math.random().toString(36).substr(2, 9),
-      question: `Welcome! Let's start the interview for the ${data.role} position. Can you tell me about your background and experience with ${data.tech_stack}?`,
+      response: {
+        type: "question",
+        question: `Welcome! Let's start the interview for the ${data.role} position. Can you tell me about your background and experience with ${data.tech_stack}?`
+      },
       is_fallback: true
     };
   }
@@ -261,10 +264,25 @@ export const submitInterviewAnswer = async (data) => {
     return response.data;
   } catch (error) {
     console.warn('[API] submitInterviewAnswer failed, using fallback');
+    const fallbackQuestions = [
+      "How would you handle a situation where a project deadline is approaching but you've encountered a major technical blocker?",
+      "Describe a time you had to learn a new technology quickly. How did you approach it?",
+      "How do you prioritize tasks when working on multiple projects simultaneously?",
+      "Tell me about a challenging bug you encountered and how you resolved it.",
+      "How do you ensure code quality in your work?",
+    ];
+    const qIndex = Math.floor(Math.random() * fallbackQuestions.length);
     return {
-      reply: "That's a very clear explanation. Moving on, how would you handle a situation where a project deadline is approaching but you've encountered a major technical blocker?",
-      score: 85,
-      feedback: "Good structured response. Keep focusing on problem-solving steps.",
+      response: {
+        type: "question",
+        question: fallbackQuestions[qIndex],
+        evaluation: {
+          confidence_score: 7,
+          communication_score: 8,
+          feedback: "Good structured response. Keep focusing on the STAR method and concrete examples.",
+        }
+      },
+      question_number: (data.question_number || 1) + 1,
       is_fallback: true
     };
   }

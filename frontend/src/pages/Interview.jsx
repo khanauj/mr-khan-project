@@ -122,7 +122,7 @@ const Interview = () => {
       setMessages([{ type: 'bot', text: resp.question }]);
       speakText(resp.question);
     } catch (err) {
-      setErrorMsg(err?.detail || 'Failed to start interview');
+      setErrorMsg(err?.response?.data?.detail || err?.message || 'Failed to start interview');
     } finally {
       setLoading(false);
     }
@@ -161,7 +161,7 @@ const Interview = () => {
         speakText(resp.question);
       }
     } catch (err) {
-      setErrorMsg(err?.detail || 'Failed to submit answer');
+      setErrorMsg(err?.response?.data?.detail || err?.message || 'Failed to submit answer');
     } finally {
       setLoading(false);
     }
