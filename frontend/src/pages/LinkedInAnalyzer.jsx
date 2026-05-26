@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Briefcase, Brain, CheckCircle, AlertTriangle, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { analyzeLinkedIn } from '../services/api';
 
 const LinkedInAnalyzer = () => {
@@ -32,52 +31,68 @@ const LinkedInAnalyzer = () => {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-black pt-24 pb-12 px-4 sm:px-6 lg:px-8 text-white">
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <div className="flex justify-center mb-4">
-            <div className="p-4 bg-blue-500/10 rounded-2xl border border-blue-500/20">
-              <Brain className="w-12 h-12 text-blue-400" />
-            </div>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 mb-4">
-            LinkedIn Profile Analyzer
-          </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Paste your LinkedIn "About" or experience section to see how well it fits your target role.
-          </p>
-        </motion.div>
+  const fitScore = results?.fit_score || 0;
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-2xl p-6 md:p-8"
-          >
-            <form onSubmit={handleAnalyze} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Target Role</label>
-                <select
-                  value={targetRole}
-                  onChange={(e) => setTargetRole(e.target.value)}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 transition-all"
-                >
-                  {roleOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-                </select>
+  return (
+    <div className="min-h-screen pt-32 pb-20 px-6 max-w-[1200px] mx-auto w-full flex flex-col gap-12 text-[#e5e2e1]">
+      {/* Background blobs */}
+      <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div className="bg-glow-blob w-[800px] h-[800px] bg-primary/10 top-[-200px] right-[-100px]"></div>
+        <div className="bg-glow-blob w-[600px] h-[600px] bg-tertiary/10 bottom-[-100px] left-[-100px]" style={{ animationDelay: '-5s' }}></div>
+      </div>
+
+      <div className="flex flex-col items-center text-center gap-4 animate-fade-in">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
+          <div className="relative w-2 h-2 rounded-full bg-primary flex items-center justify-center">
+            <div className="absolute w-full h-full rounded-full bg-primary ai-indicator-ring"></div>
+          </div>
+          <span className="font-mono text-[11px] text-on-surface-variant uppercase tracking-widest font-bold">Social Audit Active</span>
+        </div>
+        <h1 className="text-[40px] md:text-[56px] font-black tracking-tight leading-tight gradient-text max-w-4xl">
+          LinkedIn Optimizer
+        </h1>
+        <p className="font-sans text-[16px] text-on-surface-variant max-w-xl leading-relaxed">
+          Audit your LinkedIn profile parameters. Align your headline, about, and experience data with key recruiter queries.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        {/* Left Column: Form */}
+        <div className="lg:col-span-6 flex flex-col gap-6">
+          <div className="glass-card rounded-[28px] p-6 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none"></div>
+            
+            <form onSubmit={handleAnalyze} className="space-y-6 relative z-10">
+              
+              {/* Target Position */}
+              <div className="space-y-2">
+                <label className="font-mono text-[11px] text-on-surface-variant uppercase tracking-wider block">Target Vector Position</label>
+                <div className="relative">
+                  <select
+                    value={targetRole}
+                    onChange={(e) => setTargetRole(e.target.value)}
+                    className="w-full bg-surface-container/50 border border-white/10 rounded-lg px-4 py-3 font-sans text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all appearance-none cursor-pointer"
+                  >
+                    {roleOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                  </select>
+                  <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[20px]">
+                    keyboard_arrow_down
+                  </span>
+                </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">LinkedIn Profile Text</label>
+              {/* Profile Text */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <label className="font-mono text-[11px] text-on-surface-variant uppercase tracking-wider">LinkedIn Profile Content</label>
+                  <span className="font-mono text-[10px] text-on-surface-variant">{profileText.length} Chars</span>
+                </div>
                 <textarea
                   value={profileText}
                   onChange={(e) => setProfileText(e.target.value)}
-                  placeholder="Paste your LinkedIn summary, experience, and skills here..."
-                  className="w-full h-64 bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+                  placeholder="Paste your LinkedIn headline, summary description, and experience text here..."
+                  className="w-full h-64 bg-surface-container/30 border border-white/10 rounded-xl p-4 font-mono text-[13px] text-on-surface placeholder:text-on-surface-variant/20 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none"
                   required
                 />
               </div>
@@ -85,91 +100,114 @@ const LinkedInAnalyzer = () => {
               <button
                 type="submit"
                 disabled={loading || !profileText.trim()}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-3 px-6 rounded-xl transition-all disabled:opacity-50 flex justify-center items-center"
+                className="ai-glow w-full py-4 rounded-xl bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-mono text-[13px] uppercase tracking-wider flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50 shrink-0 cursor-pointer"
               >
                 {loading ? (
-                  <span className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                  <>
+                    <span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
+                    Auditing Profile...
+                  </>
                 ) : (
                   <>
-                    Analyze Profile <ChevronRight className="ml-2 w-5 h-5" />
+                    <span className="material-symbols-outlined text-[18px]">auto_awesome</span>
+                    Synthesize Profile Audit
                   </>
                 )}
               </button>
+
             </form>
+
             {error && (
-              <div className="mt-4 p-4 bg-red-500/10 border border-red-500/50 rounded-xl text-red-400">
+              <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm font-sans text-center">
                 {error}
               </div>
             )}
-          </motion.div>
+          </div>
+        </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
+        {/* Right Column: Output */}
+        <div className="lg:col-span-6 flex flex-col gap-6">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-primary">analytics</span>
+            <h2 className="text-lg font-semibold text-on-surface">Audit Output</h2>
+          </div>
+
+          <AnimatePresence>
             {results ? (
-              <div className="space-y-6">
-                <div className="bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-2xl p-6 text-center">
-                  <h3 className="text-xl font-medium text-gray-300 mb-2">Career Fit Score</h3>
-                  <div className="text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
-                    {Math.round(results.fit_score)}%
-                  </div>
-                  <div className="mt-4 w-full bg-gray-800 rounded-full h-3">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${results.fit_score}%` }}
-                      transition={{ duration: 1, ease: "easeOut" }}
-                      className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full"
-                    />
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                className="space-y-6"
+              >
+                {/* Score Dial */}
+                <div className="glass-card rounded-[28px] p-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-[40px] rounded-full pointer-events-none"></div>
+                  
+                  <h3 className="font-mono text-[11px] text-on-surface-variant uppercase tracking-widest mb-6">Profile Fit score</h3>
+
+                  <div className="relative w-32 h-32 flex items-center justify-center mb-4">
+                    <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                      <path className="text-surface-container-high" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="2.5"></path>
+                      <path className="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeDasharray={`${fitScore}, 100`} strokeLinecap="round" strokeWidth="2.5"></path>
+                    </svg>
+                    <span className="absolute font-mono text-[24px] text-primary font-bold">{fitScore.toFixed(0)}%</span>
                   </div>
                 </div>
 
-                <div className="bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-2xl p-6">
-                  <h3 className="text-lg font-bold text-white mb-4 flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-400 mr-2" /> Key Strengths Found
-                  </h3>
+                {/* Strengths */}
+                <div className="glass-card rounded-[28px] p-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="material-symbols-outlined text-green-400">check_circle</span>
+                    <h3 className="text-base font-semibold text-on-surface">Profile Strengths</h3>
+                  </div>
                   {results.strengths?.length > 0 ? (
                     <div className="flex flex-wrap gap-2">
                       {results.strengths.map((str, idx) => (
-                        <span key={idx} className="px-3 py-1 bg-green-500/20 border border-green-500/30 text-green-400 rounded-full text-sm">
+                        <span key={idx} className="px-3.5 py-1.5 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 font-sans text-xs">
                           {str}
                         </span>
                       ))}
                     </div>
                   ) : (
-                    <p className="text-gray-400">No specific keyword strengths detected for this role.</p>
+                    <p className="text-on-surface-variant text-sm">No significant keyword strengths detected for this role.</p>
                   )}
                 </div>
 
-                <div className="bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-2xl p-6">
-                  <h3 className="text-lg font-bold text-white mb-4 flex items-center">
-                    <AlertTriangle className="w-5 h-5 text-yellow-400 mr-2" /> Missing Keywords (Gap Analysis)
-                  </h3>
+                {/* Missing Keywords / Gaps */}
+                <div className="glass-card rounded-[28px] p-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="material-symbols-outlined text-yellow-400">warning</span>
+                    <h3 className="text-base font-semibold text-on-surface">Target Skill Gaps</h3>
+                  </div>
                   {results.gap_analysis?.length > 0 ? (
                     <div className="flex flex-wrap gap-2">
                       {results.gap_analysis.map((gap, idx) => (
-                        <span key={idx} className="px-3 py-1 bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 rounded-full text-sm">
+                        <span key={idx} className="px-3.5 py-1.5 rounded-lg bg-yellow-400/10 border border-yellow-400/20 text-yellow-400 font-mono text-[12px]">
                           {gap}
                         </span>
                       ))}
                     </div>
                   ) : (
-                    <p className="text-gray-400">Your profile covers all the major keywords perfectly!</p>
+                    <p className="text-on-surface-variant text-sm">Your profile covers all the major keywords perfectly!</p>
                   )}
-                  <p className="mt-4 text-sm text-gray-500">
-                    Wait, tip: Adding these keywords to your "About" or "Experience" sections can improve your chances to be noticed!
+                  <p className="mt-4 text-[11px] text-on-surface-variant/70 leading-relaxed font-sans">
+                    💡 Tip: Integrate these missing credentials naturally inside your LinkedIn About/Bio section to trigger matching indexing systems.
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ) : (
-              <div className="h-full flex flex-col items-center justify-center bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-2xl p-8 text-center border-dashed">
-                <Briefcase className="w-16 h-16 text-gray-600 mb-4" />
-                <h3 className="text-xl font-medium text-gray-400">Awaiting Profile Details</h3>
-                <p className="text-gray-500 mt-2">Paste your LinkedIn info on the left to see your personalized analysis.</p>
+              <div className="h-[400px] rounded-[28px] border border-dashed border-white/10 flex flex-col items-center justify-center text-center p-6 bg-surface-container/20">
+                <span className="material-symbols-outlined text-on-surface-variant/20 text-[56px] mb-4">account_circle</span>
+                <p className="font-mono text-[11px] uppercase tracking-widest text-on-surface font-bold">Awaiting Input Data</p>
+                <p className="text-on-surface-variant text-sm mt-2 max-w-xs leading-relaxed">
+                  Provide your target vector role and paste profile sections on the left to review optimization outputs.
+                </p>
               </div>
             )}
-          </motion.div>
+          </AnimatePresence>
         </div>
+
       </div>
     </div>
   );

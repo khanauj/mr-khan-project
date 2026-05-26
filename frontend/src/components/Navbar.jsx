@@ -9,12 +9,10 @@ import { Menu, X, LogOut, LogIn, ChevronDown, User } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import RocketIcon from './RocketIcon';
-import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const location = useLocation();
   const navigate  = useNavigate();
-  const { user, signOut } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen,   setUserMenuOpen]   = useState(false);
   const userMenuRef = useRef(null);
@@ -30,20 +28,15 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  const handleSignOut = () => {
-    signOut();          // clears state immediately
-    setUserMenuOpen(false);
-    setMobileMenuOpen(false);
-    navigate('/auth');
-  };
+
 
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/profile', label: 'Profile' },
     { path: '/dashboard', label: 'Dashboard' },
     { path: '/skill-gap', label: 'Skill Gap' },
-    { path: '/resume-match', label: 'Resume Match' },
-    { path: '/career-switch', label: 'Career Switch' },
+    { path: '/resume-match', label: 'Resume' },
+    { path: '/career-switch', label: 'Transition' },
     { path: '/compare-careers', label: 'Compare' },
     { path: '/linkedin-analyzer', label: 'LinkedIn' },
     { path: '/goals', label: 'Goals' },
@@ -61,53 +54,60 @@ const Navbar = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10"
+      className="fixed top-0 left-0 right-0 z-50 bg-surface/60 backdrop-blur-xl border-b border-white/10 shadow-xl shadow-black/20"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+      <div className="max-w-[1200px] mx-auto px-6">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo / Brand */}
           <Link to="/" className="flex items-center space-x-3 group">
             <motion.div
-              whileHover={{ y: -5, rotate: [0, -10, 10, -10, 0] }}
+              whileHover={{ y: -3, rotate: [0, -10, 10, -10, 0] }}
               transition={{ duration: 0.6 }}
+              className="text-primary"
             >
-              <RocketIcon className="w-10 h-10" />
+              <RocketIcon className="w-8 h-8" />
             </motion.div>
             <div className="flex flex-col">
-              <span className="text-2xl font-bold skillence-gradient">Skillence</span>
-              <div className="flex items-center space-x-1">
-                <RocketIcon className="w-3 h-3" showFlame={false} showStars={false} />
-                <span className="text-xs text-gray-400">AI-Powered Career & Skills Advisor</span>
-              </div>
+              <span className="text-[22px] font-geist font-extrabold tracking-tighter text-on-surface group-hover:text-primary transition-colors">
+                Skillence
+              </span>
+              <span className="text-[10px] font-mono tracking-widest text-on-surface-variant uppercase">
+                AI Career Intelligence
+              </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 relative ${
+                className={`font-mono text-[12px] uppercase tracking-wider transition-all duration-300 py-1.5 px-2 relative ${
                   isActive(link.path)
-                    ? 'text-primary-400'
-                    : 'text-gray-300 hover:text-cyan-400 hover:bg-white/5'
+                    ? 'text-primary font-bold'
+                    : 'text-on-surface-variant hover:text-primary'
                 }`}
               >
                 {link.label}
                 {isActive(link.path) && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-purple-500/20 rounded-lg -z-10"
+                    className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-full"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
               </Link>
             ))}
+          </div>
 
-            {/* Auth area & Theme Toggle */}
-          <div className="flex items-center">
-            {/* Light/Dark Mode Toggle (Desktop) */}
+          {/* User actions / Toggle theme / Upgrade */}
+          <div className="flex items-center gap-4">
+            <button className="hidden sm:block font-mono text-[12px] text-primary hover:underline transition-all">
+              UPGRADE PRO
+            </button>
+
+            {/* Toggle Theme */}
             <button
               onClick={() => {
                 if (document.body.classList.contains('light-theme')) {
@@ -116,63 +116,26 @@ const Navbar = () => {
                   document.body.classList.add('light-theme');
                 }
               }}
-              className="p-2 mr-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
+              className="p-2 rounded-full hover:bg-white/5 text-on-surface transition-colors"
               title="Toggle Light/Dark Mode"
             >
-              <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-gray-400 to-white" />
+              <span className="material-symbols-outlined text-[20px]">
+                dark_mode
+              </span>
             </button>
 
-            {user ? (
-              <div className="relative ml-2" ref={userMenuRef}>
-                <button
-                  onClick={() => setUserMenuOpen(o => !o)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-all"
-                >
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">
-                    {user.email?.[0]?.toUpperCase() ?? 'U'}
-                  </div>
-                  <span className="text-gray-300 text-sm max-w-[120px] truncate">{user.email}</span>
-                  <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
-                </button>
-
-              </div>
-            ) : (
-              <Link
-                to="/auth"
-                className="ml-2 flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-500/20 border border-primary-500/40 text-primary-300 hover:bg-primary-500/30 text-sm font-medium transition-all"
-              >
-                <LogIn className="w-4 h-4" /> Sign In
-              </Link>
-            )}
-            </div>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 rounded-full hover:bg-white/5 text-on-surface transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
-
-        {/* Light/Dark Mode Toggle */}
-          <button
-            onClick={() => {
-              if (document.body.classList.contains('light-theme')) {
-                document.body.classList.remove('light-theme');
-              } else {
-                document.body.classList.add('light-theme');
-              }
-            }}
-            className="md:hidden p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-colors mr-2"
-            title="Toggle Light/Dark Mode"
-          >
-            <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-gray-400 to-white" />
-          </button>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation Drawer */}
         <motion.div
           initial={false}
           animate={{
@@ -180,97 +143,33 @@ const Navbar = () => {
             opacity: mobileMenuOpen ? 1 : 0,
           }}
           transition={{ duration: 0.3 }}
-          className="md:hidden overflow-hidden"
+          className="lg:hidden overflow-hidden"
         >
-          <div className="py-4 space-y-2">
+          <div className="py-4 space-y-2 border-t border-white/5">
             {navLinks.map((link, index) => (
               <motion.div
                 key={link.path}
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: mobileMenuOpen ? 1 : 0 }}
-                transition={{ delay: index * 0.05 }}
+                transition={{ delay: index * 0.03 }}
               >
                 <Link
                   to={link.path}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`block px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                  className={`block px-4 py-2.5 font-mono text-[13px] uppercase tracking-wider rounded-lg transition-all duration-200 ${
                     isActive(link.path)
-                      ? 'text-primary-400 bg-gradient-to-r from-primary-500/20 to-purple-500/20'
-                      : 'text-gray-300 hover:text-cyan-400 hover:bg-white/5'
+                      ? 'text-primary bg-primary/10 border-l-2 border-primary'
+                      : 'text-on-surface-variant hover:text-primary hover:bg-white/5'
                   }`}
                 >
                   {link.label}
                 </Link>
               </motion.div>
             ))}
-
-            {/* Mobile auth */}
-            <div className="pt-2 border-t border-white/10">
-              {user ? (
-                <>
-                  <p className="px-4 py-1 text-xs text-gray-500 truncate">{user.email}</p>
-                  <button
-                    onClick={handleSignOut}
-                    className="w-full text-left px-4 py-2 rounded-lg text-red-400 hover:bg-red-500/10 font-medium flex items-center gap-2"
-                  >
-                    <LogOut className="w-4 h-4" /> Sign Out
-                  </button>
-                </>
-              ) : (
-                <Link
-                  to="/auth"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block px-4 py-2 rounded-lg text-primary-300 hover:bg-primary-500/10 font-medium flex items-center gap-2"
-                >
-                  <LogIn className="w-4 h-4" /> Sign In / Sign Up
-                </Link>
-              )}
-            </div>
           </div>
         </motion.div>
       </div>
     </motion.nav>
-
-      {/* User Profile Modal -> Placed outside <nav> to escape transform clipping */}
-      <AnimatePresence>
-        {userMenuOpen && user && (
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-               onClick={() => setUserMenuOpen(false)}>
-            <motion.div
-              onClick={(e) => e.stopPropagation()}
-              onMouseDown={(e) => e.stopPropagation()}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.15 }}
-              className="w-full max-w-sm bg-gray-900 border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden"
-            >
-              <div className="px-6 py-6 border-b border-gray-800 text-center">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center text-2xl font-bold text-white mx-auto mb-3">
-                  {user.email?.[0]?.toUpperCase() ?? 'U'}
-                </div>
-                <p className="text-sm text-gray-400 mb-1">Signed in as</p>
-                <p className="text-lg text-white font-semibold truncate">{user.email}</p>
-              </div>
-              <div className="flex flex-col p-2 space-y-1">
-                <Link
-                  to="/profile"
-                  onClick={() => setUserMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
-                >
-                  <User className="w-5 h-5 text-blue-400" /> My Profile Dashboard
-                </Link>
-                <button
-                  onClick={handleSignOut}
-                  className="w-full flex items-center justify-center gap-2 mt-2 px-4 py-3 text-sm font-medium text-red-400 hover:text-white bg-red-500/10 hover:bg-red-500 transition-colors rounded-xl cursor-pointer"
-                >
-                  <LogOut className="w-4 h-4" /> Sign Out
-                </button>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </>
   );
 };

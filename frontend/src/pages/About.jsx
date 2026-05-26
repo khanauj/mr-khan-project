@@ -1,255 +1,276 @@
-/**
- * About Developers Page
- * Showcase the team behind Skillence
- */
-
 import { motion } from 'framer-motion';
-import { Linkedin, Mail, Code, Palette, Cpu } from 'lucide-react';
-import RocketIcon from '../components/RocketIcon';
+import { Linkedin, Mail, Code, Palette, Cpu, Sparkles, Star, Target, Info } from 'lucide-react';
 
 const About = () => {
   const developers = [
     {
       name: 'AUJ KHAN',
-      role: 'ML + Backend',
-      description: 'Trains models and builds API endpoints',
-      linkedin: 'https://www.linkedin.com/in/auj-khan-b423b4198/',
+      role: 'ML Engineer + Backend',
+      description: 'Trains machine learning models, engineers database pipelines, and designs backend FastAPI services.',
+      quote: 'Building intelligent systems that transform career guidance with AI.',
       email: 'khanauj60@gmail.com',
+      linkedin: 'https://www.linkedin.com/in/auj-khan-b423b4198/',
       icon: Cpu,
-      gradient: 'from-primary-500 to-primary-600',
-      image: '/images/auj-khan.jpg' // Profile picture path
+      accent: 'primary',
+      specialties: ['Machine Learning', 'APIs', 'Career Intelligence'],
+      techStack: ['Python', 'FastAPI', 'SQL', 'TensorFlow']
     },
     {
       name: 'WAZID ANSARI',
       role: 'Full-Stack + Integration',
-      description: 'Integrates frontend and backend, testing, deployment',
-      linkedin: 'https://www.linkedin.com/in/wazid-ansari?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+      description: 'Maintains system-wide components integration, develops API pathways, and oversees robust container builds.',
+      quote: 'Engineering robust pipelines and seamless API integrations to scale intelligence.',
       email: 'wazida471@gmail.com',
+      linkedin: 'https://www.linkedin.com/in/wazid-ansari?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
       icon: Code,
-      gradient: 'from-purple-500 to-purple-600',
-      image: '/images/wazid-ansari.jpg' // Profile picture path
+      accent: 'secondary',
+      specialties: ['Full-Stack Dev', 'System Integration', 'API Pipelines'],
+      techStack: ['Node.js', 'React', 'MongoDB', 'Docker']
     },
     {
       name: 'SUHAIB ASHRAF',
       role: 'Frontend + Design',
-      description: 'Builds UI and handles branding/design',
-      linkedin: 'https://www.linkedin.com/in/suhaib-ashraf01/',
+      description: 'Directs user interface blueprints, crafts glassmorphism tokens, and oversees visual brand aesthetics.',
+      quote: 'Designing immersive, accessible interface vectors that represent user potential.',
       email: 'ashrafsuhaib674@gmail.com',
+      linkedin: 'https://www.linkedin.com/in/suhaib-ashraf01/',
       icon: Palette,
-      gradient: 'from-cyan-400 to-cyan-500',
-      image: '/images/suhaib-ashraf.jpg' // Profile picture path
+      accent: 'tertiary',
+      specialties: ['UX Research', 'Frontend Systems', 'Product Design'],
+      techStack: ['React', 'Figma', 'Tailwind', 'CSS']
     }
   ];
 
   return (
-    <div className="min-h-screen pt-16 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header Section */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
+    <div className="min-h-screen text-[#e5e2e1] overflow-x-hidden pt-20">
+      {/* Ambient background glowing circles */}
+      <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div className="bg-glow-blob w-[800px] h-[800px] bg-primary/10 top-[-250px] right-[-250px]"></div>
+        <div className="bg-glow-blob w-[700px] h-[700px] bg-secondary/5 bottom-[-150px] left-[-150px]" style={{ animationDelay: '-5s' }}></div>
+      </div>
+
+      <main className="max-w-[1200px] mx-auto px-6 py-12">
+        
+        {/* Header Hero Section */}
+        <section className="relative pt-20 pb-16 text-center max-w-4xl mx-auto overflow-hidden">
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-            className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-500/20 to-purple-500/20 mb-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl glass-panel mb-6 border-beam"
           >
-            <RocketIcon className="w-12 h-12" />
+            <span className="material-symbols-outlined text-3xl text-primary animate-pulse">neurology</span>
           </motion.div>
           
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            <span className="skillence-gradient">About Developers</span>
-          </h1>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-[40px] md:text-[64px] font-black tracking-tight leading-tight gradient-text"
+          >
+            The Minds Behind <span className="text-gradient">Skillence</span>
+          </motion.h1>
           
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Meet the talented team behind Skillence. We're passionate about using AI and machine learning 
-            to help people navigate their career journeys.
-          </p>
-        </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="font-sans text-[16px] md:text-[18px] text-on-surface-variant max-w-2xl mx-auto mt-4 leading-relaxed"
+          >
+            We build AI-powered career intelligence networks that calibrate profile readiness, close critical skill gaps, and accelerate professional growth vectors.
+          </motion.p>
+        </section>
 
-        {/* Developers Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {developers.map((dev, index) => {
-            const IconComponent = dev.icon;
-            return (
-              <motion.div
-                key={dev.name}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + index * 0.1, duration: 0.6 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="glass-card-hover p-8 rounded-2xl"
-              >
-                {/* Profile Picture */}
-                <div className="relative mb-6">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.4 + index * 0.1, type: 'spring', stiffness: 200 }}
-                    className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-white/20 bg-gradient-to-br from-primary-500/20 to-purple-500/20 flex items-center justify-center relative"
-                  >
-                    <img
-                      src={dev.image}
-                      alt={dev.name}
-                      className="w-full h-full object-cover absolute inset-0"
-                      onError={(e) => {
-                        // Hide image if it fails to load - icon will show as fallback
-                        e.target.style.display = 'none';
-                        // Ensure icon is visible as fallback
-                        const icon = e.target.parentElement.querySelector('svg');
-                        if (icon) {
-                          icon.style.display = 'block';
-                          icon.style.opacity = '1';
-                        }
-                      }}
-                      onLoad={(e) => {
-                        // Show image if it loads successfully
-                        e.target.style.display = 'block';
-                        const icon = e.target.parentElement.querySelector('svg');
-                        if (icon) icon.style.display = 'none';
-                      }}
-                    />
-                    <IconComponent className="w-16 h-16 text-primary-400 absolute" style={{ display: 'block', opacity: 1 }} />
-                  </motion.div>
-                  
-                  {/* Role Badge */}
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.5 + index * 0.1 }}
-                    className={`absolute -bottom-2 left-1/2 transform -translate-x-1/2 px-4 py-1.5 bg-gradient-to-r ${dev.gradient} rounded-full text-white text-sm font-semibold shadow-lg`}
-                  >
-                    {dev.role}
-                  </motion.div>
-                </div>
+        {/* Developers Grid Section */}
+        <section className="py-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {developers.map((dev, index) => {
+              const DeveloperIcon = dev.icon;
+              
+              // Color mapping definitions based on accent tokens
+              const accentColorClass = 
+                dev.accent === 'primary' ? 'text-primary' : 
+                dev.accent === 'secondary' ? 'text-secondary' : 'text-tertiary';
 
-                {/* Developer Info */}
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">{dev.name}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">{dev.description}</p>
-                </div>
+              const accentBorderClass = 
+                dev.accent === 'primary' ? 'border-primary/20' : 
+                dev.accent === 'secondary' ? 'border-secondary/20' : 'border-tertiary/20';
 
-                {/* Social Links */}
-                <div className="flex items-center justify-center space-x-4">
-                  <motion.a
-                    href={dev.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="p-3 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 hover:border-primary-500/50 transition-all duration-300 group"
-                    aria-label={`${dev.name}'s LinkedIn`}
-                  >
-                    <Linkedin className="w-5 h-5 text-gray-400 group-hover:text-primary-400 transition-colors" />
-                  </motion.a>
-                  
-                  <motion.a
-                    href={`mailto:${dev.email}`}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="p-3 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 hover:border-primary-500/50 transition-all duration-300 group"
-                    aria-label={`Email ${dev.name}`}
-                  >
-                    <Mail className="w-5 h-5 text-gray-400 group-hover:text-primary-400 transition-colors" />
-                  </motion.a>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+              const accentBgClass = 
+                dev.accent === 'primary' ? 'bg-primary/5' : 
+                dev.accent === 'secondary' ? 'bg-secondary/5' : 'bg-tertiary/5';
 
-        {/* Team Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="glass-card p-12 text-center"
-        >
-          <h2 className="text-3xl font-bold text-white mb-6">Our Mission</h2>
-          <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto mb-8">
-            At Skillence, we believe everyone deserves personalized career guidance powered by cutting-edge AI. 
-            Our team combines expertise in machine learning, full-stack development, and design to create 
-            innovative solutions that help professionals unlock their career potential.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 }}
-              className="text-center"
-            >
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary-500/20 to-primary-600/20 mb-4">
-                <Cpu className="w-8 h-8 text-primary-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">AI-Powered</h3>
-              <p className="text-gray-400 text-sm">
-                Leveraging advanced ML models and AI to provide accurate career insights
-              </p>
-            </motion.div>
+              const hoverTextClass = 
+                dev.accent === 'primary' ? 'group-hover:text-primary' : 
+                dev.accent === 'secondary' ? 'group-hover:text-secondary' : 'group-hover:text-tertiary';
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.1 }}
-              className="text-center"
-            >
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-purple-600/20 mb-4">
-                <Code className="w-8 h-8 text-purple-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Full-Stack</h3>
-              <p className="text-gray-400 text-sm">
-                Seamless integration between powerful backend APIs and intuitive frontend experiences
-              </p>
-            </motion.div>
+              return (
+                <motion.div
+                  key={dev.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + index * 0.1, duration: 0.6 }}
+                  className="glass-panel rounded-[24px] p-6 flex flex-col justify-between glass-panel-hover border-beam transition-all duration-500 transform hover:-translate-y-2 group"
+                >
+                  <div className="space-y-6">
+                    {/* Header: Icon and social connects */}
+                    <div className="flex items-start justify-between">
+                      <div className={`w-14 h-14 rounded-2xl ${accentBgClass} flex items-center justify-center border ${accentBorderClass} relative overflow-hidden`}>
+                        <div className={`absolute inset-0 bg-gradient-to-br from-white/10 to-transparent`} />
+                        <DeveloperIcon className={`w-7 h-7 ${accentColorClass}`} />
+                      </div>
+                      
+                      <div className="flex gap-2">
+                        <a 
+                          href={dev.linkedin} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="w-9 h-9 rounded-full glass-panel flex items-center justify-center text-on-surface-variant hover:text-white transition-colors border border-white/5 hover:border-white/10"
+                          title="LinkedIn Profile"
+                        >
+                          <Linkedin className="w-4 h-4" />
+                        </a>
+                        <a 
+                          href={`mailto:${dev.email}`}
+                          className="w-9 h-9 rounded-full glass-panel flex items-center justify-center text-on-surface-variant hover:text-white transition-colors border border-white/5 hover:border-white/10"
+                          title="Contact Email"
+                        >
+                          <Mail className="w-4 h-4" />
+                        </a>
+                      </div>
+                    </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2 }}
-              className="text-center"
-            >
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400/20 to-cyan-500/20 mb-4">
-                <Palette className="w-8 h-8 text-cyan-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">User-Centric</h3>
-              <p className="text-gray-400 text-sm">
-                Beautiful, intuitive design that makes career planning accessible to everyone
-              </p>
-            </motion.div>
+                    {/* Developer Metadata */}
+                    <div>
+                      <h3 className="font-sans text-[20px] font-black text-white tracking-wide">{dev.name}</h3>
+                      <p className={`font-mono text-[11px] uppercase tracking-widest mt-1 font-semibold ${accentColorClass}`}>
+                        {dev.role}
+                      </p>
+                    </div>
+
+                    {/* Quote in blockquote style */}
+                    <blockquote className={`font-sans text-[13px] text-on-surface-variant italic border-l-2 ${accentBorderClass} pl-4 py-1 leading-relaxed`}>
+                      "{dev.quote}"
+                    </blockquote>
+
+                    {/* Short Description */}
+                    <p className="text-xs text-on-surface-variant/80 font-sans leading-relaxed">
+                      {dev.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-8 space-y-4 pt-4 border-t border-white/5">
+                    {/* Specialties list */}
+                    <div>
+                      <p className="font-mono text-[9px] text-outline uppercase tracking-wider mb-2">Specialties</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {dev.specialties.map((spec) => (
+                          <span 
+                            key={spec} 
+                            className={`px-2 py-0.5 rounded-full font-mono text-[9px] border ${accentBgClass} ${accentColorClass} ${accentBorderClass}`}
+                          >
+                            {spec}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Tech Stack tags */}
+                    <div>
+                      <p className="font-mono text-[9px] text-outline uppercase tracking-wider mb-2">Tech Stack</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {dev.techStack.map((tech) => (
+                          <span 
+                            key={tech} 
+                            className="font-mono text-[10px] text-on-surface-variant px-2.5 py-1 bg-white/5 rounded-md border border-white/5"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
-        </motion.div>
+        </section>
 
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.3 }}
-          className="mt-16 text-center"
-        >
-          <div className="glass-card p-8 max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold text-white mb-4">Interested in Collaborating?</h2>
-            <p className="text-gray-400 mb-6">
-              We're always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+        {/* Why We Built Skillence Section */}
+        <section className="max-w-4xl mx-auto py-16 text-center">
+          <h2 className="text-[32px] font-black mb-6 tracking-tight text-white">Why We Built Skillence</h2>
+          <div className="glass-panel p-8 md:p-10 rounded-[28px] relative overflow-hidden">
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-secondary/5 rounded-full blur-3xl pointer-events-none" />
+            
+            <p className="font-sans text-[15px] md:text-[17px] text-on-surface-variant leading-relaxed relative z-10 text-center max-w-3xl mx-auto">
+              Career guidance is fundamentally broken. Professionals and students alike navigate transition decisions blind—unsure of skill requirements, CV tracking indices, or performance markers. We engineered Skillence to calibrate profiles in real-time, mapping exact skill delta values so you can step confidently into high-velocity career options.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
+          </div>
+        </section>
+
+        {/* Mission & Stats Section */}
+        <section className="py-12 border-t border-white/5">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-4 lg:pr-8 text-center lg:text-left space-y-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+                <Target className="w-3.5 h-3.5 text-primary" />
+                <span className="font-mono text-[9px] uppercase tracking-widest text-primary">Core Compass</span>
+              </div>
+              <h2 className="text-[32px] font-black leading-tight text-white">Our Mission</h2>
+              <p className="font-sans text-sm text-on-surface-variant leading-relaxed">
+                Make high-fidelity, predictive career planning and interview simulations accessible to every professional on the planet.
+              </p>
+            </div>
+
+            <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+              
+              {/* Stat 1 */}
+              <div className="glass-panel p-6 rounded-2xl flex flex-col items-center justify-center text-center gap-2 border-t border-primary/30">
+                <span className="material-symbols-outlined text-[36px] text-primary opacity-80">route</span>
+                <h4 className="text-3xl font-black text-white mt-1">10k+</h4>
+                <p className="font-mono text-[9px] text-outline uppercase tracking-wider">Career Maps Processed</p>
+              </div>
+
+              {/* Stat 2 */}
+              <div className="glass-panel p-6 rounded-2xl flex flex-col items-center justify-center text-center gap-2 border-t border-secondary/30">
+                <span className="material-symbols-outlined text-[36px] text-secondary opacity-80">insights</span>
+                <h4 className="text-3xl font-black text-white mt-1">95%</h4>
+                <p className="font-mono text-[9px] text-outline uppercase tracking-wider">Prediction Confidence</p>
+              </div>
+
+              {/* Stat 3 */}
+              <div className="glass-panel p-6 rounded-2xl flex flex-col items-center justify-center text-center gap-2 border-t border-tertiary/30">
+                <span className="material-symbols-outlined text-[36px] text-tertiary opacity-80">psychology</span>
+                <h4 className="text-3xl font-black text-white mt-1">50+</h4>
+                <p className="font-mono text-[9px] text-outline uppercase tracking-wider">Skill Vectors Calibrated</p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Contact Collaboration Box */}
+        <section className="mt-12 text-center">
+          <div className="glass-panel p-8 max-w-2xl mx-auto rounded-[24px] border border-white/10 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 to-secondary/5 pointer-events-none" />
+            <h3 className="text-xl font-bold text-white mb-2">Interested in Collaborating?</h3>
+            <p className="text-xs text-on-surface-variant mb-6 leading-relaxed">
+              We are actively developing new integrations for recruiters and enterprises. Reach out to discuss models, partnerships, or features.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
               {developers.map((dev) => (
-                <motion.a
+                <a
                   key={dev.email}
                   href={`mailto:${dev.email}`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 bg-gradient-to-r from-primary-500 to-purple-500 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-primary-500/50 transition-all duration-300"
+                  className="px-5 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-mono text-[10px] uppercase tracking-wider text-white transition-all hover:-translate-y-0.5 active:translate-y-0"
                 >
                   Contact {dev.name.split(' ')[0]}
-                </motion.a>
+                </a>
               ))}
             </div>
           </div>
-        </motion.div>
-      </div>
+        </section>
+
+      </main>
     </div>
   );
 };

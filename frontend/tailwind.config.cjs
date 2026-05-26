@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -8,13 +8,13 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#c0c1ff', // Lavender/Primary from Stitch
+          DEFAULT: '#c0c1ff',
           50: '#eef2ff',
           100: '#e0e7ff',
           200: '#c7d2fe',
           300: '#a5b4fc',
           400: '#818cf8',
-          500: '#4062FF', // Main blue
+          500: '#4062FF',
           600: '#3b4fd9',
           700: '#3241b3',
           800: '#2d3893',
@@ -26,7 +26,7 @@ export default {
           200: '#d8b4fe',
           300: '#c084fc',
           400: '#a855f7',
-          500: '#8240FF', // Main purple
+          500: '#8240FF',
           600: '#7c3aed',
           700: '#6d28d9',
           800: '#5b21b6',
@@ -37,7 +37,7 @@ export default {
           100: '#cffafe',
           200: '#a5f3fc',
           300: '#67e8f9',
-          400: '#54C6F4', // Main cyan
+          400: '#54C6F4',
           500: '#06b6d4',
           600: '#0891b2',
           700: '#0e7490',
@@ -61,9 +61,8 @@ export default {
           900: '#0f172a',
         },
         gray: {
-          400: '#606060', // For secondary text
+          400: '#606060',
         },
-        // Redesign design tokens from Stitch
         surface: '#131313',
         'surface-container': '#201f1f',
         'surface-container-low': '#1c1b1b',

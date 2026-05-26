@@ -1,23 +1,24 @@
-/**
- * Chatbot Page
- * Full-page chatbot interface
- */
-
 import { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Bot, User, Send, Loader2, MessageCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { chatWithAI } from '../services/api';
 
 const ChatbotPage = () => {
   const [messages, setMessages] = useState([
     {
       role: 'bot',
-      content: "Hello! I'm your AI Career Advisor. I can help you with career predictions, skill gap analysis, and resume matching. How can I assist you today?",
+      content: "System Initialized. I am your AI Career Copilot. I can synthesize career path forecasts, analyze skill gaps, and audit resume templates. How shall we coordinate today?",
     },
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  const predefinedPrompts = [
+    { label: 'Salary Strategy', query: 'How should I negotiate a salary package for a Senior Developer position?' },
+    { label: 'Career Switch Pivot', query: 'What is the most efficient transition path from QA Analyst to Product Manager?' },
+    { label: 'Competency Delta', query: 'What skills am I missing to transition into Machine Learning Engineering?' },
+    { label: 'Resume ATS Tips', query: 'How can I optimize my CV to score higher on corporate ATS screening filters?' }
+  ];
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -27,30 +28,29 @@ const ChatbotPage = () => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSend = async () => {
-    if (!inputMessage.trim() || loading) return;
+  const handleSend = async (customMessage) => {
+    const textToSend = (customMessage || inputMessage).trim();
+    if (!textToSend || loading) return;
 
-    const userMessage = inputMessage.trim();
     setInputMessage('');
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    setMessages(prev => [...prev, { role: 'user', content: textToSend }]);
     setLoading(true);
 
     try {
-      // Prepare conversation history for context
       const conversationHistory = messages.map(msg => ({
         role: msg.role,
         content: msg.content
       }));
       
-      const response = await chatWithAI(userMessage, conversationHistory);
+      const response = await chatWithAI(textToSend, conversationHistory);
       setMessages(prev => [...prev, { 
         role: 'bot', 
-        content: response.reply || response.message || 'I apologize, but I encountered an error. Please try again.' 
+        content: response.reply || response.message || 'Error compiling response. Please retry.' 
       }]);
     } catch (error) {
       setMessages(prev => [...prev, { 
         role: 'bot', 
-        content: error.detail || error.message || "I'm having trouble connecting to the server. Please check your connection and try again, or use the other features available in the app." 
+        content: error.detail || error.message || "Connection timeout. Please ensure the backend is running." 
       }]);
     } finally {
       setLoading(false);
@@ -65,124 +65,120 @@ const ChatbotPage = () => {
   };
 
   return (
-    <div className="min-h-screen pt-16 pb-20 flex flex-col">
-      <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 flex flex-col flex-1">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-8"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-500/20 text-primary-400 mb-4"
-          >
-            <MessageCircle className="w-8 h-8" />
-          </motion.div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            AI Career Chatbot
-          </h1>
-          <p className="text-gray-400 text-lg">
-            Get instant answers to your career questions
-          </p>
-        </motion.div>
+    <div className="min-h-screen pt-32 pb-20 px-6 max-w-[1200px] mx-auto w-full flex flex-col gap-8 text-[#e5e2e1] h-[calc(100vh-100px)]">
+      {/* Background radial glows */}
+      <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div className="bg-glow-blob w-[800px] h-[800px] bg-primary/10 top-[-200px] left-[50%] -translate-x-1/2"></div>
+      </div>
 
-        {/* Chat Container */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3 }}
-          className="flex-1 glass-card rounded-2xl flex flex-col overflow-hidden"
-        >
-          {/* Messages Area */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
-            {messages.map((message, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
+      <div className="flex flex-col items-center text-center gap-2 shrink-0">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
+          <div className="relative w-2 h-2 rounded-full bg-primary flex items-center justify-center">
+            <div className="absolute w-full h-full rounded-full bg-primary ai-indicator-ring"></div>
+          </div>
+          <span className="font-mono text-[11px] text-on-surface-variant uppercase tracking-widest font-bold">Copilot Active</span>
+        </div>
+        <h1 className="text-[36px] md:text-[44px] font-black tracking-tight leading-tight gradient-text">
+          AI Career Copilot
+        </h1>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch flex-1 overflow-hidden">
+        
+        {/* Left column: Quick prompts templates */}
+        <div className="lg:col-span-4 flex flex-col gap-4 shrink-0">
+          <div className="glass-card rounded-[28px] p-6 flex flex-col gap-4">
+            <h3 className="font-mono text-[11px] text-on-surface-variant uppercase tracking-widest border-b border-white/10 pb-3">Prompt Templates</h3>
+            <div className="flex flex-col gap-3">
+              {predefinedPrompts.map((p, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleSend(p.query)}
+                  className="w-full text-left p-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary/20 transition-all font-sans text-xs text-on-surface leading-relaxed group"
+                >
+                  <div className="font-semibold text-primary mb-1 group-hover:underline">{p.label}</div>
+                  <div className="text-on-surface-variant text-[11px] line-clamp-2">{p.query}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Right column: Chat workspace */}
+        <div className="lg:col-span-8 glass-card rounded-[28px] flex flex-col overflow-hidden flex-1 relative">
+          
+          {/* Chat Messages */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-4 max-h-[500px]">
+            {messages.map((message, idx) => (
+              <div
+                key={idx}
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
-                <div className={`flex items-start space-x-3 max-w-[75%] ${
-                  message.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''
+                <div className={`flex items-start gap-3 max-w-[85%] ${
+                  message.role === 'user' ? 'flex-row-reverse' : ''
                 }`}>
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border ${
                     message.role === 'user' 
-                      ? 'bg-primary-500' 
-                      : 'bg-white/10 border border-white/20'
+                      ? 'bg-primary/20 border-primary/40 text-primary' 
+                      : 'bg-white/5 border-white/10 text-on-surface-variant'
                   }`}>
-                    {message.role === 'user' ? (
-                      <User className="w-5 h-5 text-white" />
-                    ) : (
-                      <Bot className="w-5 h-5 text-primary-400" />
-                    )}
+                    <span className="material-symbols-outlined text-[18px]">
+                      {message.role === 'user' ? 'person' : 'graphic_eq'}
+                    </span>
                   </div>
-                  <div className={`rounded-2xl px-4 py-3 ${
+                  <div className={`rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${
                     message.role === 'user'
-                      ? 'bg-primary-500 text-white'
-                      : 'bg-white/10 text-gray-200 border border-white/20'
+                      ? 'bg-primary/20 border border-primary/20 text-on-surface'
+                      : 'bg-surface-container/60 border border-white/10 text-on-surface-variant'
                   }`}>
-                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                    {message.content}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
 
-            {/* Loading Indicator */}
             {loading && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex justify-start"
-              >
-                <div className="flex items-start space-x-3 max-w-[75%]">
-                  <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
-                    <Bot className="w-5 h-5 text-primary-400" />
+              <div className="flex justify-start">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-on-surface-variant">
+                    <span className="material-symbols-outlined text-[18px] animate-spin">progress_activity</span>
                   </div>
-                  <div className="bg-white/10 rounded-2xl px-4 py-3 border border-white/20">
-                    <Loader2 className="w-5 h-5 text-primary-400 animate-spin" />
+                  <div className="bg-surface-container/60 border border-white/10 rounded-2xl px-4 py-3 text-xs font-mono text-on-surface-variant">
+                    Synthesizing reply parameters...
                   </div>
                 </div>
-              </motion.div>
+              </div>
             )}
-
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Area */}
-          <div className="p-4 border-t border-white/10 bg-black/50">
-            <div className="flex items-center space-x-3">
+          {/* Chat Input */}
+          <div className="p-4 border-t border-white/10 bg-surface-container-low/40">
+            <div className="flex items-center gap-3">
               <input
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask me anything about careers, skills, or job matching..."
-                className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                placeholder="Ask about careers, skill matrices, or resume gaps..."
+                className="flex-1 bg-surface-container/40 border border-white/10 rounded-xl px-4 py-3.5 font-sans text-sm text-on-surface placeholder:text-on-surface-variant/20 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                 disabled={loading}
               />
-              <motion.button
-                onClick={handleSend}
+              <button
+                onClick={() => handleSend()}
                 disabled={loading || !inputMessage.trim()}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="p-3 bg-primary-500 text-white rounded-xl hover:bg-primary-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-3.5 rounded-xl bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container disabled:opacity-40 flex items-center justify-center shrink-0 cursor-pointer hover:opacity-90 transition-opacity"
               >
-                {loading ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  <Send className="w-5 h-5" />
-                )}
-              </motion.button>
+                <span className="material-symbols-outlined text-[20px]">send</span>
+              </button>
             </div>
-            <p className="text-xs text-gray-500 mt-2 text-center">
-              Press Enter to send • Ask about careers, skills, resume matching, or get career advice
-            </p>
+            <div className="text-[10px] text-on-surface-variant/40 mt-3 text-center font-mono uppercase tracking-wider">
+              Press Enter to send signal • AI Copilot responds dynamically
+            </div>
           </div>
-        </motion.div>
+
+        </div>
+
       </div>
     </div>
   );

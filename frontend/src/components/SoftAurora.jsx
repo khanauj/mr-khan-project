@@ -185,6 +185,9 @@ export default function SoftAurora({
     const renderer = new Renderer({ alpha: true, premultipliedAlpha: false });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
+    gl.canvas.style.display = 'block';
+    gl.canvas.style.width = '100%';
+    gl.canvas.style.height = '100%';
 
     let program;
     let currentMouse = [0.5, 0.5];
@@ -271,7 +274,9 @@ export default function SoftAurora({
         gl.canvas.removeEventListener('mousemove', handleMouseMove);
         gl.canvas.removeEventListener('mouseleave', handleMouseLeave);
       }
-      container.removeChild(gl.canvas);
+      if (gl.canvas.parentNode === container) {
+        container.removeChild(gl.canvas);
+      }
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
   }, [speed, scale, brightness, color1, color2, noiseFrequency, noiseAmplitude, bandHeight, bandSpread, octaveDecay, layerOffset, colorSpeed, enableMouseInteraction, mouseInfluence]);

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skillence AI - Career Copilot</title>
+<!-- Google Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Geist / Inter Fallback for demo if Geist isn't loaded via import */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --font-geist: 'Inter', sans-serif; /* Fallback for demo */
+        }
+    </style>
+<!-- Tailwind Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#009ada",
+                        "surface-dim": "#131313",
+                        "tertiary-fixed": "#c9e6ff",
+                        "on-secondary-fixed-variant": "#6900b3",
+                        "surface-container-highest": "#353534",
+                        "on-primary": "#1000a9",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-secondary-container": "#d6a9ff",
+                        "primary": "#c0c1ff",
+                        "surface-container": "#201f1f",
+                        "secondary-fixed-dim": "#ddb7ff",
+                        "on-secondary-fixed": "#2c0051",
+                        "tertiary": "#89ceff",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-high": "#2a2a2a",
+                        "error-container": "#93000a",
+                        "surface-variant": "#353534",
+                        "surface-bright": "#3a3939",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "on-error": "#690005",
+                        "surface-container-low": "#1c1b1b",
+                        "on-background": "#e5e2e1",
+                        "on-primary-container": "#0d0096",
+                        "secondary": "#ddb7ff",
+                        "error": "#ffb4ab",
+                        "background": "#131313",
+                        "primary-fixed": "#e1e0ff",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "outline-variant": "#464554",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "inverse-primary": "#494bd6",
+                        "secondary-fixed": "#f0dbff",
+                        "on-tertiary-fixed": "#001e2f",
+                        "secondary-container": "#6f00be",
+                        "surface": "#131313",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "outline": "#908fa0",
+                        "on-primary-fixed": "#07006c",
+                        "on-surface-variant": "#c7c4d7",
+                        "on-tertiary-container": "#002d43",
+                        "on-secondary": "#490080",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-tint": "#c0c1ff",
+                        "primary-container": "#8083ff",
+                        "on-tertiary": "#00344d",
+                        "on-surface": "#e5e2e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "max-width-desktop": "1200px",
+                        "unit": "8px",
+                        "section-gap": "80px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["var(--font-geist)"],
+                        "body-lg": ["var(--font-geist)"],
+                        "label-sm": ["JetBrains Mono"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-xl": ["var(--font-geist)"],
+                        "display-lg-mobile": ["var(--font-geist)"],
+                        "headline-lg": ["var(--font-geist)"],
+                        "display-lg": ["var(--font-geist)"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-xl": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "display-lg-mobile": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-lg": ["24px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600" }]
+                    },
+                    animation: {
+                        'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'orb-float': 'orb-float 10s ease-in-out infinite',
+                        'beam': 'beam 3s linear infinite',
+                    },
+                    keyframes: {
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
+                            '50%': { opacity: '1', transform: 'scale(1.05)', boxShadow: '0 0 20px rgba(192, 193, 255, 0.4)' },
+                        },
+                        'orb-float': {
+                            '0%, 100%': { transform: 'translate(0, 0)' },
+                            '50%': { transform: 'translate(-20px, -20px)' },
+                        },
+                        'beam': {
+                            '0%': { backgroundPosition: '200% center' },
+                            '100%': { backgroundPosition: '-200% center' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-panel-elevated {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .border-beam {
+            position: relative;
+        }
+        .border-beam::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(192, 193, 255, 0.3) 50%, transparent 100%);
+            background-size: 200% auto;
+            animation: beam 3s linear infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* Subtle scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex overflow-hidden relative">
+<!-- Ambient Background Orbs -->
+<div class="fixed top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-primary/10 rounded-full blur-[100px] animate-orb-float pointer-events-none"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[30vw] h-[30vw] bg-secondary/10 rounded-full blur-[100px] animate-orb-float pointer-events-none" style="animation-delay: -5s;"></div>
+<!-- SideNavBar Component -->
+<nav class="h-screen w-72 flex-col fixed left-0 top-0 hidden md:flex bg-surface-container-low/50 dark:bg-surface-container-low/50 backdrop-blur-2xl border-r border-white/5 z-40">
+<div class="flex flex-col h-full p-6 gap-2">
+<!-- Header -->
+<div class="flex items-center gap-4 mb-6 px-2">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container font-headline-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">neurology</span>
+</div>
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-bold leading-tight">Skillence</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-80">Career Intelligence</p>
+</div>
+</div>
+<!-- Primary Nav (Active: New Chat) -->
+<a class="bg-primary-container text-on-primary-container rounded-lg flex items-center gap-3 px-4 py-3 font-label-md text-label-md transition-transform scale-[0.98]" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+                New Chat
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-variant/30 rounded-lg flex items-center gap-3 px-4 py-3 font-label-md text-label-md hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">explore</span>
+                Career Map
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-variant/30 rounded-lg flex items-center gap-3 px-4 py-3 font-label-md text-label-md hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">psychology</span>
+                Resume Intelligence
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-variant/30 rounded-lg flex items-center gap-3 px-4 py-3 font-label-md text-label-md hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">hub</span>
+                Network
+            </a>
+<!-- Recent Chats (Simulated) -->
+<div class="mt-8 mb-4 px-2">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant opacity-60 mb-3 uppercase tracking-wider">Recent Chats</h3>
+<div class="flex flex-col gap-1">
+<a class="text-on-surface-variant hover:text-on-surface font-body-md text-sm py-2 px-2 rounded-md hover:bg-white/5 transition-colors truncate" href="#">ML Engineer Path Transition</a>
+<a class="text-on-surface-variant hover:text-on-surface font-body-md text-sm py-2 px-2 rounded-md hover:bg-white/5 transition-colors truncate" href="#">Staff Engineer Resume Review</a>
+<a class="text-on-surface-variant hover:text-on-surface font-body-md text-sm py-2 px-2 rounded-md hover:bg-white/5 transition-colors truncate" href="#">System Design Prep</a>
+</div>
+</div>
+<div class="mt-auto flex flex-col gap-2">
+<!-- CTA -->
+<button class="w-full glass-panel border-beam text-primary font-label-md text-label-md py-3 rounded-lg mb-4 hover:bg-primary/5 transition-colors">
+                    Upgrade to Pro
+                </button>
+<!-- Footer Tabs -->
+<a class="text-on-surface-variant hover:bg-surface-variant/30 rounded-lg flex items-center gap-3 px-4 py-3 font-label-md text-label-md hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+<a class="text-on-surface-variant hover:bg-surface-variant/30 rounded-lg flex items-center gap-3 px-4 py-3 font-label-md text-label-md hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Help Center
+                </a>
+<a class="text-on-surface-variant hover:bg-surface-variant/30 rounded-lg flex items-center gap-3 px-4 py-3 font-label-md text-label-md hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+                    Account
+                </a>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-0 md:ml-72 flex flex-col h-screen relative w-full">
+<!-- Chat Canvas / Scrollable Area -->
+<div class="flex-1 overflow-y-auto px-4 md:px-container-padding pb-32 pt-12 md:pt-20 scroll-smooth">
+<div class="max-w-[800px] mx-auto flex flex-col gap-12">
+<!-- Welcome State -->
+<div class="text-center flex flex-col items-center justify-center min-h-[409px]">
+<div class="w-16 h-16 rounded-2xl glass-panel-elevated flex items-center justify-center mb-8 border-beam">
+<span class="material-symbols-outlined text-4xl text-primary animate-pulse-glow" style="font-variation-settings: 'FILL' 1;">acute</span>
+</div>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-transparent bg-clip-text bg-gradient-to-r from-on-surface to-primary mb-4">
+                        Hi, I'm your Career Copilot 👋
+                    </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-12">
+                        I help you predict careers, improve resumes, prepare for interviews, optimize LinkedIn, and switch careers.
+                    </p>
+<!-- Suggestion Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+<button class="glass-panel hover:glass-panel-elevated p-5 rounded-lg text-left group transition-all duration-300 flex flex-col gap-3">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">terminal</span>
+<span class="font-body-md text-sm text-on-surface-variant group-hover:text-on-surface transition-colors">How do I become an ML Engineer?</span>
+</button>
+<button class="glass-panel hover:glass-panel-elevated p-5 rounded-lg text-left group transition-all duration-300 flex flex-col gap-3">
+<span class="material-symbols-outlined text-tertiary group-hover:scale-110 transition-transform">document_scanner</span>
+<span class="font-body-md text-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Analyze my resume</span>
+</button>
+<button class="glass-panel hover:glass-panel-elevated p-5 rounded-lg text-left group transition-all duration-300 flex flex-col gap-3">
+<span class="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">record_voice_over</span>
+<span class="font-body-md text-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Prepare me for interviews</span>
+</button>
+<button class="glass-panel hover:glass-panel-elevated p-5 rounded-lg text-left group transition-all duration-300 flex flex-col gap-3">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">share</span>
+<span class="font-body-md text-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Optimize my LinkedIn</span>
+</button>
+<button class="glass-panel hover:glass-panel-elevated p-5 rounded-lg text-left group transition-all duration-300 flex flex-col gap-3">
+<span class="material-symbols-outlined text-tertiary group-hover:scale-110 transition-transform">conversion_path</span>
+<span class="font-body-md text-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Career switch roadmap</span>
+</button>
+<button class="glass-panel hover:glass-panel-elevated p-5 rounded-lg text-left group transition-all duration-300 flex flex-col gap-3">
+<span class="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">trending_up</span>
+<span class="font-body-md text-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Best skills to learn in 2026</span>
+</button>
+</div>
+</div>
+<!-- Chat History Sample (Hidden initially, normally injected here) -->
+<!-- 
+                <div class="flex flex-col gap-6 w-full">
+                    <div class="flex justify-end">
+                        <div class="glass-panel px-6 py-4 rounded-xl rounded-tr-sm max-w-[80%] font-body-md">
+                            Analyze my resume for a Senior Frontend role.
+                        </div>
+                    </div>
+                    <div class="flex justify-start items-start gap-4">
+                        <div class="w-8 h-8 rounded-full glass-panel flex items-center justify-center shrink-0 mt-1">
+                            <span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">neurology</span>
+                        </div>
+                        <div class="glass-panel px-6 py-4 rounded-xl rounded-tl-sm max-w-[80%] font-body-md border-beam">
+                            I'd be happy to help. Please upload your current resume using the attachment icon below, and I'll run an ATS optimization check against standard Senior Frontend criteria.
+                        </div>
+                    </div>
+                </div>
+                -->
+</div>
+</div>
+<!-- Input System -->
+<div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-surface via-surface to-transparent pointer-events-none">
+<div class="max-w-[800px] mx-auto pointer-events-auto">
+<div class="glass-panel-elevated rounded-xl p-2 flex items-center gap-2 focus-within:border-primary/50 transition-colors">
+<button class="p-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<input class="flex-1 bg-transparent border-none outline-none font-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:ring-0 px-2 h-12" placeholder="Ask anything about your career..." type="text"/>
+<button class="p-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="p-3 bg-primary text-on-primary hover:bg-primary-container rounded-lg transition-colors flex items-center justify-center ml-1 shadow-[0_0_15px_rgba(192,193,255,0.3)] hover:shadow-[0_0_20px_rgba(192,193,255,0.5)]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+<div class="text-center mt-3">
+<span class="font-label-sm text-xs text-on-surface-variant/50">Skillence AI can make mistakes. Consider verifying important information.</span>
+</div>
+</div>
+</div>
+</main>
+</body></html>

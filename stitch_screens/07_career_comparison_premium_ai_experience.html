@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skillence - Compare Careers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#353534",
+                        "inverse-surface": "#e5e2e1",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "on-tertiary": "#00344d",
+                        "background": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#353534",
+                        "on-error": "#690005",
+                        "inverse-primary": "#494bd6",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary-container": "#6f00be",
+                        "on-secondary-fixed-variant": "#6900b3",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "on-secondary": "#490080",
+                        "secondary-fixed": "#f0dbff",
+                        "on-tertiary-container": "#002d43",
+                        "on-primary-container": "#0d0096",
+                        "surface-container": "#201f1f",
+                        "on-secondary-container": "#d6a9ff",
+                        "error-container": "#93000a",
+                        "outline-variant": "#464554",
+                        "surface": "#131313",
+                        "secondary-fixed-dim": "#ddb7ff",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "error": "#ffb4ab",
+                        "tertiary": "#89ceff",
+                        "on-background": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "surface-bright": "#3a3939",
+                        "secondary": "#ddb7ff",
+                        "on-tertiary-fixed": "#001e2f",
+                        "surface-tint": "#c0c1ff",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary-fixed": "#c9e6ff",
+                        "primary": "#c0c1ff",
+                        "outline": "#908fa0",
+                        "primary-container": "#8083ff",
+                        "on-primary": "#1000a9",
+                        "surface-container-high": "#2a2a2a",
+                        "tertiary-container": "#009ada",
+                        "inverse-on-surface": "#313030",
+                        "on-primary-fixed": "#07006c",
+                        "on-surface-variant": "#c7c4d7",
+                        "on-surface": "#e5e2e1",
+                        "on-secondary-fixed": "#2c0051"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px",
+                        "card": "28px"
+                    },
+                    "spacing": {
+                        "section-gap": "80px",
+                        "unit": "8px",
+                        "container-padding": "24px",
+                        "max-width-desktop": "1200px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Geist"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-lg": ["Geist"],
+                        "body-md": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "label-sm": ["JetBrains Mono"],
+                        "display-lg": ["Geist"],
+                        "display-lg-mobile": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["24px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-button {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-button:hover {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+            border-color: rgba(99, 102, 241, 0.5);
+        }
+        .border-beam {
+            position: relative;
+        }
+        .border-beam::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.8), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: beam 4s linear infinite;
+        }
+        @keyframes beam {
+            100% { background-position: 200% center; }
+        }
+        .ai-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .5; transform: scale(1.1); }
+        }
+        .chip {
+            background: rgba(99, 102, 241, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md selection:bg-primary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-background/80 dark:bg-background/80 backdrop-blur-xl bg-surface-container/30 border-b border-white/10 shadow-sm">
+<div class="flex justify-between items-center px-container-padding py-4 max-w-max-desktop mx-auto w-full">
+<div class="font-headline-xl text-headline-xl font-bold text-on-surface dark:text-on-surface tracking-tight">
+                Skillence
+            </div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Intelligence</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Career Path</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Resume</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Insights</a>
+</div>
+<div class="hidden md:flex">
+<button class="glass-button px-6 py-2 rounded-full font-label-md text-label-md text-primary active:scale-95 transition-transform">
+                    Get Started
+                </button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-container-padding max-w-max-desktop mx-auto space-y-section-gap">
+<!-- Hero Section -->
+<section class="text-center space-y-6">
+<h1 class="font-display-lg text-display-lg text-on-surface">Compare Your Future Careers</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">AI-powered side-by-side comparison to help you choose the best path.</p>
+<div class="flex flex-wrap justify-center gap-3 pt-6">
+<span class="chip px-4 py-2 rounded-full font-label-sm text-label-sm text-primary">SALARY POTENTIAL</span>
+<span class="chip px-4 py-2 rounded-full font-label-sm text-label-sm text-primary">MARKET DEMAND</span>
+<span class="chip px-4 py-2 rounded-full font-label-sm text-label-sm text-primary">LEARNING DIFFICULTY</span>
+<span class="chip px-4 py-2 rounded-full font-label-sm text-label-sm text-primary">GROWTH RATE</span>
+<span class="chip px-4 py-2 rounded-full font-label-sm text-label-sm text-primary">WORK-LIFE BALANCE</span>
+<span class="chip px-4 py-2 rounded-full font-label-sm text-label-sm text-primary">AI COMPATIBILITY</span>
+</div>
+</section>
+<!-- Smart Career Selection & Comparison Dashboard -->
+<section class="space-y-12">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Career A: Data Scientist -->
+<div class="glass-panel rounded-card p-8 flex flex-col gap-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">data_object</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Data Scientist</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Tech / Data</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface/50 p-4 rounded-xl">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Avg Salary</p>
+<p class="font-headline-xl text-headline-xl text-primary">$120k</p>
+</div>
+<div class="bg-surface/50 p-4 rounded-xl">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Demand</p>
+<p class="font-headline-xl text-headline-xl text-tertiary">High</p>
+</div>
+</div>
+<div class="space-y-3">
+<h3 class="font-label-md text-label-md text-on-surface">Pros &amp; Cons</h3>
+<div class="flex items-start gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-sm">add</span> High analytical impact</div>
+<div class="flex items-start gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-sm">add</span> Intellectual challenge</div>
+<div class="flex items-start gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-error text-sm">remove</span> Continuous learning curve</div>
+</div>
+</div>
+<!-- Career B: Product Manager (Highlighted) -->
+<div class="glass-panel rounded-card p-8 flex flex-col gap-6 border-beam">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">dashboard_customize</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Product Manager</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Tech / Management</p>
+</div>
+</div>
+<div class="bg-primary/20 text-primary px-3 py-1 rounded-full font-label-sm flex items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-primary ai-pulse"></div>
+                            94% Match
+                        </div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface/50 p-4 rounded-xl">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Avg Salary</p>
+<p class="font-headline-xl text-headline-xl text-secondary">$145k</p>
+</div>
+<div class="bg-surface/50 p-4 rounded-xl">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Demand</p>
+<p class="font-headline-xl text-headline-xl text-tertiary">Extreme</p>
+</div>
+</div>
+<div class="space-y-3">
+<h3 class="font-label-md text-label-md text-on-surface">Pros &amp; Cons</h3>
+<div class="flex items-start gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-sm">add</span> Strategic influence</div>
+<div class="flex items-start gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-sm">add</span> High visibility</div>
+<div class="flex items-start gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-error text-sm">remove</span> High stress/responsibility</div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Recommendation Section -->
+<section class="glass-panel rounded-card p-10 bg-gradient-to-br from-surface-container/50 to-primary/5">
+<div class="flex flex-col md:flex-row gap-12 items-center">
+<div class="flex-1 space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+<h2 class="font-headline-xl text-headline-xl text-on-surface">AI Recommendation</h2>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Based on your background and the current market trajectory, <strong>Product Manager</strong> is the optimal path for you.</p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 font-body-md text-on-surface">
+<div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary"><span class="material-symbols-outlined text-sm">check</span></div>
+                            Matches your demonstrated leadership skills.
+                        </li>
+<li class="flex items-center gap-3 font-body-md text-on-surface">
+<div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary"><span class="material-symbols-outlined text-sm">check</span></div>
+                            22% projected growth in your region vs 12% for Data Science.
+                        </li>
+<li class="flex items-center gap-3 font-body-md text-on-surface">
+<div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary"><span class="material-symbols-outlined text-sm">check</span></div>
+                            Higher long-term AI compatibility score.
+                        </li>
+</ul>
+</div>
+<div class="w-full md:w-1/3 flex justify-center">
+<!-- Placeholder for Radar Chart Graphic -->
+<div class="relative w-64 h-64 rounded-full border border-white/10 flex items-center justify-center">
+<div class="absolute w-48 h-48 rounded-full border border-white/10"></div>
+<div class="absolute w-32 h-32 rounded-full border border-white/10"></div>
+<div class="absolute inset-0 bg-primary/10 rounded-full" style="clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);"></div>
+<div class="absolute inset-0 bg-secondary/20 rounded-full mix-blend-screen" style="clip-path: polygon(50% 10%, 90% 40%, 70% 90%, 30% 90%, 10% 40%);"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant absolute top-0">Leadership</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant absolute right-0">Strategy</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant absolute bottom-0">Technical</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant absolute left-0">Data</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="text-center space-y-8 py-12">
+<h2 class="font-headline-xl text-headline-xl text-on-surface">Ready to commit to your future?</h2>
+<button class="glass-button px-8 py-4 rounded-full font-label-md text-label-md text-white active:scale-95 transition-transform inline-flex items-center gap-2 text-lg">
+                Start Your Career Journey <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 border-t border-white/5 bg-surface-container-lowest">
+<div class="max-w-max-desktop mx-auto px-container-padding flex flex-col md:flex-row justify-between items-center gap-gutter">
+<div class="font-headline-lg text-headline-lg text-on-surface">Skillence</div>
+<div class="flex gap-6">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Security</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Cookie Settings</a>
+</div>
+<div class="font-label-sm text-label-sm text-tertiary">© 2024 Skillence AI Intelligence. All rights reserved.</div>
+</div>
+</footer>
+</body></html>

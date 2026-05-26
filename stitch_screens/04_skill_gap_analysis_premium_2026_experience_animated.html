@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skill Gap Analysis - Skillence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#690005",
+                        "secondary-fixed": "#f0dbff",
+                        "inverse-on-surface": "#313030",
+                        "primary": "#c0c1ff",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "surface-dim": "#131313",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "surface-container-highest": "#353534",
+                        "tertiary-fixed": "#c9e6ff",
+                        "on-primary-fixed": "#07006c",
+                        "on-secondary-container": "#d6a9ff",
+                        "on-secondary": "#490080",
+                        "surface-bright": "#3a3939",
+                        "surface-container-high": "#2a2a2a",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "on-surface": "#e5e2e1",
+                        "tertiary-container": "#009ada",
+                        "tertiary": "#89ceff",
+                        "inverse-primary": "#494bd6",
+                        "on-tertiary-container": "#002d43",
+                        "inverse-surface": "#e5e2e1",
+                        "error-container": "#93000a",
+                        "background": "#131313",
+                        "outline-variant": "#464554",
+                        "surface": "#131313",
+                        "surface-variant": "#353534",
+                        "secondary-container": "#6f00be",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed": "#e1e0ff",
+                        "on-tertiary-fixed": "#001e2f",
+                        "on-primary": "#1000a9",
+                        "surface-container-low": "#1c1b1b",
+                        "outline": "#908fa0",
+                        "secondary": "#ddb7ff",
+                        "error": "#ffb4ab",
+                        "primary-container": "#8083ff",
+                        "surface-tint": "#c0c1ff",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container": "#201f1f",
+                        "on-secondary-fixed": "#2c0051",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "secondary-fixed-dim": "#ddb7ff",
+                        "on-tertiary": "#00344d",
+                        "on-surface-variant": "#c7c4d7",
+                        "on-secondary-fixed-variant": "#6900b3",
+                        "on-primary-container": "#0d0096"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "max-width-desktop": "1200px",
+                        "container-padding": "24px",
+                        "section-gap": "80px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["JetBrains Mono"],
+                        "body-md": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "label-md": ["JetBrains Mono"],
+                        "display-lg-mobile": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "headline-xl": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "display-lg-mobile": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-lg": ["24px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "headline-xl": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .glass-panel { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .glass-panel-elevated { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .bg-grid-pattern { background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px); background-size: 32px 32px; }
+        .glow-effect { position: relative; }
+        .glow-effect::before { content: ''; position: absolute; inset: -1px; background: linear-gradient(to right, theme('colors.primary'), theme('colors.secondary')); border-radius: inherit; z-index: -1; opacity: 0; transition: opacity 0.3s ease; }
+        .glow-effect:hover::before { opacity: 0.5; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(192, 193, 255, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(192, 193, 255, 0); }
+            100% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(192, 193, 255, 0); }
+        }
+        .ai-pulse { animation: pulse-ring 3s infinite cubic-bezier(0.215, 0.61, 0.355, 1); }
+        
+        @keyframes orb-float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hero-orb {
+            background: linear-gradient(45deg, theme('colors.primary'), theme('colors.secondary'), theme('colors.tertiary'));
+            background-size: 200% 200%;
+            animation: gradient-shift 5s ease infinite, orb-float 4s ease-in-out infinite;
+        }
+
+        @keyframes radar-bloom {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .radar-area {
+            transform-origin: center;
+            animation: radar-bloom 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            fill: rgba(192, 193, 255, 0.2); stroke: theme('colors.primary'); stroke-width: 2; transition: all 0.5s ease;
+        }
+        
+        @keyframes fill-bar {
+            from { width: 0; }
+        }
+        .skill-bar-fill { animation: fill-bar 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        @keyframes fade-slide-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-entrance { animation: fade-slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        
+        .hover-lift { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 10px 30px -10px rgba(192, 193, 255, 0.2); }
+        
+        .shimmer-effect { position: relative; overflow: hidden; }
+        .shimmer-effect::after {
+            content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
+            transform: skewX(-20deg); transition: 0.5s; z-index: 10; pointer-events: none;
+        }
+        .shimmer-effect:hover::after { left: 150%; transition: 0.7s ease-in-out; }
+
+        .radar-grid circle { fill: none; stroke: rgba(255, 255, 255, 0.1); stroke-width: 1; }
+        .radar-axis line { stroke: rgba(255, 255, 255, 0.1); stroke-width: 1; }
+        .radar-axis text { fill: theme('colors.on-surface-variant'); font-family: 'JetBrains Mono', monospace; font-size: 10px; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+<!-- Ambient Background -->
+<div class="fixed inset-0 pointer-events-none z-[-1]">
+<div class="absolute top-0 left-1/4 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] mix-blend-screen transform -translate-y-1/2"></div>
+<div class="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[100px] mix-blend-screen transform translate-y-1/4"></div>
+<div class="absolute inset-0 bg-grid-pattern opacity-30"></div>
+</div>
+<!-- TopNavBar -->
+<nav class="bg-surface/30 backdrop-blur-md dark:bg-surface-dim/30 docked full-width top-0 z-50 sticky border-b border-white/10 shadow-xl shadow-black/40">
+<div class="flex justify-between items-center w-full px-container-padding py-4 max-w-max-width-desktop mx-auto">
+<div class="flex items-center gap-8">
+<a class="font-headline-xl text-headline-xl font-bold tracking-tighter text-on-surface" href="#">Skillence</a>
+<div class="hidden md:flex gap-6">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors duration-200 font-label-md text-label-md hover:bg-white/5 rounded-lg px-3 py-2" href="#">Intelligence</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-medium font-label-md text-label-md px-3 py-2" href="#">Career Path</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors duration-200 font-label-md text-label-md hover:bg-white/5 rounded-lg px-3 py-2" href="#">Resume</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors duration-200 font-label-md text-label-md hover:bg-white/5 rounded-lg px-3 py-2" href="#">Insights</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-on-surface transition-colors duration-200">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-2 rounded-full hover:bg-primary-container transition-colors duration-300">
+                    Get Started
+                </button>
+</div>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-grow flex flex-col items-center w-full px-container-padding py-section-gap max-w-max-width-desktop mx-auto gap-section-gap">
+<!-- Hero Section -->
+<section class="w-full flex flex-col items-center text-center relative mt-12 animate-entrance">
+<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 rounded-full blur-[80px] pointer-events-none"></div>
+<div class="relative mb-8">
+<div class="absolute inset-0 hero-orb blur-[20px] opacity-50 pointer-events-none mix-blend-screen scale-125"></div>
+<div class="w-24 h-24 rounded-full border border-white/20 flex items-center justify-center shadow-2xl relative z-10 ai-pulse hero-orb hover-lift shimmer-effect">
+<span class="material-symbols-outlined text-background text-4xl" style="font-variation-settings: 'FILL' 1;">explore</span>
+</div>
+<div class="absolute -top-4 -right-8 glass-panel-elevated rounded-full px-4 py-2 flex items-center gap-2 z-20 shimmer-effect">
+<span class="material-symbols-outlined text-secondary text-sm">verified</span>
+<span class="font-label-sm text-label-sm text-on-surface">92% Match Score</span>
+</div>
+</div>
+<h1 class="font-display-lg text-display-lg md:text-display-lg text-on-surface mb-6 max-w-3xl leading-tight">
+                Analyze Your <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Career Orbit</span>
+</h1>
+<div class="glass-panel hover-lift shimmer-effect rounded-full px-6 py-3 flex items-center gap-3 mb-12">
+<span class="w-2 h-2 rounded-full bg-primary ai-pulse"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">Targeting:</span>
+<span class="font-label-md text-label-md text-on-surface">Lead Data Scientist</span>
+</div>
+<!-- Search Bar -->
+<div class="w-full max-w-2xl relative group">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<div class="glass-panel-elevated shimmer-effect rounded-full p-2 flex items-center relative z-10 w-full">
+<div class="pl-4 pr-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+</div>
+<input class="flex-grow bg-transparent border-none text-on-surface font-body-md text-body-md placeholder-on-surface-variant/50 focus:ring-0 outline-none px-2 h-12" placeholder="Explore specialized roles, skills, or specific companies..." type="text"/>
+<button class="bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 rounded-full px-8 h-12 font-label-md text-label-md transition-all duration-300 flex items-center gap-2 whitespace-nowrap glow-effect">
+                        Analyze My Path
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Master Intelligence Container -->
+<section class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-entrance delay-100">
+<!-- Radar Chart / Score Card -->
+<div class="lg:col-span-5 glass-panel shimmer-effect hover-lift rounded-[28px] p-8 flex flex-col h-full relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-bl-[100px] pointer-events-none"></div>
+<div class="flex justify-between items-start mb-8 z-10">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Readiness Profile</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Current vs Required Skills</p>
+</div>
+<div class="glass-panel-elevated rounded-xl px-4 py-3 text-center border-t border-primary/30">
+<span class="block font-display-lg-mobile text-display-lg-mobile text-on-surface leading-none mb-1">78%</span>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Match</span>
+</div>
+</div>
+<div class="flex-grow flex items-center justify-center relative min-h-[300px]">
+<svg class="w-full max-w-[280px] h-auto drop-shadow-2xl" viewbox="0 0 200 200">
+<g class="radar-grid" transform="translate(100, 100)">
+<circle r="20"></circle>
+<circle r="40"></circle>
+<circle r="60"></circle>
+<circle r="80"></circle>
+</g>
+<g class="radar-axis" transform="translate(100, 100)">
+<line x1="0" x2="0" y1="0" y2="-90"></line>
+<text x="-25" y="-95">ML Ops</text>
+<line x1="0" x2="85" y1="0" y2="-30"></line>
+<text x="80" y="-35">Python</text>
+<line x1="0" x2="50" y1="0" y2="75"></line>
+<text x="45" y="85">Leadership</text>
+<line x1="0" x2="-50" y1="0" y2="75"></line>
+<text x="-70" y="85">Cloud</text>
+<line x1="0" x2="-85" y1="0" y2="-30"></line>
+<text x="-110" y="-35">Data Eng</text>
+</g>
+<polygon class="radar-area" points="100,20 170,80 140,160 60,150 40,70"></polygon>
+<circle cx="100" cy="20" fill="#c0c1ff" r="3"></circle>
+<circle cx="170" cy="80" fill="#c0c1ff" r="3"></circle>
+<circle cx="140" cy="160" fill="#c0c1ff" r="3"></circle>
+<circle cx="60" cy="150" fill="#c0c1ff" r="3"></circle>
+<circle cx="40" cy="70" fill="#c0c1ff" r="3"></circle>
+</svg>
+</div>
+</div>
+<!-- Skills Breakdown & Recommendations -->
+<div class="lg:col-span-7 flex flex-col gap-6 h-full">
+<!-- Quick Insights Strip -->
+<div class="glass-panel shimmer-effect hover-lift rounded-2xl p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-2">Fastest Path</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">route</span>
+<span class="font-body-md text-body-md text-on-surface">Cloud Architecture Focus</span>
+</div>
+</div>
+<div class="hidden md:block w-px h-full bg-white/10"></div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-2">Estimated Time</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">timelapse</span>
+<span class="font-body-md text-body-md text-on-surface">4 Months</span>
+</div>
+</div>
+<div class="hidden md:block w-px h-full bg-white/10"></div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-2">Top Missing</span>
+<div class="flex flex-wrap gap-2">
+<span class="font-label-sm text-label-sm bg-primary/10 text-primary px-2 py-1 rounded">PyTorch</span>
+<span class="font-label-sm text-label-sm bg-secondary/10 text-secondary px-2 py-1 rounded">LLM Ops</span>
+</div>
+</div>
+</div>
+<!-- Detailed Skills List -->
+<div class="glass-panel shimmer-effect hover-lift rounded-[28px] p-8 flex-grow flex flex-col">
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">data_usage</span>
+                        Skill Gap Breakdown
+                    </h3>
+<div class="flex flex-col gap-4">
+<!-- Skill Item -->
+<div class="group relative p-4 rounded-xl hover:bg-white/5 transition-colors duration-300 border border-transparent hover:border-white/5">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<span class="font-body-md text-body-md text-on-surface font-medium">PyTorch Optimization</span>
+<span class="font-label-sm text-label-sm bg-error/10 text-error px-2 py-0.5 rounded">Critical</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Current: Basic</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-gradient-to-r from-error to-error/50 h-full rounded-full w-1/4 skill-bar-fill" style="width: 25%;"></div>
+</div>
+</div>
+<!-- Skill Item -->
+<div class="group relative p-4 rounded-xl hover:bg-white/5 transition-colors duration-300 border border-transparent hover:border-white/5">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<span class="font-body-md text-body-md text-on-surface font-medium">LLM Deployment (Ops)</span>
+<span class="font-label-sm text-label-sm bg-error/10 text-error px-2 py-0.5 rounded">Critical</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Current: None</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-gradient-to-r from-error to-error/50 h-full rounded-full w-1/12 skill-bar-fill" style="width: 8%;"></div>
+</div>
+</div>
+<!-- Skill Item -->
+<div class="group relative p-4 rounded-xl hover:bg-white/5 transition-colors duration-300 border border-transparent hover:border-white/5">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<span class="font-body-md text-body-md text-on-surface font-medium">Advanced Data Engineering</span>
+<span class="font-label-sm text-label-sm bg-secondary/10 text-secondary px-2 py-0.5 rounded">Moderate</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Current: Intermediate</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-gradient-to-r from-secondary to-secondary/50 h-full rounded-full w-3/5 skill-bar-fill" style="width: 60%;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Learning Hub (Horizontal Scroll) -->
+<section class="w-full flex flex-col gap-6 animate-entrance delay-200">
+<div class="flex justify-between items-end px-4">
+<div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface">Curated Learning Path</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Targeted modules to bridge your specific gaps.</p>
+</div>
+<button class="font-label-md text-label-md text-primary hover:text-primary-fixed transition-colors flex items-center gap-1">
+                    View All Paths <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="flex overflow-x-auto gap-6 pb-8 hide-scrollbar px-4 snap-x snap-mandatory">
+<!-- Course Card 1 -->
+<div class="min-w-[320px] max-w-[320px] glass-panel shimmer-effect hover-lift rounded-2xl overflow-hidden flex flex-col group snap-start cursor-pointer transition-transform duration-300">
+<div class="h-40 bg-surface-container-high relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent z-10"></div>
+<img alt="Abstract visualization of neural networks and deep learning concepts." class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgiuw_XZdlQb36nBIV4_aZslwi2nh2Uv1zuz_yJVvgzXJmmi-2DVftmu7xtyhwEK6bmbfDBfvP520zj7Z1LY4or9fwerd5bnSqDqJ9GHwr24MPDZFEMxh3-LduN0KtBfr8oKxcffMzBDfBnOac-iVP_rqe2WNzlVX2s1qvDEkp3drJSOBaztbi5dkm56S1qlEavRypSW0hNo-lhlhUQNDqa4XdW-PCuQIjuFVZPK7DKSJGjyutJNZJvqv4gT1TD7-m0wqmhYAbsxna"/>
+<div class="absolute top-4 left-4 z-20">
+<span class="font-label-sm text-label-sm bg-black/50 backdrop-blur text-white px-2 py-1 rounded border border-white/10">Module 1</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-grow relative">
+<div class="absolute -top-5 right-6 w-10 h-10 rounded-full bg-surface-dim border border-white/10 flex items-center justify-center z-20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-sm">play_arrow</span>
+</div>
+<h4 class="font-body-lg text-body-lg text-on-surface font-medium mb-2 group-hover:text-primary transition-colors">Advanced PyTorch Architectures</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4 line-clamp-2">Master deep learning model optimization and custom architectures required for lead roles.</p>
+<div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
+<div class="flex items-center gap-2 group/tooltip relative">
+<span class="material-symbols-outlined text-tertiary text-sm">auto_awesome</span>
+<span class="font-label-sm text-label-sm text-tertiary">Why Recommended?</span>
+<!-- AI Tooltip -->
+<div class="absolute bottom-full left-0 mb-2 w-48 glass-panel-elevated p-3 rounded-lg opacity-0 group-hover/tooltip:opacity-100 transition-opacity duration-200 pointer-events-none z-30">
+<p class="font-body-md text-body-md text-xs text-on-surface">Directly addresses your 'Critical' gap in PyTorch Optimization, essential for 90% of Lead DS roles.</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4 Weeks</span>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="min-w-[320px] max-w-[320px] glass-panel shimmer-effect hover-lift rounded-2xl overflow-hidden flex flex-col group snap-start cursor-pointer transition-transform duration-300">
+<div class="h-40 bg-surface-container-high relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-secondary/20 to-transparent z-10"></div>
+<img alt="Server racks in a modern data center representing cloud operations." class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrLQZKDysU7MW5iJ6Q3PeAT20khXnGebE6Jul1oeIu_q7rFLw0aMrR4Blv8WO6s1kroUhWXTbm1BOCQq0G0-23f_6D1Fscaa01z56pOtKst781-WJD8u8JgwBXJYjmf_kbgBeBWrD4M8mV_trYdQrhtO8I7bdN1BjFcqc9AwHJlXJpPlb5C-7B2IKKIR-6Yw6283xWP-_gIkznSsSl4etg4OExdbh7AyNP-Wb0ph9wcqIQcf0lxi_pTaPp8-sX-Ig7OqalkfSqnoBP"/>
+<div class="absolute top-4 left-4 z-20">
+<span class="font-label-sm text-label-sm bg-black/50 backdrop-blur text-white px-2 py-1 rounded border border-white/10">Module 2</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-grow relative">
+<div class="absolute -top-5 right-6 w-10 h-10 rounded-full bg-surface-dim border border-white/10 flex items-center justify-center z-20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary text-sm">play_arrow</span>
+</div>
+<h4 class="font-body-lg text-body-lg text-on-surface font-medium mb-2 group-hover:text-secondary transition-colors">LLM Operations (LLMOps)</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4 line-clamp-2">Learn to deploy, scale, and monitor large language models in production environments.</p>
+<div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
+<div class="flex items-center gap-2 group/tooltip relative">
+<span class="material-symbols-outlined text-tertiary text-sm">auto_awesome</span>
+<span class="font-label-sm text-label-sm text-tertiary">Why Recommended?</span>
+<div class="absolute bottom-full left-0 mb-2 w-48 glass-panel-elevated p-3 rounded-lg opacity-0 group-hover/tooltip:opacity-100 transition-opacity duration-200 pointer-events-none z-30">
+<p class="font-body-md text-body-md text-xs text-on-surface">Bridges the complete absence of deployment skills, highly requested by target employers.</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">6 Weeks</span>
+</div>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="min-w-[320px] max-w-[320px] glass-panel shimmer-effect rounded-2xl overflow-hidden flex flex-col group snap-start cursor-not-allowed opacity-70">
+<div class="h-40 bg-surface-container-high relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-tertiary/20 to-transparent z-10 grayscale"></div>
+<div class="absolute inset-0 flex items-center justify-center z-20 bg-background/50 backdrop-blur-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">lock</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-grow relative">
+<h4 class="font-body-lg text-body-lg text-on-surface font-medium mb-2">Technical Leadership for Data Teams</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4 line-clamp-2">Transition from individual contributor to guiding AI strategy and engineering teams.</p>
+<div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Unlocks after Module 2</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-black w-full rounded-t-xl border-t border-outline-variant/20">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-container-padding py-section-gap max-w-max-width-desktop mx-auto gap-gutter">
+<div class="font-headline-lg text-headline-lg font-black text-on-surface">Skillence</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-outline hover:text-on-surface transition-colors font-body-md text-body-md" href="#">Intelligence</a>
+<a class="text-primary font-body-md text-body-md" href="#">Career Path</a>
+<a class="text-outline hover:text-on-surface transition-colors font-body-md text-body-md" href="#">Resume</a>
+<a class="text-outline hover:text-on-surface transition-colors font-body-md text-body-md" href="#">Insights</a>
+<a class="text-outline hover:text-on-surface transition-colors font-label-sm text-label-sm" href="#">Privacy Policy</a>
+<a class="text-outline hover:text-on-surface transition-colors font-label-sm text-label-sm" href="#">Terms of Service</a>
+</div>
+<div class="text-on-surface-variant font-body-md text-body-md">© 2024 Skillence. Engineered by Data.</div>
+</div>
+</footer>
+</body></html>

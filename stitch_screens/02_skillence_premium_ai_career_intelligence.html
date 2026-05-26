@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+
+<html class="dark scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skillence - AI Career Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#89ceff",
+                        "outline-variant": "#464554",
+                        "on-secondary": "#490080",
+                        "on-primary-fixed": "#07006c",
+                        "primary-container": "#8083ff",
+                        "inverse-primary": "#494bd6",
+                        "on-secondary-container": "#d6a9ff",
+                        "on-surface-variant": "#c7c4d7",
+                        "secondary": "#ddb7ff",
+                        "primary": "#c0c1ff",
+                        "inverse-surface": "#e5e2e1",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "tertiary-container": "#009ada",
+                        "tertiary-fixed": "#c9e6ff",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#353534",
+                        "surface-dim": "#131313",
+                        "on-primary-container": "#0d0096",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "on-secondary-fixed-variant": "#6900b3",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary": "#00344d",
+                        "background": "#131313",
+                        "on-tertiary-fixed": "#001e2f",
+                        "outline": "#908fa0",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "secondary-fixed-dim": "#ddb7ff",
+                        "on-secondary-fixed": "#2c0051",
+                        "primary-fixed": "#e1e0ff",
+                        "on-primary": "#1000a9",
+                        "surface-tint": "#c0c1ff",
+                        "secondary-container": "#6f00be",
+                        "on-surface": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "error-container": "#93000a",
+                        "surface-container": "#201f1f",
+                        "on-tertiary-container": "#002d43",
+                        "surface": "#131313",
+                        "on-background": "#e5e2e1",
+                        "surface-container-highest": "#353534",
+                        "on-error": "#690005",
+                        "surface-bright": "#3a3939",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "secondary-fixed": "#f0dbff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "gutter": "24px",
+                        "section-gap": "80px",
+                        "unit": "8px",
+                        "max-width-desktop": "1200px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "body-md": ["Geist"],
+                        "label-sm": ["JetBrains Mono"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-xl": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "display-lg-mobile": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["24px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-xl": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        html { scroll-behavior: smooth; }
+        body { background-color: #0a0a0a; color: #e5e2e1; }
+        
+        /* Glassmorphism utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glass-card:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-color: rgba(192, 193, 255, 0.3);
+            box-shadow: 0 15px 50px -10px rgba(192, 193, 255, 0.15), inset 0 0 20px rgba(192, 193, 255, 0.05);
+            z-index: 10;
+        }
+        
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(192, 193, 255, 0.5), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .glass-card:hover::before { opacity: 1; }
+
+        /* Gradients & Glows */
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #c0c1ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        @keyframes pulse-glow {
+            0% { opacity: 0.15; transform: scale(1); }
+            50% { opacity: 0.25; transform: scale(1.1) translate(20px, 20px); }
+            100% { opacity: 0.15; transform: scale(1); }
+        }
+
+        .bg-glow-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.15;
+            z-index: -1;
+            pointer-events: none;
+            animation: pulse-glow 10s ease-in-out infinite alternate;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, rgba(192, 193, 255, 0.1), rgba(137, 206, 255, 0.1));
+            border: 1px solid rgba(192, 193, 255, 0.3);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 0 20px rgba(192, 193, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border-color: rgba(192, 193, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+        }
+        
+        .orbiting-bubble {
+            position: absolute;
+            top: 50%; left: 50%;
+            margin-top: -24px; margin-left: -24px;
+            animation: orbit 15s linear infinite;
+        }
+        
+        .orbiting-bubble:nth-child(2) { animation-duration: 20s; animation-direction: reverse; transform-origin: -100px -50px; }
+        .orbiting-bubble:nth-child(3) { animation-duration: 25s; transform-origin: 150px 100px; }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        
+        .ai-pulse::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1px solid #c0c1ff;
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        
+        /* Entrance Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+
+        /* Layout overrides */
+        .page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+<!-- Ambient Background -->
+<div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+<div class="bg-glow-blob w-[800px] h-[800px] bg-primary top-[-200px] right-[-200px]"></div>
+<div class="bg-glow-blob w-[600px] h-[600px] bg-tertiary bottom-[-100px] left-[-100px]" style="animation-delay: -5s;"></div>
+<div class="bg-glow-blob w-[1000px] h-[1000px] bg-[#490080] top-[20%] left-[10%] opacity-10" style="animation-duration: 15s;"></div>
+</div>
+<!-- TopNavBar -->
+<nav class="docked full-width top-0 z-50 sticky bg-surface/30 backdrop-blur-md dark:bg-surface-dim/30 border-b border-white/10 shadow-xl shadow-black/40">
+<div class="flex justify-between items-center w-full px-container-padding py-4 max-w-max-width-desktop mx-auto">
+<div class="font-headline-xl text-headline-xl font-bold tracking-tighter text-on-surface">
+                Skillence
+            </div>
+<div class="hidden md:flex items-center gap-8 font-label-md text-label-md">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors duration-200" href="#">Intelligence</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors duration-200" href="#">Career Path</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors duration-200" href="#">Resume</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors duration-200" href="#">Insights</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex btn-primary px-6 py-2 rounded-full font-label-md text-label-md text-primary dark:text-primary-fixed hover:bg-white/5 transition-all duration-300">
+                    Get Started
+                </button>
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="relative pt-32 pb-section-gap overflow-hidden">
+<div class="page-container relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="flex flex-col gap-8 max-w-2xl">
+<div class="fade-in-up inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel w-max">
+<div class="w-2 h-2 rounded-full bg-primary relative ai-pulse"></div>
+<span class="font-label-sm text-label-sm text-primary">AI Intelligence Engine v2.0 Active</span>
+</div>
+<h1 class="fade-in-up delay-100 font-display-lg-mobile md:font-display-lg text-gradient leading-tight">
+                            Your Career,<br/>Engineered by Data
+                        </h1>
+<p class="fade-in-up delay-200 font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                            AI-powered career intelligence to predict your ideal role, close skill gaps, optimize resumes, and prepare for interviews with absolute precision.
+                        </p>
+<div class="fade-in-up delay-300 flex flex-wrap gap-4 pt-4">
+<a class="btn-primary px-8 py-4 rounded-full font-label-md text-label-md text-primary-fixed flex items-center gap-2" href="#">
+                                Start Career Analysis <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+<a class="btn-glass px-8 py-4 rounded-full font-label-md text-label-md text-on-surface flex items-center gap-2" href="#">
+                                Try AI Career Coach
+                            </a>
+</div>
+</div>
+<div class="relative h-[500px] w-full hidden lg:block fade-in-up delay-400">
+<!-- Simulated 3D Interface Visual -->
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="glass-card w-[480px] h-[320px] shadow-2xl relative z-10 flex flex-col p-6 overflow-hidden">
+<!-- Abstract UI Elements inside card -->
+<div class="flex justify-between items-center mb-6">
+<div class="h-4 w-32 bg-white/10 rounded-full"></div>
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-error/50"></div>
+<div class="w-3 h-3 rounded-full bg-tertiary/50"></div>
+<div class="w-3 h-3 rounded-full bg-primary/50"></div>
+</div>
+</div>
+<div class="flex gap-4 h-full">
+<div class="w-1/3 flex flex-col gap-3">
+<div class="h-12 w-full bg-white/5 rounded-lg border border-white/5"></div>
+<div class="h-12 w-full bg-primary/10 rounded-lg border border-primary/20 relative overflow-hidden">
+<div class="absolute inset-y-0 left-0 w-1 bg-primary"></div>
+</div>
+<div class="h-12 w-full bg-white/5 rounded-lg border border-white/5"></div>
+<div class="h-12 w-full bg-white/5 rounded-lg border border-white/5"></div>
+</div>
+<div class="w-2/3 bg-white/5 rounded-lg border border-white/5 p-4 flex flex-col justify-between">
+<div class="flex justify-between items-end">
+<div class="w-16 h-16 rounded-full border-4 border-primary border-t-tertiary flex items-center justify-center">
+<span class="font-label-sm text-primary">94%</span>
+</div>
+<div class="flex flex-col gap-2 w-1/2">
+<div class="h-2 w-full bg-white/10 rounded-full overflow-hidden"><div class="h-full w-[94%] bg-primary"></div></div>
+<div class="h-2 w-full bg-white/10 rounded-full overflow-hidden"><div class="h-full w-[78%] bg-tertiary"></div></div>
+</div>
+</div>
+<div class="h-24 w-full bg-gradient-to-t from-primary/10 to-transparent rounded-lg border border-white/5 flex items-end p-2 gap-1">
+<!-- Simple bar chart -->
+<div class="w-1/6 bg-white/20 h-[30%] rounded-t-sm"></div>
+<div class="w-1/6 bg-white/20 h-[50%] rounded-t-sm"></div>
+<div class="w-1/6 bg-white/20 h-[40%] rounded-t-sm"></div>
+<div class="w-1/6 bg-primary/50 h-[80%] rounded-t-sm"></div>
+<div class="w-1/6 bg-white/20 h-[60%] rounded-t-sm"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Orbiting Elements -->
+<div class="absolute inset-0 pointer-events-none">
+<div class="orbiting-bubble glass-panel w-12 h-12 rounded-full flex items-center justify-center shadow-lg">
+<img alt="Python" class="w-6 h-6 opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoQynvXD6DydlT4SVIG2K07B9xWd-cap_npLrMSNukGfzR6ocI8ADHcwQhbE8Ydf0RssVrK5-dojijotdO6DmoiNYZ28I0TJZBlWxWzB2YDl3GWXDPyhItyHlTLpr0UvOK4EW4yjTPLNAL0v3hhumHN2fC4j886S4qtVGjKRzI_TZ3KbxK5IUHQP9Hnj5I5_NQApCoUvwxNc4Zvz0_C8aWWUCrHlRW4EZxQOcZmiSRk1A5SJw6mWATRvSc5J8QecQn-LEauOk_GpVw"/>
+</div>
+<div class="orbiting-bubble glass-panel w-12 h-12 rounded-full flex items-center justify-center shadow-lg">
+<span class="font-label-sm text-tertiary font-bold text-[10px]">UX/UI</span>
+</div>
+<div class="orbiting-bubble glass-panel w-12 h-12 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-primary text-[20px]">psychology</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Social Proof Stats -->
+<section class="py-12 border-y border-white/5 bg-surface-container-lowest/50 backdrop-blur-sm" id="stats-section">
+<div class="page-container">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/5">
+<div class="text-center px-4">
+<div class="font-headline-xl text-headline-xl text-primary font-light mb-2 tracking-wide"><span class="stat-counter" data-target="10000">0</span>+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Careers Analyzed</div>
+</div>
+<div class="text-center px-4">
+<div class="font-headline-xl text-headline-xl text-primary font-light mb-2 tracking-wide"><span class="stat-counter" data-target="95">0</span>%</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Prediction Accuracy</div>
+</div>
+<div class="text-center px-4">
+<div class="font-headline-xl text-headline-xl text-primary font-light mb-2 tracking-wide"><span class="stat-counter" data-target="50">0</span>+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Skills Tracked</div>
+</div>
+<div class="text-center px-4">
+<div class="font-headline-xl text-headline-xl text-primary font-light mb-2 tracking-wide"><span class="stat-counter" data-target="87">0</span>%</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Interview Success</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-section-gap relative">
+<div class="page-container">
+<div class="text-center mb-16 fade-in-up">
+<h2 class="font-headline-xl text-headline-xl text-on-surface mb-4">Precision Intelligence Capabilities</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Comprehensive tooling designed to reverse-engineer your career trajectory and optimize every professional touchpoint.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[240px]">
+<!-- Large Feature 1 -->
+<div class="glass-card md:col-span-2 md:row-span-2 p-8 flex flex-col justify-between group fade-in-up delay-100">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 text-primary">
+<span class="material-symbols-outlined">timeline</span>
+</div>
+<span class="font-label-sm text-label-sm px-3 py-1 bg-white/5 rounded-full border border-white/10 text-on-surface-variant">Core Engine</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-2 group-hover:text-primary transition-colors">Career Prediction</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">Proprietary ML models analyze millions of career paths to forecast your optimal next role with high statistical probability.</p>
+</div>
+<!-- Decorative bg element -->
+<div class="absolute -right-20 -bottom-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none group-hover:bg-primary/20 transition-all duration-500"></div>
+</div>
+<!-- Feature 2 -->
+<div class="glass-card p-6 flex flex-col justify-between group fade-in-up delay-200">
+<div class="w-10 h-10 rounded-full bg-tertiary/10 flex items-center justify-center border border-tertiary/20 text-tertiary mb-4">
+<span class="material-symbols-outlined">document_scanner</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-2 text-[20px]">Resume Intelligence</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Algorithmic scoring against target ATS systems to ensure maximum visibility.</p>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="glass-card p-6 flex flex-col justify-between group fade-in-up delay-300">
+<div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center border border-secondary/20 text-secondary mb-4">
+<span class="material-symbols-outlined">radar</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-2 text-[20px]">Skill Gap Analysis</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Real-time delta calculation between your current matrix and market demands.</p>
+</div>
+</div>
+<!-- Feature 4 -->
+<div class="glass-card p-6 flex flex-col justify-between group fade-in-up delay-100">
+<div class="w-10 h-10 rounded-full bg-error/10 flex items-center justify-center border border-error/20 text-error mb-4">
+<span class="material-symbols-outlined">mic</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-2 text-[20px]">AI Interview Coach</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Simulated technical and behavioral rounds with instant sentiment analysis.</p>
+</div>
+</div>
+<!-- Feature 5 -->
+<div class="glass-card p-6 flex flex-col justify-between group fade-in-up delay-200">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 text-primary mb-4">
+<span class="material-symbols-outlined">alt_route</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-2 text-[20px]">Career Switching</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Identify adjacent roles requiring minimal upskilling for rapid transition.</p>
+</div>
+</div>
+<!-- Feature 6 -->
+<div class="glass-card p-6 flex flex-col justify-between group fade-in-up delay-300">
+<div class="w-10 h-10 rounded-full bg-tertiary/10 flex items-center justify-center border border-tertiary/20 text-tertiary mb-4">
+<span class="material-symbols-outlined">hub</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-2 text-[20px]">LinkedIn Optimization</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Profile architecture recommendations to increase inbound recruiter velocity.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-black w-full rounded-t-xl border-t border-outline-variant/20">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-container-padding py-section-gap max-w-max-width-desktop mx-auto gap-gutter">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="font-headline-lg text-headline-lg font-black text-on-surface">
+                    Skillence
+                </div>
+<div class="font-body-md text-body-md text-on-surface-variant text-sm">
+                    © 2024 Skillence. Engineered by Data.
+                </div>
+</div>
+<div class="flex flex-wrap justify-center gap-6 font-label-sm text-label-sm text-outline">
+<a class="hover:text-tertiary transition-colors duration-200" href="#">Intelligence</a>
+<a class="hover:text-tertiary transition-colors duration-200" href="#">Career Path</a>
+<a class="hover:text-tertiary transition-colors duration-200" href="#">Resume</a>
+<a class="hover:text-tertiary transition-colors duration-200" href="#">Insights</a>
+<a class="hover:text-tertiary transition-colors duration-200" href="#">Privacy Policy</a>
+<a class="hover:text-tertiary transition-colors duration-200" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+<script>
+    // Stats Counter Animation
+    const counters = document.querySelectorAll('.stat-counter');
+    const speed = 200; // The lower the slower
+
+    const animateCounters = () => {
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText.replace(/,/g, '');
+                
+                // Lower inc to slow and higher to speed up
+                const inc = target / speed;
+
+                if (count < target) {
+                    // Add inc to count and output in counter
+                    counter.innerText = Math.ceil(count + inc).toLocaleString();
+                    // Call function every ms
+                    setTimeout(updateCount, 1);
+                } else {
+                    counter.innerText = target.toLocaleString();
+                }
+            };
+            updateCount();
+        });
+    }
+
+    // Intersection Observer for Stats
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    const statsSection = document.getElementById('stats-section');
+    if(statsSection) {
+        observer.observe(statsSection);
+    }
+</script>
+</body></html>

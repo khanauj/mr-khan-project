@@ -26,9 +26,9 @@ const CODE_LINES = [
   { text: 'import { Career } from "skillence"', color: '#a78bfa' },
   { text: 'const you = profile.analyze()',       color: '#67e8f9' },
   { text: 'path = AI.predict(skills, goals)',    color: '#34d399' },
-  { text: '→ role: "Senior Dev"  94.7% ✓',      color: '#fbbf24' },
+  { text: '-> role: "Senior Dev"  94.7% ok',    color: '#fbbf24' },
   { text: 'interview.start({ level: "pro" })',   color: '#60a5fa' },
-  { text: '// Your future starts here ✨',       color: '#4a5568' },
+  { text: '// Your future starts here',          color: '#4a5568' },
 ];
 
 // [x, y] pixel offsets from the scene center
@@ -201,7 +201,7 @@ const LaptopScene = () => {
                     <div key={c} style={{ width: 7, height: 7, borderRadius: '50%', background: c, flexShrink: 0 }} />
                   ))}
                   <span style={{ color: '#252d45', fontSize: 7, marginLeft: 6 }}>
-                    skillence — terminal
+                    skillence - terminal
                   </span>
                 </div>
 
@@ -226,7 +226,7 @@ const LaptopScene = () => {
                         transition={{ duration: 0.55, repeat: Infinity }}
                         style={{ color: '#06b6d4', marginLeft: 2 }}
                       >
-                        ▋
+                        _
                       </motion.span>
                     )}
                   </motion.div>

@@ -1,13 +1,6 @@
-/**
- * Career Switch Roadmap Page
- * Timeline-style roadmap for career transition
- */
-
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, BookOpen, Users, Briefcase, Target, CheckCircle2, Search, Loader2, AlertCircle } from 'lucide-react';
 import { searchRoadmap } from '../services/api';
-import AnimatedButton from '../components/AnimatedButton';
 
 const CareerSwitch = () => {
   const [prediction, setPrediction] = useState(null);
@@ -32,7 +25,6 @@ const CareerSwitch = () => {
   const targetCareer = prediction?.predicted_career || generatedRoadmap?.roadmap?.title || 'Target Career';
   const currentSkills = profile?.skills || [];
 
-  // Handle roadmap search
   const handleSearch = async () => {
     if (!searchQuery.trim()) {
       setError('Please enter a search query');
@@ -59,330 +51,197 @@ const CareerSwitch = () => {
     }
   };
 
-  // Icon mapping
-  const getIcon = (iconName) => {
-    const icons = {
-      target: Target,
-      book: BookOpen,
-      briefcase: Briefcase,
-      users: Users,
-      'map-pin': MapPin,
-      mapPin: MapPin,
-    };
-    const IconComponent = icons[iconName?.toLowerCase()] || Target;
-    return <IconComponent className="w-6 h-6" />;
+  const getIconName = (index) => {
+    const icons = ['target', 'school', 'explore', 'handshake', 'mic', 'rocket'];
+    return icons[index % icons.length];
   };
 
-  // Color gradient mapping for generated roadmaps
-  const getColorGradient = (index) => {
-    const colors = [
-      'from-blue-500 to-blue-600',
-      'from-purple-500 to-purple-600',
-      'from-green-500 to-green-600',
-      'from-orange-500 to-orange-600',
-      'from-red-500 to-red-600',
-      'from-pink-500 to-pink-600',
-      'from-indigo-500 to-indigo-600',
-    ];
+  const getStepColorClass = (index) => {
+    const colors = ['text-primary bg-primary/10 border-primary/20', 'text-secondary bg-secondary/10 border-secondary/20', 'text-tertiary bg-tertiary/10 border-tertiary/20'];
     return colors[index % colors.length];
   };
 
-  // Use generated roadmap if available, otherwise use default
   const roadmapSteps = generatedRoadmap?.steps || [
     {
-      icon: <Target className="w-6 h-6" />,
       title: 'Assess Current Skills',
       description: 'Evaluate your existing skills and identify transferable abilities',
       duration: 'Week 1',
-      color: 'from-blue-500 to-blue-600',
       tasks: [
-        'Complete skill assessment',
-        'List all current skills',
-        'Identify strengths and weaknesses',
+        'Complete skill assessment profile',
+        'List all current competencies',
+        'Identify strengths and delta coordinates'
       ],
+      skills: ['Self-Assessment', 'Profiling']
     },
     {
-      icon: <BookOpen className="w-6 h-6" />,
       title: 'Learn Required Skills',
       description: 'Focus on acquiring the essential skills for your target role',
       duration: 'Weeks 2-8',
-      color: 'from-purple-500 to-purple-600',
       tasks: [
-        'Enroll in relevant courses',
-        'Practice hands-on projects',
-        'Join online learning communities',
+        'Enroll in relevant coursework vectors',
+        'Complete hands-on development projects',
+        'Join learning circles and forums'
       ],
+      skills: ['Target Technologies', 'Theory Principles']
     },
     {
-      icon: <Briefcase className="w-6 h-6" />,
       title: 'Build Portfolio',
       description: 'Create projects showcasing your new skills and expertise',
       duration: 'Weeks 9-12',
-      color: 'from-green-500 to-green-600',
       tasks: [
-        'Complete 3-5 portfolio projects',
-        'Document your work process',
-        'Create a professional portfolio website',
+        'Synthesize 3-5 functional models',
+        'Document implementation coordinates',
+        'Publish portfolio profile repository'
       ],
+      skills: ['Documentation', 'Git Pipeline']
     },
     {
-      icon: <Users className="w-6 h-6" />,
       title: 'Network & Connect',
       description: 'Build professional connections in your target industry',
       duration: 'Weeks 13-16',
-      color: 'from-orange-500 to-orange-600',
       tasks: [
-        'Attend industry events and meetups',
-        'Connect with professionals on LinkedIn',
-        'Join relevant professional groups',
+        'Participate in developer circles',
+        'Connect with industry experts',
+        'Engage in peer-group code reviews'
       ],
+      skills: ['Social Audits', 'Communications']
     },
     {
-      icon: <MapPin className="w-6 h-6" />,
       title: 'Apply & Interview',
       description: 'Start applying to positions and prepare for interviews',
       duration: 'Weeks 17+',
-      color: 'from-red-500 to-red-600',
       tasks: [
-        'Tailor resume for each application',
-        'Practice interview questions',
-        'Prepare for technical assessments',
+        'Tune resume matching coordinates',
+        'Simulate voice AI interview sessions',
+        'Deploy application records'
       ],
-    },
+      skills: ['Interview Readiness', 'Salary Negotiation']
+    }
   ];
 
   return (
-    <div className="min-h-screen pt-16 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-500/20 text-primary-400 mb-4"
-          >
-            <MapPin className="w-8 h-8" />
-          </motion.div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Career Switch Roadmap
-          </h1>
-          {generatedRoadmap?.roadmap?.description ? (
-            <>
-              <p className="text-gray-400 text-lg mb-2">{generatedRoadmap.roadmap.description}</p>
-              <p className="text-2xl font-bold gradient-text">{generatedRoadmap.roadmap.title}</p>
-              {generatedRoadmap.timeline && (
-                <p className="text-sm text-gray-400 mt-2">Timeline: {generatedRoadmap.timeline}</p>
-              )}
-            </>
-          ) : (
-            <>
-              <p className="text-gray-400 text-lg mb-2">
-                Your personalized path to transition to
-              </p>
-              <p className="text-2xl font-bold gradient-text">{targetCareer}</p>
-            </>
-          )}
-        </motion.div>
+    <div className="min-h-screen pt-32 pb-20 px-6 max-w-[1200px] mx-auto w-full flex flex-col gap-12 text-[#e5e2e1]">
+      {/* Ambient background glows */}
+      <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div className="bg-glow-blob w-[800px] h-[800px] bg-primary/10 top-[-200px] left-[50%] -translate-x-1/2"></div>
+        <div className="bg-glow-blob w-[600px] h-[600px] bg-secondary/5 bottom-[10%] left-[-100px]" style={{ animationDelay: '-5s' }}></div>
+      </div>
 
-        {/* Search Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="glass-card p-6 mb-12"
-        >
-          <h2 className="text-xl font-bold text-white mb-4 flex items-center space-x-2">
-            <Search className="w-5 h-5 text-primary-400" />
-            <span>Search for Career Roadmap</span>
-          </h2>
-          <p className="text-gray-400 text-sm mb-4">
-            Enter a career transition query (e.g., "How to become a Data Scientist?", "Transition from Sales to Product Manager")
-          </p>
-          <div className="flex gap-3">
+      <div className="flex flex-col items-center text-center gap-4">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
+          <div className="relative w-2 h-2 rounded-full bg-primary flex items-center justify-center">
+            <div className="absolute w-full h-full rounded-full bg-primary ai-indicator-ring"></div>
+          </div>
+          <span className="font-mono text-[11px] text-on-surface-variant uppercase tracking-widest font-bold">Route Compiler Active</span>
+        </div>
+        <h1 className="text-[40px] md:text-[56px] font-black tracking-tight leading-tight gradient-text max-w-4xl">
+          Transition Intelligence
+        </h1>
+        <p className="font-sans text-[16px] text-on-surface-variant max-w-xl leading-relaxed">
+          Compile custom pathways. View step-by-step coordinates to transition your skillset from your current baseline.
+        </p>
+      </div>
+
+      {/* Query Search Panel */}
+      <div className="glass-card rounded-[28px] p-6 max-w-3xl mx-auto w-full">
+        <h3 className="font-mono text-[11px] text-on-surface-variant uppercase tracking-widest mb-4">Request Custom Route</h3>
+        <div className="flex flex-col sm:flex-row gap-4 items-center">
+          <div className="flex-1 w-full relative">
+            <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[22px]">alt_route</span>
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              placeholder="e.g., How to become a Machine Learning Engineer?"
-              className="flex-1 input-field"
-              disabled={loading}
+              placeholder="e.g. Transition from Sales to Product Manager"
+              className="w-full bg-surface-container-low/50 border border-white/10 rounded-xl pl-12 pr-4 py-4 font-sans text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-on-surface-variant/30"
             />
-            <AnimatedButton
-              onClick={handleSearch}
-              loading={loading}
-              disabled={loading || !searchQuery.trim()}
-            >
-              {loading ? 'Generating...' : 'Generate Roadmap'}
-            </AnimatedButton>
           </div>
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-4 p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-400 flex items-start space-x-2"
-            >
-              <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-              <span>{error}</span>
-            </motion.div>
-          )}
-          {generatedRoadmap && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-4 p-4 bg-green-500/20 border border-green-500/50 rounded-xl text-green-400"
-            >
-              ✓ Roadmap generated successfully! Scroll down to view.
-            </motion.div>
-          )}
-        </motion.div>
-
-        {/* Current Skills Summary */}
-        {currentSkills.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="glass-card p-6 mb-12"
+          <button
+            onClick={handleSearch}
+            disabled={loading}
+            className="ai-glow w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-mono text-[13px] uppercase tracking-wider flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50 shrink-0 cursor-pointer"
           >
-            <h2 className="text-xl font-bold text-white mb-4">Your Current Skills</h2>
-            <div className="flex flex-wrap gap-3">
-              {currentSkills.map((skill, index) => (
-                <motion.span
-                  key={skill}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.4 + index * 0.05 }}
-                  className="px-4 py-2 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 font-medium"
-                >
-                  {skill}
-                </motion.span>
-              ))}
-            </div>
-          </motion.div>
+            {loading ? 'Compiling...' : 'Compile Route'}
+          </button>
+        </div>
+        {error && (
+          <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm font-sans flex items-start gap-2">
+            <span className="material-symbols-outlined text-[18px]">error</span>
+            <span>{error}</span>
+          </div>
         )}
+      </div>
 
-        {/* Roadmap Timeline */}
-        <div className="relative">
-          {/* Vertical Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-500 via-primary-400 to-primary-500 opacity-30" />
-
-          <div className="space-y-12">
-            {roadmapSteps.map((step, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 + index * 0.2, duration: 0.6 }}
-                className={`relative flex flex-col md:flex-row items-start md:items-center ${
-                  index % 2 === 0 ? 'md:flex-row-reverse' : ''
-                }`}
-              >
-                {/* Timeline Dot */}
-                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 z-10">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.7 + index * 0.2, type: 'spring', stiffness: 200 }}
-                    className={`w-16 h-16 rounded-full bg-gradient-to-br ${step.color || getColorGradient(index)} flex items-center justify-center text-white shadow-lg border-4 border-dark-900`}
-                  >
-                    {typeof step.icon === 'object' ? step.icon : getIcon(step.icon_name || step.icon || 'target')}
-                  </motion.div>
-                </div>
-
-                {/* Content Card */}
-                <div className={`ml-24 md:ml-0 md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto md:mr-6' : 'md:ml-auto md:ml-6'}`}>
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="glass-card-hover p-6"
-                  >
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="text-2xl font-bold text-white">{step.title}</h3>
-                      <span className="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm font-medium">
-                        {step.duration}
-                      </span>
-                    </div>
-                    <p className="text-gray-400 mb-4">{step.description}</p>
-                    
-                    {/* Tasks List */}
-                    <div className="space-y-2">
-                      {(step.tasks || []).map((task, taskIndex) => (
-                        <motion.div
-                          key={taskIndex}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.8 + index * 0.2 + taskIndex * 0.1 }}
-                          className="flex items-center space-x-2 text-gray-300 text-sm"
-                        >
-                          <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
-                          <span>{typeof task === 'string' ? task : task}</span>
-                        </motion.div>
-                      ))}
-                    </div>
-                    
-                    {/* Skills needed (if from generated roadmap) */}
-                    {step.skills && step.skills.length > 0 && (
-                      <div className="mt-4 pt-4 border-t border-white/10">
-                        <p className="text-xs text-gray-400 mb-2">Skills needed:</p>
-                        <div className="flex flex-wrap gap-2">
-                          {step.skills.map((skill, skillIndex) => (
-                            <span
-                              key={skillIndex}
-                              className="px-2 py-1 bg-primary-500/20 border border-primary-500/50 rounded text-xs text-primary-400"
-                            >
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </motion.div>
-                </div>
-              </motion.div>
+      {/* Current profile context indicator */}
+      {currentSkills.length > 0 && (
+        <div className="glass-card rounded-[28px] p-6 max-w-3xl mx-auto w-full">
+          <h4 className="font-mono text-[11px] text-on-surface-variant uppercase tracking-widest mb-4">Baseline Skill coordinates</h4>
+          <div className="flex flex-wrap gap-2">
+            {currentSkills.map(skill => (
+              <span key={skill} className="px-3 py-1.5 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 font-sans text-xs">
+                {skill}
+              </span>
             ))}
           </div>
         </div>
+      )}
 
-        {/* Final CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5 }}
-          className="mt-16 text-center"
-        >
-          <div className="glass-card p-8 max-w-2xl mx-auto">
-            <Target className="w-12 h-12 text-primary-400 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-white mb-4">Ready to Start Your Journey?</h2>
-            <p className="text-gray-400 mb-6">
-              Follow this roadmap step-by-step to successfully transition to your target career.
-              Remember, every expert was once a beginner. Stay consistent and keep learning!
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.a
-                href="/skill-gap"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 bg-primary-500 text-white rounded-xl font-semibold hover:bg-primary-600 transition-colors"
-              >
-                Analyze Skill Gap
-              </motion.a>
-              <motion.a
-                href="/resume-match"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 bg-white/10 text-white rounded-xl font-semibold border border-white/20 hover:bg-white/20 transition-colors"
-              >
-                Check Resume Match
-              </motion.a>
+      {/* Timeline Steps layout */}
+      <div className="relative max-w-3xl mx-auto w-full mt-6">
+        <div className="absolute left-8 top-0 bottom-0 w-[1px] bg-white/10" />
+
+        <div className="flex flex-col gap-12">
+          {roadmapSteps.map((step, idx) => (
+            <div key={idx} className="relative pl-20 flex flex-col gap-3">
+              {/* Timeline Indicator icon */}
+              <div className={`absolute left-4 -translate-x-1/2 w-9 h-9 rounded-full border flex items-center justify-center text-sm font-mono font-bold ${getStepColorClass(idx)}`}>
+                <span className="material-symbols-outlined text-[18px]">{getIconName(idx)}</span>
+              </div>
+
+              {/* Step Title Header */}
+              <div className="flex flex-wrap justify-between items-center gap-2">
+                <div>
+                  <span className="font-mono text-[10px] text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded uppercase font-bold tracking-wider mr-3">
+                    {step.duration}
+                  </span>
+                  <h3 className="text-xl font-bold text-on-surface inline-block">{step.title}</h3>
+                </div>
+              </div>
+
+              {/* Card info */}
+              <div className="glass-card rounded-2xl p-6 flex flex-col gap-4">
+                <p className="text-on-surface-variant text-[14px] leading-relaxed">{step.description}</p>
+                
+                {/* Action steps checklist */}
+                <div className="space-y-2 border-t border-white/5 pt-4">
+                  {(step.tasks || []).map((task, tidx) => (
+                    <div key={tidx} className="flex items-start gap-2.5 text-on-surface-variant text-sm font-sans">
+                      <span className="material-symbols-outlined text-green-400 text-[18px] shrink-0 mt-0.5">check_circle</span>
+                      <span>{task}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Skill targets */}
+                {step.skills && step.skills.length > 0 && (
+                  <div className="flex items-center gap-3 mt-2 pt-4 border-t border-white/5 font-mono text-[10px]">
+                    <span className="text-on-surface-variant uppercase">TARGET CREDENTIALS:</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {step.skills.map((skill, sidx) => (
+                        <span key={sidx} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-on-surface">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
             </div>
-          </div>
-        </motion.div>
+          ))}
+        </div>
       </div>
+      
     </div>
   );
 };
